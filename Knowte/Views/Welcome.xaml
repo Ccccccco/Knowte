@@ -1,0 +1,69 @@
+﻿<Page x:Class="Knowte.Views.Welcome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
+      xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
+      xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
+      mc:Ignorable="d" 
+      Background="{DynamicResource Brush_WelcomeBackground}"
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="Welcome"
+      prismmvvm:ViewModelLocator.AutoWireViewModel="True">
+
+    <Grid>
+        <Viewbox Panel.ZIndex="0" Width="180" Height="180" Margin="0,0,30,30"
+                                     HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Path Data="{StaticResource KnowtePencil}" Fill="{DynamicResource Brush_WelcomePencil}"/>
+        </Viewbox>
+        <Grid Panel.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <controls:FullLogo Margin="18,30,18,30" Grid.Row="0" HorizontalAlignment="Center" ShowApplicationName="True"
+                           Foreground="{DynamicResource Brush_LightText}" IconForeground="{DynamicResource Brush_PrimaryAccent}" 
+                           IconBackground="{DynamicResource Brush_LightText}"/>
+            <dc:Pivot Grid.Row="1" SelectedIndex="{Binding SelectedWelcomePageIndex,Mode=OneWay}" 
+                      DisableTabKey="True" AnimationType="SlideHorizontal" HeaderVisibility="Collapsed">
+                <!-- Welcome -->
+                <dc:PivotItem>
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource Language_Welcome_To_Knowte}" 
+                               FontSize="{DynamicResource FontSizeLarger}" Foreground="{DynamicResource Brush_LightText}"/>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,18,0,0" TextWrapping="Wrap" 
+                               Text="{DynamicResource Language_Lets_Set_Up_The_Basics}" FontSize="{DynamicResource FontSizeLarge}" 
+                               Foreground="{DynamicResource Brush_WelcomeText}"/>
+                    </StackPanel>
+                </dc:PivotItem>
+                <!-- Finish -->
+                <dc:PivotItem>
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,18,0,0" TextWrapping="Wrap" 
+                               Text="{DynamicResource Language_All_Done_Start_Managing_Notes}" FontSize="{DynamicResource FontSizeLarge}" 
+                               Foreground="{DynamicResource Brush_WelcomeText}"/>
+                    </StackPanel>
+                </dc:PivotItem>
+            </dc:Pivot>
+            <Grid Grid.Row="2" Margin="18,18,18,30">
+                <dc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Content="{DynamicResource Language_Start}" 
+                                         Command="{Binding StartCommand}" HorizontalAlignment="Center" 
+                                         Foreground="{DynamicResource Brush_RaisedButtonForeground}"
+                                         Visibility="{Binding ShowStartButton,Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <dc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Content="{DynamicResource Language_Lets_Start}" 
+                                         Command="{Binding FinishCommand}" HorizontalAlignment="Center" 
+                                         Foreground="{DynamicResource Brush_RaisedButtonForeground}"
+                                         Visibility="{Binding ShowFinishButton,Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
+                        Visibility="{Binding ShowNavigationButtons,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <dc:MaterialRaisedButton Accent="{DynamicResource Brush_TertiaryAccent}" Content="{DynamicResource Language_Back}" 
+                                             Foreground="{DynamicResource Brush_RaisedButtonForeground}" Command="{Binding GoBackCommand}"/>
+                    <dc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Margin="8,0,0,0" Content="{DynamicResource Language_Forward}" 
+                                             Foreground="{DynamicResource Brush_RaisedButtonForeground}" Command="{Binding GoForwardCommand}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,23 @@
+﻿<Application x:Class="Knowte.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dc="clr-namespace:Digimezzo.WPFControls.Converters;assembly=Digimezzo.WPFControls"
+             DispatcherUnhandledException="App_DispatcherUnhandledException">
+    <Application.Resources>
+        <ResourceDictionary>
+            <dc:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <dc:BooleanToCollapsedConverter x:Key="BooleanToCollapsedConverter" />
+            <dc:InvertingBooleanToVisibilityConverter x:Key="InvertingBooleanToVisibilityConverter" />
+            <dc:InvertingBooleanToCollapsedConverter x:Key="InvertingBooleanToCollapsedConverter" />
+            <dc:InvertingBooleanConverter x:Key="InvertingBooleanConverter" />
+            <dc:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
+            <dc:NullToVisibleConverter x:Key="NullToVisibleConverter" />
+            <dc:StringToLowerConverter x:Key="StringToLowerConverter" />
+            <dc:StringToUpperConverter x:Key="StringToUpperConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/All.xaml" />
+                <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Themes/KnowteTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

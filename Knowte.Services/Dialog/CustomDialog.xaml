@@ -1,0 +1,35 @@
+﻿<dc:BorderlessWindows10Window x:Class="Knowte.Services.Dialog.CustomDialog"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
+                              mc:Ignorable="d"
+                              SizeToContent="Height"
+                              Width="420"
+                              ResizeMode="NoResize"
+                              OverlayBackground="{DynamicResource Brush_Overlay}"
+                              Background="Transparent"
+                              ShowWindowControls="False">
+
+    <Border Background="{DynamicResource Brush_DialogBackground}" Margin="-2">
+        <DockPanel>
+            <Grid x:Name="TitlePane" MinHeight="78" DockPanel.Dock="Top">
+                <Border Panel.ZIndex="0" Background="{DynamicResource Brush_DialogHeaderBackground}" />
+                <Viewbox Panel.ZIndex="1" Width="54" Height="54" Margin="12"
+                         HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Path Data="{StaticResource KnowtePencil}" Fill="{DynamicResource Brush_DialogHeaderPencil}"/>
+                </Viewbox>
+                <TextBlock x:Name="TextBlockTitle" Panel.ZIndex="2" Margin="18" TextWrapping="Wrap" VerticalAlignment="Center"
+                           FontSize="{DynamicResource FontSizeLarger}" Foreground="{DynamicResource Brush_DialogHeaderText}"/>
+            </Grid>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+                <dc:MaterialFlatButton x:Name="ButtonOK" IsDefault="True" Click="ButtonOK_Click" 
+                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                <dc:MaterialFlatButton x:Name="ButtonCancel" IsCancel="True" Margin="6,0,0,0" Click="ButtonCancel_Click"
+                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+            </StackPanel>
+            <ContentControl x:Name="CustomContent"/>
+        </DockPanel>
+    </Border>
+</dc:BorderlessWindows10Window>

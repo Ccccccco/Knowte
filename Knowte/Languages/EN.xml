@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language Code="EN" Name="English">
+  <Text Key="ISO639-1">EN</Text>
+  <Text Key="Welcome_To_Knowte">Welcome to Knowte!</Text>
+  <Text Key="Lets_Set_Up_The_Basics">Let's set up the basics.</Text>
+  <Text Key="Lets_Start">Let's start!</Text>
+  <Text Key="All_Done_Start_Managing_Notes">We are all done! Now let's start managing those notes.</Text>
+  <Text Key="Start">Start</Text>
+  <Text Key="Back">Back</Text>
+  <Text Key="Forward">Forward</Text>
+</Language>
