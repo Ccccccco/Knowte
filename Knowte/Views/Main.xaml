@@ -1,14 +1,160 @@
 ﻿<Page x:Class="Knowte.Views.Main"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Knowte.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
+      xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
+      xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="Main">
+      Loaded="Page_Loaded"
+      Title="Main"
+      FontSize="{DynamicResource FontSizeNormal}"
+      prismmvvm:ViewModelLocator.AutoWireViewModel="True">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Page.Resources>
+        <Storyboard x:Key="ShowOverlayStoryboard">
+            <DoubleAnimation From="0" To="1" Storyboard.TargetName="Overlay" Storyboard.TargetProperty="Opacity" Duration="0:0:0.15" />
+        </Storyboard>
+        <Storyboard x:Key="HideOverlayStoryboard">
+            <DoubleAnimation From="1" To="0" Storyboard.TargetName="Overlay" Storyboard.TargetProperty="Opacity" Duration="0:0:0.15" />
+        </Storyboard>
+    </Page.Resources>
 
     <Grid>
-        
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Panel.ZIndex="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- Hamburger -->
+            <Button x:Name="HamburgerButton" Grid.Column="0" Style="{StaticResource HamburgerButtonStyle}" HorizontalAlignment="Left"
+                FontSize="24" FontFamily="{StaticResource MaterialIcons}" Content="&#xE5D2;" Width="48" Height="48" Click="HamburgerButton_Click"/>
+            <Border x:Name="MainTitleBar" Grid.Column="1" Background="Transparent"/>
+        </Grid>
+        <dc:SplitView x:Name="MySplitView" Panel.ZIndex="0" IsPaneOpen="False" OpenPaneLength="300">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PaneClosed">
+                    <i:InvokeCommandAction Command="{Binding PaneClosedCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <dc:SplitView.Pane>
+                <StackPanel Orientation="Horizontal">
+                    <DockPanel Background="{DynamicResource Brush_SplitViewBackground}" Width="300">
+                        <!-- Header -->
+                        <Grid DockPanel.Dock="Top" Height="190">
+                            <Border Panel.ZIndex="0" Background="{DynamicResource Brush_SplitViewHeaderBackground}"/>
+                            <Viewbox Panel.ZIndex="1" Width="90" Height="90" Margin="0,0,12,12"
+                                     HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <Path Data="{StaticResource KnowtePencil}" Fill="{DynamicResource Brush_SplitViewHeaderPencil}"/>
+                            </Viewbox>
+                            <StackPanel Panel.ZIndex="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                                <Viewbox Height="50" Margin="18,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <controls:FullLogo Panel.ZIndex="3" Foreground="{DynamicResource Brush_LightText}" 
+                                                       IconForeground="{DynamicResource Brush_PrimaryAccent}" IconBackground="{DynamicResource Brush_IconBackground}"/>
+                                </Viewbox>
+                                <!-- Button -->
+                                <ToggleButton x:Name="CollectionButton" Margin="0,12,0,12" Style="{StaticResource TransparentToggleButton}" 
+                                              IsChecked="{Binding ShowCollections}">
+                                    <DockPanel Margin="18,6,18,6">
+                                        <Grid DockPanel.Dock="Right" VerticalAlignment="Center">
+                                            <TextBlock Text="&#xE5CF;" FontFamily="{StaticResource MaterialIcons}" 
+                                                       Foreground="{DynamicResource Brush_LightText}" FontSize="18" 
+                                                       Visibility="{Binding IsChecked,ElementName=CollectionButton,Converter={StaticResource InvertingBooleanToVisibilityConverter}}"/>
+                                            <TextBlock Text="&#xE5CE;" FontFamily="{StaticResource MaterialIcons}"
+                                                       Foreground="{DynamicResource Brush_LightText}" FontSize="18" 
+                                                       Visibility="{Binding IsChecked,ElementName=CollectionButton,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                        </Grid>
+                                        <StackPanel>
+                                            <TextBlock Text="{DynamicResource Language_Collection}" Foreground="{DynamicResource Brush_ActiveCollectionText}"/>
+                                            <Grid Margin="0,6,0,0">
+                                                <TextBlock Text="{Binding ActiveCollection}" Foreground="{DynamicResource Brush_LightText}" 
+                                                           Visibility="{Binding ActiveCollection, Converter={StaticResource NullToCollapsedConverter}}"/>
+                                                <TextBlock Text="{DynamicResource Language_No_Active_Account}" Foreground="{DynamicResource Brush_LightText}" 
+                                                           Visibility="{Binding ActiveCollection, Converter={StaticResource NullToVisibleConverter}}"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </ToggleButton>
+                            </StackPanel>
+                        </Grid>
+                        <!-- Content -->
+                        <dc:Pivot SelectedIndex="{Binding ContentIndex,Mode=OneWay}" 
+                                  DisableTabKey="True" AnimationType="SlideVertical" HeaderVisibility="Collapsed">
+                            <!-- Bank accounts -->
+                            <dc:PivotItem>
+                                <!--<Grid>
+                                    <ListBox Margin="0,18,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxBankAccounts}"
+                                         ItemsSource="{Binding BankAccounts}" SelectedItem="{Binding SelectedBankAccount}"/>
+                                    <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                                                    Visibility="{Binding SelectedBankAccount, Converter={StaticResource NullToCollapsedConverter}}">
+                                        --><!-- Activate account button --><!--
+                                        <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                             Margin="12,12,12,0" Command="{Binding ActivateAccountCommand}"
+                                                                             ToolTip="{DynamicResource Language_Activate_Account}"
+                                                                             Visibility="{Binding CanActivateSelectedAccount, Converter={StaticResource BooleanToCollapsedConverter}}">
+                                            <TextBlock Text="&#xE5CA;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
+                                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                        </dc:MaterialMiniFloatingActionButton>
+                                        --><!-- Archive account button --><!--
+                                        <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                             Margin="12,12,12,0" Command="{Binding ArchiveAccountCommand}"
+                                                                             ToolTip="{DynamicResource Language_Archive_Account}">
+                                            <TextBlock Text="&#xE149;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
+                                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                        </dc:MaterialMiniFloatingActionButton>
+                                        --><!-- View details button --><!--
+                                        <dc:MaterialFloatingActionButton Accent="{DynamicResource Brush_PrimaryAccent}"
+                                                                         Margin="12" Command="{Binding ViewDetailsCommand}"
+                                                                         ToolTip="{DynamicResource Language_View_Bank_And_Account_Details}">
+                                            <TextBlock Text="&#xE417;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
+                                                   Foreground="{DynamicResource Brush_FloatingActionButtonIcon}"/>
+                                        </dc:MaterialFloatingActionButton>
+                                    </StackPanel>
+                                </Grid>-->
+                            </dc:PivotItem>
+                            <!-- Menu -->
+                            <dc:PivotItem>
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Bottom" Margin="0,18,0,0">
+                                        <controls:SplitViewRadioButton x:Name="SettingsButton" Content="{DynamicResource Language_Settings}" GroupName="SplitViewButtonGroup" Icon="&#xE8B8;" Checked="SettingsButton_Checked"/>
+                                        <controls:SplitViewRadioButton x:Name="InformationButton" Content="{DynamicResource Language_Information}" GroupName="SplitViewButtonGroup" Icon="&#xE88E;" Checked="InformationButton_Checked" />
+                                    </StackPanel>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" PanningMode="Both" Margin="0,18,0,0">
+                                        <StackPanel>
+                                            <controls:SplitViewRadioButton x:Name="NotesButton" Content="{DynamicResource Language_Notes}" GroupName="SplitViewButtonGroup" Icon="&#xE06F;" Checked="NotesButton_Checked"/>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </DockPanel>
+                            </dc:PivotItem>
+                        </dc:Pivot>
+                    </DockPanel>
+                    <Border Width="4" VerticalAlignment="Stretch" Background="{DynamicResource Brush_SplitViewShadow}"/>
+                </StackPanel>
+            </dc:SplitView.Pane>
+            <dc:SplitView.Content>
+                <Grid Background="#00000000">
+                    <Border x:Name="Overlay" Canvas.ZIndex="99" Background="{DynamicResource Brush_Overlay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="0" Visibility="Collapsed"/>
+                    <Grid Canvas.ZIndex="0">
+                        <StackPanel VerticalAlignment="Top">
+                            <Border Canvas.ZIndex="0" Height="48" Background="{DynamicResource Brush_ToolbarBackground}" HorizontalAlignment="Stretch">
+                                <TextBlock x:Name="PageTitle" Margin="60,0,0,0" FontSize="{DynamicResource FontSizeLarge}"
+                                           VerticalAlignment="Center" Foreground="{DynamicResource Brush_LightText}"/>
+                            </Border>
+                            <Border Height="4" HorizontalAlignment="Stretch" Background="{DynamicResource Brush_ToolbarShadow}"/>
+                        </StackPanel>
+                        <Frame x:Name="MainFrame" Canvas.ZIndex="1" VerticalAlignment="Top" Margin="0,48,0,0"/>
+                    </Grid>
+                </Grid>
+            </dc:SplitView.Content>
+        </dc:SplitView>
     </Grid>
 </Page>

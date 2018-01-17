@@ -25,7 +25,7 @@
             </Grid.RowDefinitions>
             <controls:FullLogo Margin="18,30,18,30" Grid.Row="0" HorizontalAlignment="Center" ShowApplicationName="True"
                            Foreground="{DynamicResource Brush_LightText}" IconForeground="{DynamicResource Brush_PrimaryAccent}" 
-                           IconBackground="{DynamicResource Brush_LightText}"/>
+                           IconBackground="{DynamicResource Brush_IconBackground}"/>
             <dc:Pivot Grid.Row="1" SelectedIndex="{Binding SelectedWelcomePageIndex,Mode=OneWay}" 
                       DisableTabKey="True" AnimationType="SlideHorizontal" HeaderVisibility="Collapsed">
                 <!-- Welcome -->

@@ -8,4 +8,8 @@
   <Text Key="Start">Start</Text>
   <Text Key="Back">Back</Text>
   <Text Key="Forward">Forward</Text>
+  <Text Key="Collection">Collection</Text>
+  <Text Key="Notes">Notes</Text>
+  <Text Key="Settings">Settings</Text>
+  <Text Key="Information">Information</Text>
 </Language>

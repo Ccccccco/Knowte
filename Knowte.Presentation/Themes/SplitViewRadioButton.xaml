@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Knowte.Presentation.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/FontFamilies.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="{x:Type controls:SplitViewRadioButton}" TargetType="{x:Type controls:SplitViewRadioButton}">
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SplitViewRadioButton}">
+                    <Grid Background="#00000000">
+                        <Border x:Name="SelectionBorder" Panel.ZIndex="0"/>
+                        <StackPanel Orientation="Horizontal" Panel.ZIndex="1">
+                            <Border Margin="16,0,0,0" VerticalAlignment="Center">
+                                <TextBlock x:Name="MyIcon" Text="{TemplateBinding Icon}" Margin="0,2,0,0"
+                                           Foreground="{DynamicResource Brush_SplitViewItemIcon}" FontFamily="{StaticResource MaterialIcons}" 
+                                           FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Label Padding="0" x:Name="MyContent" Margin="16,0,0,0" 
+                                   FontSize="{DynamicResource FontSizeLarge}" Content="{TemplateBinding Content}" Foreground="{DynamicResource Brush_SplitViewItemText}" 
+                                   VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="controls:SplitViewRadioButton.IsChecked" Value="True">
+                            <Setter TargetName="MyContent" Property="Foreground" Value="{DynamicResource Brush_LightText}"/>
+                            <Setter TargetName="MyIcon" Property="Foreground" Value="{DynamicResource Brush_PrimaryAccent}"/>
+                            <Setter TargetName="SelectionBorder" Property="Background" Value="{DynamicResource Brush_SplitViewItemSelection}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
