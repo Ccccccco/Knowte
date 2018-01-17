@@ -26,7 +26,7 @@ namespace Knowte.Data
         // NOTE: whenever there is a change in the database schema,
         // this version MUST be incremented and a migration method
         // MUST be supplied to match the new version number
-        protected const int CURRENT_VERSION = 0;
+        protected const int CURRENT_VERSION = 1;
         private ISQLiteConnectionFactory factory;
         private int userDatabaseVersion;
 
@@ -52,49 +52,53 @@ namespace Knowte.Data
         {
             using (var conn = this.factory.GetConnection())
             {
-                //conn.Execute("CREATE TABLE Bank (" +
-                //             "Id                 INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                //             "Name	             TEXT NOT NULL," +
-                //             "Phone	             TEXT," +
-                //             "Comment	         TEXT," +
-                //             "Website            TEXT);");
+                conn.Execute("CREATE TABLE Collection (" +
+                             "Id                        TEXT," +
+                             "Title     	            TEXT," +
+                             "PRIMARY KEY(Id));");
 
-                //conn.Execute("CREATE TABLE AccountType (" +
-                //             "Id                 INTEGER NOT NULL," +
-                //             "Name      	     TEXT NOT NULL);");
+                conn.Execute("CREATE TABLE Notebook (" +
+                             "Id                        TEXT," +
+                             "CollectionId              TEXT," +
+                             "Title     	            TEXT," +
+                             "CreationDate              INTEGER," +
+                             "PRIMARY KEY(Id));");
 
-                //conn.Execute("CREATE TABLE Account (" +
-                //             "Id                 INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                //             "Name	             TEXT NOT NULL," +
-                //             "AccountNumber      TEXT NULL," +
-                //             "CurrencyNumber	 TEXT NOT NULL," +
-                //             "StartDate   	     TEXT NOT NULL," +
-                //             "StartBalance	     REAL NOT NULL," +
-                //             "IsActive	         INTEGER NOT NULL," +
-                //             "IsArchived         INTEGER NOT NULL," +
-                //             "BankId	         INTEGER NOT NULL," +
-                //             "AccountTypeId      INTEGER NOT NULL);");
+                conn.Execute("CREATE TABLE Note (" +
+                                     "Id                TEXT," +
+                                     "NotebookId     	TEXT," +
+                                     "Title             TEXT," +
+                                     "Text              TEXT," +
+                                     "CreationDate      INTEGER," +
+                                     "OpenDate          INTEGER," +
+                                     "ModificationDate  INTEGER," +
+                                     "Width             INTEGER," +
+                                     "Height            INTEGER," +
+                                     "Top               INTEGER," +
+                                     "Left              INTEGER, " +
+                                     "Flagged           INTEGER," +
+                                     "Maximized         INTEGER," +
+                                     "PRIMARY KEY(Id));");
             }
         }
 
-        private void AddDefaultData()
+        private void Migrate1()
         {
             using (var conn = this.factory.GetConnection())
             {
-                //conn.Execute("BEGIN TRANSACTION;");
-                //conn.Execute("INSERT INTO AccountType(Id, Name) VALUES(1,'Checking account');");
-                //conn.Execute("INSERT INTO AccountType(Id, Name) VALUES(2,'Savings account');");
-                //conn.Execute("COMMIT;");
+                conn.Execute("BEGIN TRANSACTION;");
+
+                conn.Execute("CREATE TABLE Collection (" +
+                            "Id                        TEXT," +
+                            "Title     	            TEXT," +
+                            "PRIMARY KEY(Id));");
+
+                conn.Execute("INSERT INTO Collection ('ad61ac96-9764-4067-a36c-102f5e160332','Default')");
+                conn.Execute("UPDATE Notebook SET CollectionId='ad61ac96-9764-4067-a36c-102f5e160332'");
+
+                conn.Execute("COMMIT;");
             }
         }
-
-        //private void Migrate1()
-        //{
-        //    using (var conn = this.factory.GetConnection())
-        //    {
-        //        conn.Execute("ALTER TABLE Bank ADD TestColumn INTEGER;");
-        //    }
-        //}
 
         public void Migrate()
         {
@@ -155,7 +159,6 @@ namespace Knowte.Data
         {
             this.CreateConfiguration();
             this.CreateTablesAndIndexes();
-            this.AddDefaultData();
 
             LogClient.Info("New database created at {0}", this.factory.DatabaseFile);
         }

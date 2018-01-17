@@ -10,9 +10,15 @@ namespace Knowte.ViewModels
         {
             get
             {
-                if (SettingsClient.Get<bool>("Configuration", "ShowWelcome"))
+                try
                 {
-                    return $"Preparing {ProductInformation.ApplicationName}";
+                    if (SettingsClient.Get<bool>("Configuration", "ShowWelcome"))
+                    {
+                        return $"Preparing {ProductInformation.ApplicationName}";
+                    }
+                }
+                catch (System.Exception)
+                {
                 }
 
                 return $"Updating {ProductInformation.ApplicationName}";
