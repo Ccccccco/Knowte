@@ -3,8 +3,12 @@ using Digimezzo.Utilities.Settings;
 using Knowte.Core.Extensions;
 using Knowte.Data;
 using Knowte.Data.Contracts;
+using Knowte.Data.Contracts.Repositories;
+using Knowte.Data.Repositories;
+using Knowte.Services.Collection;
 using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Constracts.I18n;
+using Knowte.Services.Contracts.Collection;
 using Knowte.Services.Dialog;
 using Knowte.Services.I18n;
 using Knowte.Views;
@@ -38,13 +42,14 @@ namespace Knowte
 
         protected void RegisterRepositories()
         {
-            //Container.RegisterSingletonType<IBankRepository, BankRepository>();
+            Container.RegisterSingletonType<ICollectionRepository, CollectionRepository>();
         }
 
         private void RegisterServices()
         {
             Container.RegisterSingletonType<IDialogService, DialogService>();
             Container.RegisterSingletonType<II18nService, I18nService>();
+            Container.RegisterSingletonType<ICollectionService, CollectionService>();
             //Container.RegisterSingletonType<IJumpListService, JumpListService>();
         }
 

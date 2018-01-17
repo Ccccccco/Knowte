@@ -89,14 +89,14 @@
                         <!-- Content -->
                         <dc:Pivot SelectedIndex="{Binding ContentIndex,Mode=OneWay}" 
                                   DisableTabKey="True" AnimationType="SlideVertical" HeaderVisibility="Collapsed">
-                            <!-- Bank accounts -->
+                            <!-- Collections -->
                             <dc:PivotItem>
-                                <!--<Grid>
-                                    <ListBox Margin="0,18,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxBankAccounts}"
-                                         ItemsSource="{Binding BankAccounts}" SelectedItem="{Binding SelectedBankAccount}"/>
-                                    <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                                <Grid>
+                                    <ListBox Margin="0,18,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxCollections}"
+                                         ItemsSource="{Binding Collections}" SelectedItem="{Binding SelectedCollection}"/>
+                                    <!--<StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                                                     Visibility="{Binding SelectedBankAccount, Converter={StaticResource NullToCollapsedConverter}}">
-                                        --><!-- Activate account button --><!--
+                                         Activate account button 
                                         <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
                                                                              Margin="12,12,12,0" Command="{Binding ActivateAccountCommand}"
                                                                              ToolTip="{DynamicResource Language_Activate_Account}"
@@ -104,22 +104,22 @@
                                             <TextBlock Text="&#xE5CA;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
                                                        Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </dc:MaterialMiniFloatingActionButton>
-                                        --><!-- Archive account button --><!--
+                                         Archive account button 
                                         <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
                                                                              Margin="12,12,12,0" Command="{Binding ArchiveAccountCommand}"
                                                                              ToolTip="{DynamicResource Language_Archive_Account}">
                                             <TextBlock Text="&#xE149;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
                                                        Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </dc:MaterialMiniFloatingActionButton>
-                                        --><!-- View details button --><!--
+                                         View details button 
                                         <dc:MaterialFloatingActionButton Accent="{DynamicResource Brush_PrimaryAccent}"
                                                                          Margin="12" Command="{Binding ViewDetailsCommand}"
                                                                          ToolTip="{DynamicResource Language_View_Bank_And_Account_Details}">
                                             <TextBlock Text="&#xE417;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
                                                    Foreground="{DynamicResource Brush_FloatingActionButtonIcon}"/>
                                         </dc:MaterialFloatingActionButton>
-                                    </StackPanel>
-                                </Grid>-->
+                                    </StackPanel>-->
+                                </Grid>
                             </dc:PivotItem>
                             <!-- Menu -->
                             <dc:PivotItem>

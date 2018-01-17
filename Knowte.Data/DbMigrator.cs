@@ -55,6 +55,7 @@ namespace Knowte.Data
                 conn.Execute("CREATE TABLE Collection (" +
                              "Id                        TEXT," +
                              "Title     	            TEXT," +
+                             "IsActive     	            INTEGER," +
                              "PRIMARY KEY(Id));");
 
                 conn.Execute("CREATE TABLE Notebook (" +
@@ -99,11 +100,13 @@ namespace Knowte.Data
                 conn.Execute("BEGIN TRANSACTION;");
 
                 conn.Execute("CREATE TABLE Collection (" +
-                            "Id                        TEXT," +
-                            "Title     	            TEXT," +
-                            "PRIMARY KEY(Id));");
+                             "Id                        TEXT," +
+                             "Title     	            TEXT," +
+                             "IsActive     	            INTEGER," +
+                             "PRIMARY KEY(Id));");
 
                 conn.Execute("INSERT INTO Collection (Id,Title) VALUES ('ad61ac96-9764-4067-a36c-102f5e160332','Default')");
+                conn.Execute("UPDATE Collection SET IsActive=1 WHERE Id='ad61ac96-9764-4067-a36c-102f5e160332'");
                 conn.Execute("ALTER TABLE Notebook ADD CollectionId TEXT;");
                 conn.Execute("UPDATE Notebook SET CollectionId='ad61ac96-9764-4067-a36c-102f5e160332'");
 

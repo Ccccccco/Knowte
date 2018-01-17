@@ -6,6 +6,8 @@ namespace Knowte.Data.Contracts
     {
         string DatabaseFile { get; }
 
+        void SetCustomStorageLocation(string customStorageLocation);
+
         SQLiteConnection GetConnection();
     }
 }

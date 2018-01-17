@@ -6,5 +6,6 @@
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/FontSizes.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/Geometries.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/HamburgerButtonStyle.xaml" />
+        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/ListBoxCollections.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

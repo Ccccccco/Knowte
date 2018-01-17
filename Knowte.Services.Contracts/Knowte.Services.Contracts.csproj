@@ -56,6 +56,7 @@
     <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Collection\ICollectionService.cs" />
     <Compile Include="Dialog\DialogVisibleChangedEventArgs.cs" />
     <Compile Include="Dialog\IDialogService.cs" />
     <Compile Include="I18n\II18nService.cs" />
@@ -81,6 +82,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Knowte.Presentation.Contracts\Knowte.Presentation.Contracts.csproj">
+      <Project>{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}</Project>
+      <Name>Knowte.Presentation.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

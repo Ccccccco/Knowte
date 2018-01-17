@@ -24,7 +24,7 @@ namespace Knowte.Data
         {
         }
 
-        public SQLiteConnectionFactory(string customStorageLocation)
+        public void SetCustomStorageLocation(string customStorageLocation)
         {
             this.customStorageLocation = customStorageLocation;
         }

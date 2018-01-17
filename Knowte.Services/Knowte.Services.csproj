@@ -62,6 +62,7 @@
     <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Collection\CollectionService.cs" />
     <Compile Include="Dialog\ConfirmationDialog.xaml.cs">
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>
@@ -99,6 +100,14 @@
     <ProjectReference Include="..\Knowte.Core\Knowte.Core.csproj">
       <Project>{FBE4A424-BA3B-46A6-9843-57F1A5F5050C}</Project>
       <Name>Knowte.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Knowte.Data.Contracts\Knowte.Data.Contracts.csproj">
+      <Project>{ACCD6C35-90D1-47C6-B18C-EDCACC6F0B6E}</Project>
+      <Name>Knowte.Data.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Knowte.Presentation.Contracts\Knowte.Presentation.Contracts.csproj">
+      <Project>{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}</Project>
+      <Name>Knowte.Presentation.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Knowte.Services.Contracts\Knowte.Services.Contracts.csproj">
       <Project>{F226096F-07E6-4CE3-8AE2-A3C25929A2FB}</Project>
