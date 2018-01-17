@@ -14,4 +14,9 @@
       <Value>EN</Value>
     </Setting>
   </Namespace>
+  <Namespace Name="General">
+    <Setting Name="NoteStorageLocation">
+      <Value></Value>
+    </Setting>
+  </Namespace>
 </Settings>

@@ -26,7 +26,7 @@ namespace Knowte.Data
         // NOTE: whenever there is a change in the database schema,
         // this version MUST be incremented and a migration method
         // MUST be supplied to match the new version number
-        protected const int CURRENT_VERSION = 1;
+        protected const int CURRENT_VERSION = 2;
         private ISQLiteConnectionFactory factory;
         private int userDatabaseVersion;
 
@@ -82,7 +82,17 @@ namespace Knowte.Data
             }
         }
 
+        [DatabaseVersion(1)]
         private void Migrate1()
+        {
+            using (var conn = this.factory.GetConnection())
+            {
+                conn.Execute("DELETE FROM Configuration WHERE Key='NewNoteCount';");
+            }
+        }
+
+        [DatabaseVersion(2)]
+        private void Migrate2()
         {
             using (var conn = this.factory.GetConnection())
             {
@@ -93,7 +103,8 @@ namespace Knowte.Data
                             "Title     	            TEXT," +
                             "PRIMARY KEY(Id));");
 
-                conn.Execute("INSERT INTO Collection ('ad61ac96-9764-4067-a36c-102f5e160332','Default')");
+                conn.Execute("INSERT INTO Collection (Id,Title) VALUES ('ad61ac96-9764-4067-a36c-102f5e160332','Default')");
+                conn.Execute("ALTER TABLE Notebook ADD CollectionId TEXT;");
                 conn.Execute("UPDATE Notebook SET CollectionId='ad61ac96-9764-4067-a36c-102f5e160332'");
 
                 conn.Execute("COMMIT;");
