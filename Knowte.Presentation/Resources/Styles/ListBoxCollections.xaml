@@ -18,7 +18,7 @@
                         <Border x:Name="SelectionBorder" Panel.ZIndex="0"/>
                         <StackPanel Orientation="Horizontal" Panel.ZIndex="1">
                             <Border Margin="16,0,0,0" VerticalAlignment="Center">
-                                <TextBlock x:Name="MyIcon" Text="&#xE02F;" Margin="0,2,0,0"
+                                <TextBlock x:Name="MyIcon" Text="&#xE6DD;" Margin="0,2,0,0"
                                            Foreground="{DynamicResource Brush_SplitViewItemIcon}" FontFamily="{StaticResource MaterialIcons}" 
                                            FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Border>

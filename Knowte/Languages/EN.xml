@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Language Code="EN" Name="English">
   <Text Key="ISO639-1">EN</Text>
+  <Text Key="Ok">Ok</Text>
+  <Text Key="Cancel">Cancel</Text>
+  <Text Key="Log_File">Log file</Text>
   <Text Key="Welcome_To_Knowte">Welcome to Knowte!</Text>
   <Text Key="Lets_Set_Up_The_Basics">Let's set up the basics.</Text>
   <Text Key="Lets_Start">Let's start!</Text>
@@ -12,4 +15,8 @@
   <Text Key="Notes">Notes</Text>
   <Text Key="Settings">Settings</Text>
   <Text Key="Information">Information</Text>
+  <Text Key="Add_Collection">Add a collection</Text>
+  <Text Key="Use_This_Collection">Use this collection</Text>
+  <Text Key="Provide_A_Name_For_Collection">Provide a name for your collection</Text>
+  <Text Key="Name">Name</Text>
 </Language>

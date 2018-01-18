@@ -1,5 +1,9 @@
-﻿using Knowte.Presentation.Contracts.Entities;
+﻿using Digimezzo.Utilities.Utils;
+using Knowte.Presentation.Contracts.Entities;
+using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.Collection;
+using Knowte.Views.Dialogs;
+using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -12,7 +16,9 @@ namespace Knowte.ViewModels
     {
         private bool showCollections;
         private ObservableCollection<CollectionViewModel> collections;
+        private IUnityContainer container;
         private ICollectionService collectionService;
+        private IDialogService dialogService;
         private CollectionViewModel selectedCollection;
         private CollectionViewModel activeCollection;
 
@@ -70,22 +76,41 @@ namespace Knowte.ViewModels
         }
 
         public DelegateCommand PaneClosedCommand { get; set; }
+
         public DelegateCommand LoadedCommand { get; set; }
+
+        public DelegateCommand AddCollectionCommand { get; set; }
 
         public DelegateCommand ActivateCollectionCommand { get; set; }
 
-        public MainViewModel(ICollectionService collectionService)
+        public MainViewModel(IUnityContainer container, ICollectionService collectionService, IDialogService dialogService)
         {
+            this.container = container;
             this.collectionService = collectionService;
+            this.dialogService = dialogService;
 
             this.PaneClosedCommand = new DelegateCommand(() => this.ShowCollections = false);
             this.LoadedCommand = new DelegateCommand(() => this.GetCollectionsAsync());
-            this.ActivateCollectionCommand = new DelegateCommand(() => this.ActivateCollectionCommandHandler());
+            this.AddCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
+            this.ActivateCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
         }
 
-        private void ActivateCollectionCommandHandler()
+        private void AddCollectionCommandHandler()
         {
-            throw new NotImplementedException();
+            var view = this.container.Resolve<AddCollection>();
+
+            this.dialogService.ShowCustom(
+                ResourceUtils.GetString("Language_Add_Collection"),
+                view,
+                420,
+                0,
+                false,
+                true,
+                true,
+                true,
+                ResourceUtils.GetString("Language_Ok"),
+                ResourceUtils.GetString("Language_Cancel"),
+                null);
         }
 
         private async void GetCollectionsAsync()
