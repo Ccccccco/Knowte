@@ -16,7 +16,13 @@
   <Text Key="Settings">Settings</Text>
   <Text Key="Information">Information</Text>
   <Text Key="Add_Collection">Add a collection</Text>
-  <Text Key="Use_This_Collection">Use this collection</Text>
-  <Text Key="Provide_A_Name_For_Collection">Provide a name for your collection</Text>
-  <Text Key="Name">Name</Text>
+  <Text Key="Activate_Collection">Activate collection</Text>
+  <Text Key="Activate_Collection_After_Adding">Activate collection after adding</Text>
+  <Text Key="Provide_A_Title_For_Collection">Provide a title for your collection</Text>
+  <Text Key="Title">Title</Text>
+  <Text Key="Add_Failed">Add failed</Text>
+  <Text Key="Please_Provide_Title_For_Collection">Please provide a title for your collection</Text>
+  <Text Key="Could_Not_Add_Collection_Check_Log_File">The collection could not be added. Please review the log file for details.</Text>
+  <Text Key="Collection_With_Title_Already_Exists">A collection with that title already exists</Text>
+  <Text Key="No_Active_Collection">No active collection</Text>
 </Language>

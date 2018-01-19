@@ -12,6 +12,8 @@ namespace Knowte.Services.Collection
     {
         private ICollectionRepository collectionRepository;
 
+        public event CollectionAddedEventHandler CollectionAdded = delegate { };
+
         public CollectionService(ICollectionRepository collectionRepository)
         {
             this.collectionRepository = collectionRepository;
@@ -35,6 +37,36 @@ namespace Knowte.Services.Collection
             }
 
             return collectionViewModels.OrderBy(c => c.Collection.Title).ToList();
+        }
+
+        public async Task<AddCollectionResult> AddCollectionAsync(string title, bool isActive)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                LogClient.Error($"{nameof(title)} is empty");
+                return AddCollectionResult.Invalid;
+            }
+
+            Data.Contracts.Entities.Collection existingCollection = await this.collectionRepository.GetCollectionAsync(title);
+
+            if (existingCollection != null)
+            {
+                LogClient.Error($"There is already a collection with the title '{title}'");
+                return AddCollectionResult.Duplicate;
+            }
+
+            string collectionId = await this.collectionRepository.AddCollectionAsync(title, isActive);
+
+            if (string.IsNullOrEmpty(collectionId))
+            {
+                LogClient.Error($"{nameof(collectionId)} is empty");
+                return AddCollectionResult.Error;
+            }
+
+            LogClient.Info($"Added collection with title '{title}'");
+            this.CollectionAdded(this, new CollectionAddedEventArgs(collectionId, title));
+
+            return AddCollectionResult.Ok;
         }
     }
 }

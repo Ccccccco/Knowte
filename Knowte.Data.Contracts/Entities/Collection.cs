@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 
 namespace Knowte.Data.Contracts.Entities
 {
@@ -10,6 +11,18 @@ namespace Knowte.Data.Contracts.Entities
         public string Title { get; set; }
 
         public long IsActive { get; set; }
+
+        public Collection()
+        {
+
+        }
+
+        public Collection(string title, long isActive)
+        {
+            this.Id = Guid.NewGuid().ToString();
+            this.Title = title;
+            this.IsActive = isActive;
+        }
 
         public override bool Equals(object obj)
         {

@@ -56,6 +56,8 @@
     <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Collection\AddCollectionResult.cs" />
+    <Compile Include="Collection\CollectionAddedEventArgs.cs" />
     <Compile Include="Collection\ICollectionService.cs" />
     <Compile Include="Dialog\DialogVisibleChangedEventArgs.cs" />
     <Compile Include="Dialog\IDialogService.cs" />

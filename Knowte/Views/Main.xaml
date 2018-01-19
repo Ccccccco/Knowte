@@ -78,7 +78,7 @@
                                             <Grid Margin="0,6,0,0">
                                                 <TextBlock Text="{Binding ActiveCollection}" Foreground="{DynamicResource Brush_LightText}" 
                                                            Visibility="{Binding ActiveCollection, Converter={StaticResource NullToCollapsedConverter}}"/>
-                                                <TextBlock Text="{DynamicResource Language_No_Active_Account}" Foreground="{DynamicResource Brush_LightText}" 
+                                                <TextBlock Text="{DynamicResource Language_No_Active_Collection}" Foreground="{DynamicResource Brush_LightText}" 
                                                            Visibility="{Binding ActiveCollection, Converter={StaticResource NullToVisibleConverter}}"/>
                                             </Grid>
                                         </StackPanel>

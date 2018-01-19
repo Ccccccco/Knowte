@@ -2,6 +2,7 @@
 using Knowte.Presentation.Contracts.Entities;
 using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.Collection;
+using Knowte.ViewModels.Dialogs;
 using Knowte.Views.Dialogs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -93,11 +94,15 @@ namespace Knowte.ViewModels
             this.LoadedCommand = new DelegateCommand(() => this.GetCollectionsAsync());
             this.AddCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
             this.ActivateCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
+
+            this.collectionService.CollectionAdded += (_, __) => this.GetCollectionsAsync(); ;
         }
 
         private void AddCollectionCommandHandler()
         {
-            var view = this.container.Resolve<AddCollection>();
+            AddCollection view = this.container.Resolve<AddCollection>();
+            AddCollectionViewModel viewModel = this.container.Resolve<AddCollectionViewModel>();
+            view.DataContext = viewModel;
 
             this.dialogService.ShowCustom(
                 ResourceUtils.GetString("Language_Add_Collection"),
@@ -110,7 +115,7 @@ namespace Knowte.ViewModels
                 true,
                 ResourceUtils.GetString("Language_Ok"),
                 ResourceUtils.GetString("Language_Cancel"),
-                null);
+                () => viewModel.AddCollectionAsync());
         }
 
         private async void GetCollectionsAsync()
