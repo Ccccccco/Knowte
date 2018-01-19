@@ -95,22 +95,31 @@
                                     <ListBox Margin="0,18,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxCollections}"
                                          ItemsSource="{Binding Collections}" SelectedItem="{Binding SelectedCollection}"/>
                                     <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                                         <!--Activate account button--><!-- 
-                                        <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                             Margin="12,12,12,0" Command="{Binding ActivateAccountCommand}"
-                                                                             ToolTip="{DynamicResource Language_Activate_Account}"
-                                                                             Visibility="{Binding CanActivateSelectedAccount, Converter={StaticResource BooleanToCollapsedConverter}}">
-                                            <TextBlock Text="&#xE5CA;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
+                                        <StackPanel Visibility="{Binding SelectedCollection, Converter={StaticResource NullToCollapsedConverter}}">
+                                            <!--Activate collection button-->
+                                            <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                             Margin="12,12,12,0" Command="{Binding ActivateCollectionCommand}"
+                                                                             ToolTip="{DynamicResource Language_Activate_Collection}"
+                                                                             Visibility="{Binding CanActivateSelectedCollection, Converter={StaticResource BooleanToCollapsedConverter}}">
+                                                <TextBlock Text="&#xE5CA;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
                                                        Foreground="{DynamicResource Brush_PrimaryAccent}"/>
-                                        </dc:MaterialMiniFloatingActionButton>
-                                         --><!--Archive account button--><!-- 
-                                        <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                             Margin="12,12,12,0" Command="{Binding ArchiveAccountCommand}"
-                                                                             ToolTip="{DynamicResource Language_Archive_Account}">
-                                            <TextBlock Text="&#xE149;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
+                                            </dc:MaterialMiniFloatingActionButton>
+                                            <!-- Edit collection button-->
+                                            <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                             Margin="12,12,12,0" Command="{Binding EditCollectionCommand}"
+                                                                             ToolTip="{DynamicResource Language_Edit_Collection}">
+                                                <TextBlock Text="&#xE254;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
                                                        Foreground="{DynamicResource Brush_PrimaryAccent}"/>
-                                        </dc:MaterialMiniFloatingActionButton>-->
-                                         <!-- Add collection button --> 
+                                            </dc:MaterialMiniFloatingActionButton>
+                                            <!-- Delete collection button-->
+                                            <dc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                             Margin="12,12,12,0" Command="{Binding DeleteCollectionCommand}"
+                                                                             ToolTip="{DynamicResource Language_Delete_Collection}">
+                                                <TextBlock Text="&#xE872;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
+                                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                            </dc:MaterialMiniFloatingActionButton>
+                                        </StackPanel>
+                                        <!-- Add collection button -->
                                         <dc:MaterialFloatingActionButton Accent="{DynamicResource Brush_PrimaryAccent}"
                                                                          Margin="12" Command="{Binding AddCollectionCommand}"
                                                                          ToolTip="{DynamicResource Language_Add_Collection}">

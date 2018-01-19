@@ -15,7 +15,9 @@
   <Text Key="Notes">Notes</Text>
   <Text Key="Settings">Settings</Text>
   <Text Key="Information">Information</Text>
-  <Text Key="Add_Collection">Add a collection</Text>
+  <Text Key="Add_Collection">Add collection</Text>
+  <Text Key="Edit_Collection">Edit collection</Text>
+  <Text Key="Delete_Collection">Delete collection</Text>
   <Text Key="Activate_Collection">Activate collection</Text>
   <Text Key="Activate_Collection_After_Adding">Activate collection after adding</Text>
   <Text Key="Provide_A_Title_For_Collection">Provide a title for your collection</Text>
