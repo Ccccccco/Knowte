@@ -88,6 +88,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Repositories\CollectionRepository.cs" />
+    <Compile Include="Repositories\NotebookRepository.cs" />
+    <Compile Include="Repositories\NoteRepository.cs" />
     <Compile Include="SQLiteConnectionFactory.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -116,7 +116,7 @@ namespace Knowte.Data.Repositories
 
         public async Task<bool> ActivateCollection(string collectionId)
         {
-            bool returnValue = false;
+            bool isSuccess = false;
 
             await Task.Run(() =>
             {
@@ -131,7 +131,7 @@ namespace Knowte.Data.Repositories
                             conn.Execute("UPDATE Collection SET IsActive = 1 WHERE Id=?;", collectionId);
                             conn.Commit();
 
-                            returnValue = true;
+                            isSuccess = true;
                         }
                         catch (Exception ex)
                         {
@@ -145,7 +145,38 @@ namespace Knowte.Data.Repositories
                 }
             });
 
-            return returnValue;
+            return isSuccess;
+        }
+
+        public async Task<bool> DeleteCollection(string collectionId)
+        {
+            bool isSuccess = false;
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (var conn = this.factory.GetConnection())
+                    {
+                        try
+                        {
+                            conn.Execute("DELETE FROM Collection WHERE Id = '?';", collectionId);
+
+                            isSuccess = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            LogClient.Error("Could delete the collect with Id={0}. Exception: {1}", collectionId, ex.Message);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogClient.Error("Could not connect to the database. Exception: {0}", ex.Message);
+                }
+            });
+
+            return isSuccess;
         }
     }
 }
