@@ -27,4 +27,6 @@
   <Text Key="Could_Not_Add_Collection_Check_Log_File">The collection could not be added. Please review the log file for details.</Text>
   <Text Key="Collection_With_Title_Already_Exists">A collection with that title already exists</Text>
   <Text Key="No_Active_Collection">No active collection</Text>
+  <Text Key="Activate_Failed">Activate failed</Text>
+  <Text Key="Could_Not_Activate_Collection">The collection could not be activated. Please review the log file for details.</Text>
 </Language>

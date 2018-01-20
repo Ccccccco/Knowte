@@ -35,36 +35,36 @@ namespace Knowte.ViewModels.Dialogs
 
         public async Task<bool> AddCollectionAsync()
         {
-            AddCollectionResult result = AddCollectionResult.Ok;
+            ChangeCollectionResult result = ChangeCollectionResult.Ok;
 
             result = await this.collectionService.AddCollectionAsync(this.title, this.activate);
 
             switch (result)
             {
-                case AddCollectionResult.Invalid:
+                case ChangeCollectionResult.Invalid:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Add_Failed"),
                         ResourceUtils.GetString("Language_Please_Provide_Title_For_Collection"),
                         ResourceUtils.GetString("Language_Ok"), false, string.Empty);
                     break;
-                case AddCollectionResult.Duplicate:
+                case ChangeCollectionResult.Duplicate:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Add_Failed"),
                         ResourceUtils.GetString("Language_Collection_With_Title_Already_Exists"),
                         ResourceUtils.GetString("Language_Ok"), false, string.Empty);
                     break;
-                case AddCollectionResult.Error:
+                case ChangeCollectionResult.Error:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Add_Failed"),
                         ResourceUtils.GetString("Language_Could_Not_Add_Collection"),
                         ResourceUtils.GetString("Language_Ok"), true, ResourceUtils.GetString("Language_Log_File"));
                     break;
-                case AddCollectionResult.Ok:
+                case ChangeCollectionResult.Ok:
                 default:
                     break;
             }
 
-            return result.Equals(AddCollectionResult.Ok);
+            return result.Equals(ChangeCollectionResult.Ok);
         }
     }
 }

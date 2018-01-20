@@ -113,5 +113,39 @@ namespace Knowte.Data.Repositories
 
             return collections;
         }
+
+        public async Task<bool> ActivateCollection(string collectionId)
+        {
+            bool returnValue = false;
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (var conn = this.factory.GetConnection())
+                    {
+                        try
+                        {
+                            conn.BeginTransaction();
+                            conn.Execute("UPDATE Collection SET IsActive = 0;");
+                            conn.Execute("UPDATE Collection SET IsActive = 1 WHERE Id=?;", collectionId);
+                            conn.Commit();
+
+                            returnValue = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            LogClient.Error("Could activate the collection with Id={0}. Exception: {1}", collectionId, ex.Message);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogClient.Error("Could not connect to the database. Exception: {0}", ex.Message);
+                }
+            });
+
+            return returnValue;
+        }
     }
 }

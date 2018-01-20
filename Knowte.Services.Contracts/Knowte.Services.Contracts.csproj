@@ -56,8 +56,8 @@
     <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Collection\AddCollectionResult.cs" />
-    <Compile Include="Collection\CollectionAddedEventArgs.cs" />
+    <Compile Include="Collection\ChangeCollectionResult.cs" />
+    <Compile Include="Collection\CollectionChangedEventArgs.cs" />
     <Compile Include="Collection\ICollectionService.cs" />
     <Compile Include="Dialog\DialogVisibleChangedEventArgs.cs" />
     <Compile Include="Dialog\IDialogService.cs" />
@@ -86,6 +86,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Knowte.Data.Contracts\Knowte.Data.Contracts.csproj">
+      <Project>{accd6c35-90d1-47c6-b18c-edcacc6f0b6e}</Project>
+      <Name>Knowte.Data.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Knowte.Presentation.Contracts\Knowte.Presentation.Contracts.csproj">
       <Project>{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}</Project>
       <Name>Knowte.Presentation.Contracts</Name>

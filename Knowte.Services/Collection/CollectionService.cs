@@ -5,6 +5,7 @@ using Knowte.Services.Contracts.Collection;
 using Knowte.Data.Contracts.Repositories;
 using Digimezzo.Utilities.Log;
 using System.Linq;
+using System;
 
 namespace Knowte.Services.Collection
 {
@@ -12,7 +13,10 @@ namespace Knowte.Services.Collection
     {
         private ICollectionRepository collectionRepository;
 
-        public event CollectionAddedEventHandler CollectionAdded = delegate { };
+        public event CollectionChangedEventHandler CollectionAdded = delegate { };
+        public event CollectionChangedEventHandler CollectionEdited = delegate { };
+        public event CollectionChangedEventHandler CollectionDeleted = delegate { };
+        public event CollectionChangedEventHandler ActiveCollectionChanged = delegate { };
 
         public CollectionService(ICollectionRepository collectionRepository)
         {
@@ -39,12 +43,12 @@ namespace Knowte.Services.Collection
             return collectionViewModels.OrderBy(c => c.Collection.Title).ToList();
         }
 
-        public async Task<AddCollectionResult> AddCollectionAsync(string title, bool isActive)
+        public async Task<ChangeCollectionResult> AddCollectionAsync(string title, bool isActive)
         {
             if (string.IsNullOrWhiteSpace(title))
             {
                 LogClient.Error($"{nameof(title)} is empty");
-                return AddCollectionResult.Invalid;
+                return ChangeCollectionResult.Invalid;
             }
 
             Data.Contracts.Entities.Collection existingCollection = await this.collectionRepository.GetCollectionAsync(title);
@@ -52,7 +56,7 @@ namespace Knowte.Services.Collection
             if (existingCollection != null)
             {
                 LogClient.Error($"There is already a collection with the title '{title}'");
-                return AddCollectionResult.Duplicate;
+                return ChangeCollectionResult.Duplicate;
             }
 
             string collectionId = await this.collectionRepository.AddCollectionAsync(title, isActive);
@@ -60,13 +64,47 @@ namespace Knowte.Services.Collection
             if (string.IsNullOrEmpty(collectionId))
             {
                 LogClient.Error($"{nameof(collectionId)} is empty");
-                return AddCollectionResult.Error;
+                return ChangeCollectionResult.Error;
             }
 
+            this.CollectionAdded(this, new CollectionChangedEventArgs(collectionId));
             LogClient.Info($"Added collection with title '{title}'");
-            this.CollectionAdded(this, new CollectionAddedEventArgs(collectionId, title));
 
-            return AddCollectionResult.Ok;
+            return ChangeCollectionResult.Ok;
+        }
+
+        public async Task<bool> ActivateCollectionAsync(CollectionViewModel collection)
+        {
+            if(collection == null)
+            {
+                LogClient.Error($"{nameof(collection)} is null");
+                return false;
+            }
+
+            if (collection.Collection == null)
+            {
+                LogClient.Error($"{nameof(collection.Collection)} is null");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(collection.Collection.Id))
+            {
+                LogClient.Error($"{nameof(collection.Collection.Id)} is null or empty");
+                return false;
+            }
+
+            bool activateSuccess = await this.collectionRepository.ActivateCollection(collection.Collection.Id);
+
+            if (!activateSuccess)
+            {
+                LogClient.Error($"Failed to activate collection with Id='{collection.Collection.Id}'");
+                return false;
+            }
+
+            this.ActiveCollectionChanged(this, new CollectionChangedEventArgs(collection.Collection.Id));
+            LogClient.Info($"Active collection changed. Active collection Id = '{collection.Collection.Id}'");
+
+            return true;
         }
     }
 }

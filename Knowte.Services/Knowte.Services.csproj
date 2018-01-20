@@ -43,6 +43,7 @@
     <Reference Include="Digimezzo.WPFControls">
       <HintPath>..\Knowte\Libraries\Digimezzo.WPFControls.dll</HintPath>
     </Reference>
+    <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

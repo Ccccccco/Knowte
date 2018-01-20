@@ -10,6 +10,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Knowte.ViewModels
 {
@@ -80,9 +81,13 @@ namespace Knowte.ViewModels
 
         public DelegateCommand LoadedCommand { get; set; }
 
+        public DelegateCommand ActivateCollectionCommand { get; set; }
+
         public DelegateCommand AddCollectionCommand { get; set; }
 
-        public DelegateCommand ActivateCollectionCommand { get; set; }
+        public DelegateCommand EditCollectionCommand { get; set; }
+
+        public DelegateCommand DeleteCollectionCommand { get; set; }
 
         public MainViewModel(IUnityContainer container, ICollectionService collectionService, IDialogService dialogService)
         {
@@ -92,10 +97,25 @@ namespace Knowte.ViewModels
 
             this.PaneClosedCommand = new DelegateCommand(() => this.ShowCollections = false);
             this.LoadedCommand = new DelegateCommand(() => this.GetCollectionsAsync());
+            this.ActivateCollectionCommand = new DelegateCommand(async() => await this.ActivateCollectionCommandHandlerAsync());
             this.AddCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
-            this.ActivateCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
+            this.EditCollectionCommand = new DelegateCommand(() => this.EditCollectionCommandHandler());
+            this.DeleteCollectionCommand = new DelegateCommand(() => this.DeleteCollectionCommandHandler());
 
-            this.collectionService.CollectionAdded += (_, __) => this.GetCollectionsAsync(); ;
+            this.collectionService.CollectionAdded += (_, __) => this.GetCollectionsAsync();
+            this.collectionService.ActiveCollectionChanged += (_, __) => this.GetCollectionsAsync();
+        }
+
+        private async Task ActivateCollectionCommandHandlerAsync()
+        {
+            bool activateSuccess = await this.collectionService.ActivateCollectionAsync(this.selectedCollection);
+
+            if (!activateSuccess){
+                this.dialogService.ShowNotification(
+                        ResourceUtils.GetString("Language_Activate_Failed"),
+                        ResourceUtils.GetString("Language_Could_Not_Activate_Collection"),
+                        ResourceUtils.GetString("Language_Ok"), true, ResourceUtils.GetString("Language_Log_File"));
+            }
         }
 
         private void AddCollectionCommandHandler()
@@ -115,7 +135,17 @@ namespace Knowte.ViewModels
                 true,
                 ResourceUtils.GetString("Language_Ok"),
                 ResourceUtils.GetString("Language_Cancel"),
-                () => viewModel.AddCollectionAsync());
+                async() => await viewModel.AddCollectionAsync());
+        }
+
+        private void EditCollectionCommandHandler()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DeleteCollectionCommandHandler()
+        {
+            throw new NotImplementedException();
         }
 
         private async void GetCollectionsAsync()
