@@ -28,12 +28,7 @@ namespace Knowte.ViewModels
         {
             get
             {
-                if (this.selectedCollection == null)
-                {
-                    return false;
-                }
-
-                return !this.selectedCollection.Equals(this.activeCollection);
+                return this.selectedCollection != null ? !this.selectedCollection.Equals(this.activeCollection) : false;
             }
         }
 
@@ -72,10 +67,7 @@ namespace Knowte.ViewModels
             }
         }
 
-        public int ContentIndex
-        {
-            get { return this.showCollections ? 0 : 1; }
-        }
+        public int ContentIndex => this.showCollections ? 0 : 1;
 
         public DelegateCommand PaneClosedCommand { get; set; }
 
@@ -97,20 +89,20 @@ namespace Knowte.ViewModels
 
             this.PaneClosedCommand = new DelegateCommand(() => this.ShowCollections = false);
             this.LoadedCommand = new DelegateCommand(() => this.GetCollectionsAsync());
-            this.ActivateCollectionCommand = new DelegateCommand(async() => await this.ActivateCollectionCommandHandlerAsync());
+            this.ActivateCollectionCommand = new DelegateCommand(async () => await this.ActivateCollectionCommandHandlerAsync());
             this.AddCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
             this.EditCollectionCommand = new DelegateCommand(() => this.EditCollectionCommandHandler());
-            this.DeleteCollectionCommand = new DelegateCommand(() => this.DeleteCollectionCommandHandler());
+            this.DeleteCollectionCommand = new DelegateCommand(async  () => await this.DeleteCollectionCommandHandler());
 
             this.collectionService.CollectionAdded += (_, __) => this.GetCollectionsAsync();
+            this.collectionService.CollectionDeleted += (_, __) => this.GetCollectionsAsync();
             this.collectionService.ActiveCollectionChanged += (_, __) => this.GetCollectionsAsync();
         }
 
         private async Task ActivateCollectionCommandHandlerAsync()
         {
-            bool activateSuccess = await this.collectionService.ActivateCollectionAsync(this.selectedCollection);
-
-            if (!activateSuccess){
+            if (!await this.collectionService.ActivateCollectionAsync(this.selectedCollection))
+            {
                 this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Activate_Failed"),
                         ResourceUtils.GetString("Language_Could_Not_Activate_Collection"),
@@ -135,7 +127,7 @@ namespace Knowte.ViewModels
                 true,
                 ResourceUtils.GetString("Language_Ok"),
                 ResourceUtils.GetString("Language_Cancel"),
-                async() => await viewModel.AddCollectionAsync());
+                async () => await viewModel.AddCollectionAsync());
         }
 
         private void EditCollectionCommandHandler()
@@ -143,23 +135,32 @@ namespace Knowte.ViewModels
             throw new NotImplementedException();
         }
 
-        private void DeleteCollectionCommandHandler()
+        private async Task DeleteCollectionCommandHandler()
         {
-            throw new NotImplementedException();
+            if (this.dialogService.ShowConfirmation(
+                ResourceUtils.GetString("Language_Delete_Collection"),
+                ResourceUtils.GetString("Language_Delete_Collection_Confirm").Replace("{collection}", this.SelectedCollection.Collection.Title),
+                ResourceUtils.GetString("Language_Yes"),
+                ResourceUtils.GetString("Language_No")))
+            {
+                if (await this.collectionService.DeleteCollectionAsync(this.selectedCollection))
+                {
+                    this.dialogService.ShowNotification(
+                            ResourceUtils.GetString("Language_Delete_Failed"),
+                            ResourceUtils.GetString("Language_Could_Not_Delete_Collection"),
+                            ResourceUtils.GetString("Language_Ok"), true, ResourceUtils.GetString("Language_Log_File"));
+                }
+            }
         }
 
         private async void GetCollectionsAsync()
         {
             // Remember the selected bank account
-            string selectedCollectionId = string.Empty;
-
-            if (this.SelectedCollection != null)
-            {
-                selectedCollectionId = this.SelectedCollection.Collection.Id;
-            }
+            string selectedCollectionId = this.SelectedCollection != null ? this.SelectedCollection.Collection.Id : string.Empty;
 
             this.Collections = new ObservableCollection<CollectionViewModel>(await this.collectionService.GetCollectionsAsync());
 
+            // Clear active and selected collection. Otherwise they're not updated after editing the selected collection.
             this.ActiveCollection = null;
             this.SelectedCollection = null;
             this.ActiveCollection = this.Collections.Where(c => c.IsActive).FirstOrDefault();

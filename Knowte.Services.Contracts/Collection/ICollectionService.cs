@@ -18,5 +18,6 @@ namespace Knowte.Services.Contracts.Collection
         event CollectionChangedEventHandler ActiveCollectionChanged;
 
         Task<bool> ActivateCollectionAsync(CollectionViewModel collection);
+        Task<bool> DeleteCollectionAsync(CollectionViewModel collection);
     }
 }

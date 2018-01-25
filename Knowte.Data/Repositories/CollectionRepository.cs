@@ -114,7 +114,7 @@ namespace Knowte.Data.Repositories
             return collections;
         }
 
-        public async Task<bool> ActivateCollection(string collectionId)
+        public async Task<bool> ActivateCollectionAsync(string collectionId)
         {
             bool isSuccess = false;
 
@@ -148,7 +148,7 @@ namespace Knowte.Data.Repositories
             return isSuccess;
         }
 
-        public async Task<bool> DeleteCollection(string collectionId)
+        public async Task<bool> DeleteCollectionAsync(string collectionId)
         {
             bool isSuccess = false;
 
@@ -160,7 +160,7 @@ namespace Knowte.Data.Repositories
                     {
                         try
                         {
-                            conn.Execute("DELETE FROM Collection WHERE Id = '?';", collectionId);
+                            conn.Execute("DELETE FROM Collection WHERE Id = ?;", collectionId);
 
                             isSuccess = true;
                         }

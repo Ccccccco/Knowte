@@ -93,7 +93,7 @@ namespace Knowte.Services.Collection
                 return false;
             }
 
-            bool activateSuccess = await this.collectionRepository.ActivateCollection(collection.Collection.Id);
+            bool activateSuccess = await this.collectionRepository.ActivateCollectionAsync(collection.Collection.Id);
 
             if (!activateSuccess)
             {
@@ -103,6 +103,40 @@ namespace Knowte.Services.Collection
 
             this.ActiveCollectionChanged(this, new CollectionChangedEventArgs(collection.Collection.Id));
             LogClient.Info($"Active collection changed. Active collection Id = '{collection.Collection.Id}'");
+
+            return true;
+        }
+
+        public async Task<bool> DeleteCollectionAsync(CollectionViewModel collection)
+        {
+            if (collection == null)
+            {
+                LogClient.Error($"{nameof(collection)} is null");
+                return false;
+            }
+
+            if (collection.Collection == null)
+            {
+                LogClient.Error($"{nameof(collection.Collection)} is null");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(collection.Collection.Id))
+            {
+                LogClient.Error($"{nameof(collection.Collection.Id)} is null or empty");
+                return false;
+            }
+
+            bool deleteSuccess = await this.collectionRepository.DeleteCollectionAsync(collection.Collection.Id);
+
+            if (!deleteSuccess)
+            {
+                LogClient.Error($"Failed to delete collection with Id='{collection.Collection.Id}'");
+                return false;
+            }
+
+            this.CollectionDeleted(this, new CollectionChangedEventArgs(collection.Collection.Id));
+            LogClient.Info($"Collection deleted. Deleted collection Id = '{collection.Collection.Id}'");
 
             return true;
         }
