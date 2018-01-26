@@ -4,6 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
+      xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Settings"
@@ -11,6 +12,16 @@
       prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
-        
+        <dc:Pivot IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
+            <dc:PivotItem Header="{DynamicResource Language_Appearance}" Style="{StaticResource PivotItemStyle}">
+                <TextBlock Foreground="Black">Content 1</TextBlock>
+            </dc:PivotItem>
+            <dc:PivotItem Header="{DynamicResource Language_Notes}" Style="{StaticResource PivotItemStyle}">
+                <TextBlock Foreground="Black">Content 2</TextBlock>
+            </dc:PivotItem>
+            <dc:PivotItem Header="{DynamicResource Language_Advanced}" Style="{StaticResource PivotItemStyle}">
+                <TextBlock Foreground="Black">Content 3</TextBlock>
+            </dc:PivotItem>
+        </dc:Pivot>
     </Grid>
 </Page>

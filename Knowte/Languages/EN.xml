@@ -44,4 +44,7 @@
   <Text Key="Social_Networks">Social networks</Text>
   <Text Key="Components">Components</Text>
   <Text Key="About">About</Text>
+  <Text Key="Appearance">Appearance</Text>
+  <Text Key="Notes">Notes</Text>
+  <Text Key="Advanced">Advanced</Text>
 </Language>

@@ -50,6 +50,9 @@
     <SolidColorBrush x:Key="Brush_ComboBoxLightBackground" Color="{StaticResource Color_White}"/>
     <SolidColorBrush x:Key="Brush_ComboBoxDarkBackground" Color="{StaticResource Color_Grey}"/>
     <SolidColorBrush x:Key="Brush_FloatingActionButtonOption" Color="{StaticResource Color_White}"/>
+    <SolidColorBrush x:Key="Brush_ToolbarIndicatorBackground" Color="{StaticResource Color_Blue}"/>
+    <SolidColorBrush x:Key="Brush_ToolbarText" Color="{StaticResource Color_White}" Opacity="0.5"/>
+    <SolidColorBrush x:Key="Brush_ToolbarTextSelected" Color="{StaticResource Color_White}"/>
     
     <LinearGradientBrush x:Key="Brush_InitializeBackground" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Color="{StaticResource Color_Grey}" Offset="0.0" />
