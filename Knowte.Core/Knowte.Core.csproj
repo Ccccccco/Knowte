@@ -74,8 +74,10 @@
     <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Base\ContactInformation.cs" />
     <Compile Include="Base\Defaults.cs" />
     <Compile Include="Base\ProductInformation.cs" />
+    <Compile Include="Base\SafeActions.cs" />
     <Compile Include="Extensions\UnityExtensions.cs" />
     <Compile Include="IO\ApplicationPaths.cs" />
     <Compile Include="Prism\Events.cs" />

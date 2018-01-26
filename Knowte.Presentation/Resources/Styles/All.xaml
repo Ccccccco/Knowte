@@ -9,5 +9,7 @@
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/ListBoxCollections.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/MaterialComboBox.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/MaterialTextBox.xaml" />
+        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/ScrollBar.xaml" />
+        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/TextStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

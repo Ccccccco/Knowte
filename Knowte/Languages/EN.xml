@@ -36,4 +36,12 @@
   <Text Key="Could_Not_Activate_Collection">The collection could not be activated. Please review the log file for details.</Text>
   <Text Key="Delete_Failed">Delete failed</Text>
   <Text Key="Could_Not_Delete_Collection">The collection could not be deleted. Please review the log file for details.</Text>
+  <Text Key="Version">Version</Text>
+  <Text Key="License">License</Text>
+  <Text Key="Contact_Us">Contact us</Text>
+  <Text Key="Website">Website</Text>
+  <Text Key="Email">E-mail</Text>
+  <Text Key="Social_Networks">Social networks</Text>
+  <Text Key="Components">Components</Text>
+  <Text Key="About">About</Text>
 </Language>
