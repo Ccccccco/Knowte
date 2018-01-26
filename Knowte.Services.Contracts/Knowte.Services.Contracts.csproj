@@ -56,6 +56,8 @@
     <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Appearance\ColorScheme.cs" />
+    <Compile Include="Appearance\IAppearanceService.cs" />
     <Compile Include="Collection\ChangeCollectionResult.cs" />
     <Compile Include="Collection\CollectionChangedEventArgs.cs" />
     <Compile Include="Collection\ICollectionService.cs" />
@@ -95,5 +97,6 @@
       <Name>Knowte.Presentation.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,14 +13,30 @@
 
     <Grid>
         <dc:Pivot IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
+            <!-- Appearance -->
             <dc:PivotItem Header="{DynamicResource Language_Appearance}" Style="{StaticResource PivotItemStyle}">
-                <TextBlock Foreground="Black">Content 1</TextBlock>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,6,0,6" PanningMode="Both">
+                    <StackPanel Margin="18,12,18,12">
+                        <!-- Color -->
+                        <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Color}"/>
+                        <DockPanel Margin="0,12,0,0">
+                            <dc:MaterialToggleSwitch DockPanel.Dock="Left" Accent="{DynamicResource Brush_PrimaryAccent}"
+                                                     VerticalAlignment="Center"/>
+                            <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Follow_Windows_Color}"
+                                       VerticalAlignment="Center" Margin="12,0,0,0"/>
+                        </DockPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </dc:PivotItem>
+            <!-- Notes -->
             <dc:PivotItem Header="{DynamicResource Language_Notes}" Style="{StaticResource PivotItemStyle}">
-                <TextBlock Foreground="Black">Content 2</TextBlock>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                </ScrollViewer>
             </dc:PivotItem>
+            <!-- Advanced -->
             <dc:PivotItem Header="{DynamicResource Language_Advanced}" Style="{StaticResource PivotItemStyle}">
-                <TextBlock Foreground="Black">Content 3</TextBlock>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                </ScrollViewer>
             </dc:PivotItem>
         </dc:Pivot>
     </Grid>

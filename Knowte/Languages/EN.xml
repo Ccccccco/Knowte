@@ -47,4 +47,6 @@
   <Text Key="Appearance">Appearance</Text>
   <Text Key="Notes">Notes</Text>
   <Text Key="Advanced">Advanced</Text>
+  <Text Key="Color">Color</Text>
+  <Text Key="Follow_Windows_Color">Follow the Windows color</Text>
 </Language>
