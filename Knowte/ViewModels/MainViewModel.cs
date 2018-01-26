@@ -92,9 +92,10 @@ namespace Knowte.ViewModels
             this.ActivateCollectionCommand = new DelegateCommand(async () => await this.ActivateCollectionCommandHandlerAsync());
             this.AddCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
             this.EditCollectionCommand = new DelegateCommand(() => this.EditCollectionCommandHandler());
-            this.DeleteCollectionCommand = new DelegateCommand(async  () => await this.DeleteCollectionCommandHandler());
+            this.DeleteCollectionCommand = new DelegateCommand(async () => await this.DeleteCollectionCommandHandler());
 
             this.collectionService.CollectionAdded += (_, __) => this.GetCollectionsAsync();
+            this.collectionService.CollectionEdited += (_, __) => this.GetCollectionsAsync();
             this.collectionService.CollectionDeleted += (_, __) => this.GetCollectionsAsync();
             this.collectionService.ActiveCollectionChanged += (_, __) => this.GetCollectionsAsync();
         }
@@ -132,7 +133,22 @@ namespace Knowte.ViewModels
 
         private void EditCollectionCommandHandler()
         {
-            throw new NotImplementedException();
+            EditCollection view = this.container.Resolve<EditCollection>();
+            EditCollectionViewModel viewModel = this.container.Resolve<EditCollectionViewModel>(new DependencyOverride(typeof(CollectionViewModel), this.SelectedCollection));
+            view.DataContext = viewModel;
+
+            this.dialogService.ShowCustom(
+                ResourceUtils.GetString("Language_Edit_Collection"),
+                view,
+                420,
+                0,
+                false,
+                true,
+                true,
+                true,
+                ResourceUtils.GetString("Language_Ok"),
+                ResourceUtils.GetString("Language_Cancel"),
+                async () => await viewModel.EditCollectionAsync());
         }
 
         private async Task DeleteCollectionCommandHandler()
@@ -143,7 +159,7 @@ namespace Knowte.ViewModels
                 ResourceUtils.GetString("Language_Yes"),
                 ResourceUtils.GetString("Language_No")))
             {
-                if (await this.collectionService.DeleteCollectionAsync(this.selectedCollection))
+                if (!await this.collectionService.DeleteCollectionAsync(this.selectedCollection))
                 {
                     this.dialogService.ShowNotification(
                             ResourceUtils.GetString("Language_Delete_Failed"),

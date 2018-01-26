@@ -29,7 +29,7 @@ namespace Knowte.Services.Collection
 
             if (collections.Count.Equals(0))
             {
-                LogClient.Error("{0} is empty. Returning empty List<CollectionViewModel> list.", nameof(collections));
+                LogClient.Error($"{nameof(collections)} is empty");
                 return new List<CollectionViewModel>();
             }
 
@@ -63,12 +63,12 @@ namespace Knowte.Services.Collection
 
             if (string.IsNullOrEmpty(collectionId))
             {
-                LogClient.Error($"{nameof(collectionId)} is empty");
+                LogClient.Error($"Add failed. {nameof(collectionId)} is empty");
                 return ChangeCollectionResult.Error;
             }
 
             this.CollectionAdded(this, new CollectionChangedEventArgs(collectionId));
-            LogClient.Info($"Added collection with title '{title}'");
+            LogClient.Info($"Add successful. {nameof(title)}={title}");
 
             return ChangeCollectionResult.Ok;
         }
@@ -97,12 +97,12 @@ namespace Knowte.Services.Collection
 
             if (!activateSuccess)
             {
-                LogClient.Error($"Failed to activate collection with Id='{collection.Collection.Id}'");
+                LogClient.Error($"Activate failed. {nameof(collection.Collection.Id)}={collection.Collection.Id}");
                 return false;
             }
 
             this.ActiveCollectionChanged(this, new CollectionChangedEventArgs(collection.Collection.Id));
-            LogClient.Info($"Active collection changed. Active collection Id = '{collection.Collection.Id}'");
+            LogClient.Info($"Activate successful. {nameof(collection.Collection.Id)}={collection.Collection.Id}");
 
             return true;
         }
@@ -131,14 +131,62 @@ namespace Knowte.Services.Collection
 
             if (!deleteSuccess)
             {
-                LogClient.Error($"Failed to delete collection with Id='{collection.Collection.Id}'");
+                LogClient.Error($"Delete failed. {nameof(collection.Collection.Id)}={collection.Collection.Id}");
                 return false;
             }
 
             this.CollectionDeleted(this, new CollectionChangedEventArgs(collection.Collection.Id));
-            LogClient.Info($"Collection deleted. Deleted collection Id = '{collection.Collection.Id}'");
+            LogClient.Info($"Delete successful. {nameof(collection.Collection.Id)}={collection.Collection.Id}");
 
             return true;
+        }
+
+        public async Task<ChangeCollectionResult> EditCollectionAsync(CollectionViewModel collection, string title)
+        {
+            if (collection == null)
+            {
+                LogClient.Error($"{nameof(collection)} is null");
+                return ChangeCollectionResult.Invalid;
+            }
+
+            if (collection.Collection == null)
+            {
+                LogClient.Error($"{nameof(collection.Collection)} is null");
+                return ChangeCollectionResult.Invalid;
+            }
+
+            if (string.IsNullOrEmpty(collection.Collection.Id))
+            {
+                LogClient.Error($"{nameof(collection.Collection.Id)} is null or empty");
+                return ChangeCollectionResult.Invalid;
+            }
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                LogClient.Error($"{nameof(title)} is empty");
+                return ChangeCollectionResult.Invalid;
+            }
+
+            Data.Contracts.Entities.Collection existingCollection = await this.collectionRepository.GetCollectionAsync(title);
+
+            if (existingCollection != null)
+            {
+                LogClient.Error($"Collection with {nameof(title)}={title} already exists");
+                return ChangeCollectionResult.Duplicate;
+            }
+
+            bool editSuccess = await this.collectionRepository.EditCollectionAsync(collection.Collection.Id, title);
+
+            if (!editSuccess)
+            {
+                LogClient.Error($"Edit failed. {nameof(collection.Collection.Id)}={collection.Collection.Id}, {nameof(title)}={title}");
+                return ChangeCollectionResult.Error;
+            }
+
+            this.CollectionEdited(this, new CollectionChangedEventArgs(collection.Collection.Id));
+            LogClient.Info($"Edit success. {nameof(collection.Collection.Id)}={collection.Collection.Id}, {nameof(title)}={title}");
+
+            return ChangeCollectionResult.Ok;
         }
     }
 }

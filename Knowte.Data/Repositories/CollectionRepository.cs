@@ -43,13 +43,13 @@ namespace Knowte.Data.Repositories
                         }
                         catch (Exception ex)
                         {
-                            LogClient.Error("Could not add collection '{0}'. Exception: {1}", title, ex.Message);
+                            LogClient.Error($"Could not add collection. {nameof(title)}={title}. Exception: {ex.Message}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogClient.Error("Could not connect to the database. Exception: {0}", ex.Message);
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
                 }
             });
 
@@ -72,13 +72,13 @@ namespace Knowte.Data.Repositories
                         }
                         catch (Exception ex)
                         {
-                            LogClient.Error("Could not get collection '{0}'. Exception: {1}", title, ex.Message);
+                            LogClient.Error($"Could not get collection. {nameof(title)}={title}. Exception: {ex.Message}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogClient.Error("Could not connect to the database. Exception: {0}", ex.Message);
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
                 }
             });
 
@@ -101,13 +101,13 @@ namespace Knowte.Data.Repositories
                         }
                         catch (Exception ex)
                         {
-                            LogClient.Error("Could not get collections. Exception: {0}", ex.Message);
+                            LogClient.Error($"Could not get collections. Exception: {ex.Message}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogClient.Error("Could not connect to the database. Exception: {0}", ex.Message);
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
                 }
             });
 
@@ -135,13 +135,13 @@ namespace Knowte.Data.Repositories
                         }
                         catch (Exception ex)
                         {
-                            LogClient.Error("Could activate the collection with Id={0}. Exception: {1}", collectionId, ex.Message);
+                            LogClient.Error($"Could not activate the collection. {nameof(collectionId)}={collectionId}. Exception: {ex.Message}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogClient.Error("Could not connect to the database. Exception: {0}", ex.Message);
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
                 }
             });
 
@@ -166,13 +166,44 @@ namespace Knowte.Data.Repositories
                         }
                         catch (Exception ex)
                         {
-                            LogClient.Error("Could delete the collect with Id={0}. Exception: {1}", collectionId, ex.Message);
+                            LogClient.Error($"Could not delete the collection. {nameof(collectionId)}={collectionId}. Exception: {ex.Message}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogClient.Error("Could not connect to the database. Exception: {0}", ex.Message);
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                }
+            });
+
+            return isSuccess;
+        }
+
+        public async Task<bool> EditCollectionAsync(string collectionId, string title)
+        {
+            bool isSuccess = false;
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (var conn = this.factory.GetConnection())
+                    {
+                        try
+                        {
+                            conn.Execute("UPDATE Collection SET Title = ? WHERE Id=?;", title, collectionId, title);
+
+                            isSuccess = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            LogClient.Error($"Could activate the collection. {nameof(collectionId)}={collectionId}, {nameof(title)}={title}. Exception: {ex.Message}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
                 }
             });
 

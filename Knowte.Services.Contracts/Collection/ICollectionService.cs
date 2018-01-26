@@ -12,6 +12,8 @@ namespace Knowte.Services.Contracts.Collection
 
         Task<ChangeCollectionResult> AddCollectionAsync(string title, bool isActive);
 
+        Task<ChangeCollectionResult> EditCollectionAsync(CollectionViewModel collection, string title);
+
         event CollectionChangedEventHandler CollectionAdded;
         event CollectionChangedEventHandler CollectionEdited;
         event CollectionChangedEventHandler CollectionDeleted;

@@ -15,5 +15,7 @@ namespace Knowte.Data.Contracts.Repositories
         Task<bool> ActivateCollectionAsync(string collectionId);
 
         Task<bool> DeleteCollectionAsync(string collectionId);
+
+        Task<bool> EditCollectionAsync(string collectionId, string title);
     }
 }
