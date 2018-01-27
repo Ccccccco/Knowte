@@ -2,6 +2,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/Buttons.xaml" />
+        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/ColorSchemeButtons.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/FontFamilies.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/FontSizes.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/Geometries.xaml" />

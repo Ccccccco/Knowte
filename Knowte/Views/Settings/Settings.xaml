@@ -19,12 +19,15 @@
                     <StackPanel Margin="18,12,18,12">
                         <!-- Color -->
                         <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Color}"/>
-                        <DockPanel Margin="0,12,0,0">
+                        <DockPanel Margin="0,24,0,0">
                             <dc:MaterialToggleSwitch DockPanel.Dock="Left" Accent="{DynamicResource Brush_PrimaryAccent}"
-                                                     VerticalAlignment="Center"/>
+                                                     VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}"/>
                             <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Follow_Windows_Color}"
-                                       VerticalAlignment="Center" Margin="12,0,0,0"/>
+                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
                         </DockPanel>
+                        <ListBox Margin="0,24,0,0" IsHitTestVisible="{Binding CanChooseColor}" HorizontalAlignment="Stretch" 
+                                 Style="{StaticResource ColorSchemeButtons}" Background="Transparent" 
+                                 ItemsSource="{Binding Path=ColorSchemes}" SelectedItem="{Binding SelectedColorScheme,Mode=TwoWay}"/>
                     </StackPanel>
                 </ScrollViewer>
             </dc:PivotItem>

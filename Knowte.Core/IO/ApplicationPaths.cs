@@ -4,7 +4,6 @@ namespace Knowte.Core.IO
 {
     public class ApplicationPaths
     {
-        public static string NotesSubDirectory = "Notes";
         public static string ColorSchemesSubDirectory = "ColorSchemes";
         public static string BuiltinLanguagesFolder = "Languages";
         public static string CustomLanguagesFolder = "Languages";
@@ -13,7 +12,7 @@ namespace Knowte.Core.IO
         {
             get
             {
-                return System.IO.Path.Combine(SettingsClient.ApplicationFolder(), NotesSubDirectory);
+                return System.IO.Path.Combine(SettingsClient.ApplicationFolder());
             }
         }
 

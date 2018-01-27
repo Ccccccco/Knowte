@@ -6,8 +6,8 @@
                               xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
                               xmlns:prismMvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
                               mc:Ignorable="d"
-                              Title="Funance" Height="75" Width="350"
-                              Background="{DynamicResource Brush_InitializeBackground}"
+                              Title="Knowte" Height="75" Width="350"
+                              Background="#282F37"
                               ShowWindowControls="False"
                               Loaded="Window_Loaded"
                               WindowStartupLocation="CenterScreen"
@@ -18,9 +18,9 @@
                          Width="30" 
                          Height="30" 
                          VerticalAlignment="Center"
-                         Foreground="{DynamicResource Brush_PrimaryAccent}" 
+                         Foreground="#1D7DD4" 
                          IsActive="True"/>
         <TextBlock Text="{Binding InitializeText}" VerticalAlignment="Center" Margin="30,0,0,0" 
-                   FontSize="22" Foreground="{DynamicResource Brush_LightText}"/>
+                   FontSize="22" Foreground="White"/>
     </DockPanel>
 </dc:BorderlessWindows10Window>

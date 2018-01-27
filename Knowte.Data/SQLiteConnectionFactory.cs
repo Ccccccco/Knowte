@@ -16,7 +16,7 @@ namespace Knowte.Data
             get
             {
                 string storageLocation = string.IsNullOrEmpty(this.customStorageLocation) ? ApplicationPaths.CurrentNoteStorageLocation : this.customStorageLocation;
-                return System.IO.Path.Combine(storageLocation, "Notes.db"); ;
+                return Path.Combine(storageLocation, "Notes.db"); ;
             }
         }
 

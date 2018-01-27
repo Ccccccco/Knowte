@@ -61,6 +61,9 @@ namespace Knowte
             // Making sure resources are set before we need them
             Container.Resolve<II18nService>().ApplyLanguageAsync(SettingsClient.Get<string>("Configuration", "Language")); // Set default language
             //Container.Resolve<IJumpListService>().RefreshJumpListAsync(); // Create the jump list
+            Container.Resolve<IAppearanceService>().ApplyColorScheme(
+                SettingsClient.Get<string>("Appearance", "ColorScheme"),
+                SettingsClient.Get<bool>("Appearance", "FollowWindowsColor"));
         }
 
         protected void RegisterViews()

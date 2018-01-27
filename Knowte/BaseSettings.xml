@@ -19,4 +19,12 @@
       <Value></Value>
     </Setting>
   </Namespace>
+  <Namespace Name="Appearance">
+    <Setting Name="ColorScheme">
+      <Value>Blue</Value>
+    </Setting>
+    <Setting Name="FollowWindowsColor">
+      <Value>False</Value>
+    </Setting>
+  </Namespace>
 </Settings>
