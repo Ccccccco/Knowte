@@ -1,5 +1,5 @@
-﻿using Digimezzo.Utilities.Log;
-using Digimezzo.Utilities.Settings;
+﻿using Digimezzo.Foundation.Core.Logging;
+using Digimezzo.Foundation.Core.Settings;
 using Knowte.Core.Extensions;
 using Knowte.Data;
 using Knowte.Data.Contracts;

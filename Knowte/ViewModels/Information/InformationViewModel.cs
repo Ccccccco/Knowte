@@ -1,6 +1,6 @@
-﻿using Digimezzo.Utilities.IO;
-using Digimezzo.Utilities.Packaging;
-using Digimezzo.Utilities.Utils;
+﻿using Digimezzo.Foundation.Core.IO;
+using Digimezzo.Foundation.Core.Packaging;
+using Digimezzo.Foundation.Core.Utils;
 using Knowte.Core.Base;
 using Knowte.Services.Constracts.Dialog;
 using Microsoft.Practices.Unity;

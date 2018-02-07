@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:base="clr-namespace:Knowte.Core.Base;assembly=Knowte.Core"
       xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
-      xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
+      xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
@@ -26,7 +26,7 @@
                 <TextBlock Text="{Binding Package.FormattedVersionNoBuild}" Margin="0,0,6,0" FontWeight="Bold" Foreground="{DynamicResource Brush_DarkText}"/>
             </StackPanel>
             <TextBlock Text="{x:Static base:ProductInformation.Copyright}" Margin="0,5,0,0" Foreground="{DynamicResource Brush_DarkText}"/>
-            <dc:MaterialRaisedButton Margin="0,10,0,0" Content="{DynamicResource Language_License}" 
+            <fwc:MaterialRaisedButton Margin="0,10,0,0" Content="{DynamicResource Language_License}" 
                                      Accent="{DynamicResource Brush_PrimaryAccent}" Foreground="{DynamicResource Brush_RaisedButtonForeground}" HorizontalAlignment="Left" 
                                      Command="{Binding ShowLicenseCommand}"/>
             <!-- Contact us -->

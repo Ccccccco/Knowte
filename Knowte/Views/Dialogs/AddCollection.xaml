@@ -3,19 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
+             xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
     <StackPanel Margin="18">
         <TextBlock Text="{DynamicResource Language_Provide_A_Title_For_Collection}" TextWrapping="Wrap" 
                    FontSize="{DynamicResource FontSizeLarge}" Foreground="{DynamicResource Brush_DialogContentText}"/>
-        <dc:MaterialTextBox Style="{StaticResource MaterialTextBoxLightStyle}" Margin="0,18,0,0" HorizontalAlignment="Stretch"
+        <fwc:MaterialTextBox Style="{StaticResource MaterialTextBoxLightStyle}" Margin="0,18,0,0" HorizontalAlignment="Stretch"
                             Text="{Binding Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                             Label="{DynamicResource Language_Title}"/>
 
         <DockPanel Margin="0,24,0,0">
-            <dc:MaterialToggleSwitch DockPanel.Dock="Left" IsChecked="{Binding Activate}" Accent="{DynamicResource Brush_PrimaryAccent}" 
+            <fwc:MaterialToggleSwitch DockPanel.Dock="Left" IsChecked="{Binding Activate}" Accent="{DynamicResource Brush_PrimaryAccent}" 
                                      VerticalAlignment="Center"/>
             <TextBlock Text="{DynamicResource Language_Activate_Collection_After_Adding}" TextWrapping="Wrap" Margin="24,0,0,0" 
                    FontSize="{DynamicResource FontSizeLarge}" Foreground="{DynamicResource Brush_DialogContentText}"  VerticalAlignment="Center"/>

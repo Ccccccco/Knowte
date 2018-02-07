@@ -3,7 +3,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
+      xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
       xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
       mc:Ignorable="d" 
@@ -26,10 +26,10 @@
             <controls:FullLogo Margin="18,30,18,30" Grid.Row="0" HorizontalAlignment="Center" ShowApplicationName="True"
                            Foreground="{DynamicResource Brush_LightText}" IconForeground="{DynamicResource Brush_PrimaryAccent}" 
                            IconBackground="{DynamicResource Brush_IconBackground}"/>
-            <dc:Pivot Grid.Row="1" SelectedIndex="{Binding SelectedWelcomePageIndex,Mode=OneWay}" 
+            <fwc:Pivot Grid.Row="1" SelectedIndex="{Binding SelectedWelcomePageIndex,Mode=OneWay}" 
                       DisableTabKey="True" AnimationType="SlideHorizontal" HeaderVisibility="Collapsed">
                 <!-- Welcome -->
-                <dc:PivotItem>
+                <fwc:PivotItem>
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource Language_Welcome_To_Knowte}" 
                                FontSize="{DynamicResource FontSizeLarger}" Foreground="{DynamicResource Brush_LightText}"/>
@@ -37,30 +37,30 @@
                                Text="{DynamicResource Language_Lets_Set_Up_The_Basics}" FontSize="{DynamicResource FontSizeLarge}" 
                                Foreground="{DynamicResource Brush_WelcomeText}"/>
                     </StackPanel>
-                </dc:PivotItem>
+                </fwc:PivotItem>
                 <!-- Finish -->
-                <dc:PivotItem>
+                <fwc:PivotItem>
                     <StackPanel>
                         <TextBlock HorizontalAlignment="Center" Margin="0,18,0,0" TextWrapping="Wrap" 
                                Text="{DynamicResource Language_All_Done_Start_Managing_Notes}" FontSize="{DynamicResource FontSizeLarge}" 
                                Foreground="{DynamicResource Brush_WelcomeText}"/>
                     </StackPanel>
-                </dc:PivotItem>
-            </dc:Pivot>
+                </fwc:PivotItem>
+            </fwc:Pivot>
             <Grid Grid.Row="2" Margin="18,18,18,30">
-                <dc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Content="{DynamicResource Language_Start}" 
+                <fwc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Content="{DynamicResource Language_Start}" 
                                          Command="{Binding StartCommand}" HorizontalAlignment="Center" 
                                          Foreground="{DynamicResource Brush_RaisedButtonForeground}"
                                          Visibility="{Binding ShowStartButton,Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <dc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Content="{DynamicResource Language_Lets_Start}" 
+                <fwc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Content="{DynamicResource Language_Lets_Start}" 
                                          Command="{Binding FinishCommand}" HorizontalAlignment="Center" 
                                          Foreground="{DynamicResource Brush_RaisedButtonForeground}"
                                          Visibility="{Binding ShowFinishButton,Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
                         Visibility="{Binding ShowNavigationButtons,Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <dc:MaterialRaisedButton Accent="{DynamicResource Brush_TertiaryAccent}" Content="{DynamicResource Language_Back}" 
+                    <fwc:MaterialRaisedButton Accent="{DynamicResource Brush_TertiaryAccent}" Content="{DynamicResource Language_Back}" 
                                              Foreground="{DynamicResource Brush_RaisedButtonForeground}" Command="{Binding GoBackCommand}"/>
-                    <dc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Margin="8,0,0,0" Content="{DynamicResource Language_Forward}" 
+                    <fwc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Margin="8,0,0,0" Content="{DynamicResource Language_Forward}" 
                                              Foreground="{DynamicResource Brush_RaisedButtonForeground}" Command="{Binding GoForwardCommand}" />
                 </StackPanel>
             </Grid>

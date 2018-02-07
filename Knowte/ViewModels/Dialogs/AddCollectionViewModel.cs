@@ -1,9 +1,7 @@
-﻿using Digimezzo.Utilities.Log;
-using Digimezzo.Utilities.Utils;
+﻿using Digimezzo.Foundation.Core.Utils;
 using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.Collection;
 using Prism.Mvvm;
-using System;
 using System.Threading.Tasks;
 
 namespace Knowte.ViewModels.Dialogs

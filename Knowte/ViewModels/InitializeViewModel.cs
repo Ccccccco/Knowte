@@ -1,4 +1,4 @@
-﻿using Digimezzo.Utilities.Settings;
+﻿using Digimezzo.Foundation.Core.Settings;
 using Knowte.Core.Base;
 using Prism.Mvvm;
 

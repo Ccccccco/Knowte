@@ -1,9 +1,8 @@
-﻿using Digimezzo.Utilities.IO;
-using Digimezzo.Utilities.Log;
-using Digimezzo.Utilities.Settings;
-using Digimezzo.Utilities.Utils;
-using Digimezzo.WPFControls;
-using Knowte;
+﻿using Digimezzo.Foundation.Core.IO;
+using Digimezzo.Foundation.Core.Logging;
+using Digimezzo.Foundation.Core.Settings;
+using Digimezzo.Foundation.Core.Utils;
+using Digimezzo.Foundation.WPF.Controls;
 using Knowte.Core.Base;
 using Knowte.Views;
 using System;
@@ -51,7 +50,7 @@ namespace Knowte
             if (initializer.IsMigrationNeeded())
             {
                 // Show the Update Window
-                BorderlessWindows10Window initWin = new Initialize();
+                Windows10BorderlessWindow initWin = new Initialize();
                 initWin.Show();
                 initWin.ForceActivate();
             }

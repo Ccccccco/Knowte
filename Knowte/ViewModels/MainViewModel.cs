@@ -1,4 +1,4 @@
-﻿using Digimezzo.Utilities.Utils;
+﻿using Digimezzo.Foundation.Core.Utils;
 using Knowte.Presentation.Contracts.Entities;
 using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.Collection;
@@ -7,7 +7,6 @@ using Knowte.Views.Dialogs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;

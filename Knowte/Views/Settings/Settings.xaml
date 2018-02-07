@@ -4,7 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
-      xmlns:dc="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls"
+      xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Settings"
@@ -12,15 +12,15 @@
       prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
-        <dc:Pivot IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
+        <fwc:Pivot IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
             <!-- Appearance -->
-            <dc:PivotItem Header="{DynamicResource Language_Appearance}" Style="{StaticResource PivotItemStyle}">
+            <fwc:PivotItem Header="{DynamicResource Language_Appearance}" Style="{StaticResource PivotItemStyle}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,6,0,6" PanningMode="Both">
                     <StackPanel Margin="18,12,18,12">
                         <!-- Color -->
                         <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Color}"/>
                         <DockPanel Margin="0,24,0,0">
-                            <dc:MaterialToggleSwitch DockPanel.Dock="Left" Accent="{DynamicResource Brush_PrimaryAccent}"
+                            <fwc:MaterialToggleSwitch DockPanel.Dock="Left" Accent="{DynamicResource Brush_PrimaryAccent}"
                                                      VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}"/>
                             <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Follow_Windows_Color}"
                                        VerticalAlignment="Center" Margin="24,0,0,0"/>
@@ -30,17 +30,17 @@
                                  ItemsSource="{Binding Path=ColorSchemes}" SelectedItem="{Binding SelectedColorScheme,Mode=TwoWay}"/>
                     </StackPanel>
                 </ScrollViewer>
-            </dc:PivotItem>
+            </fwc:PivotItem>
             <!-- Notes -->
-            <dc:PivotItem Header="{DynamicResource Language_Notes}" Style="{StaticResource PivotItemStyle}">
+            <fwc:PivotItem Header="{DynamicResource Language_Notes}" Style="{StaticResource PivotItemStyle}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                 </ScrollViewer>
-            </dc:PivotItem>
+            </fwc:PivotItem>
             <!-- Advanced -->
-            <dc:PivotItem Header="{DynamicResource Language_Advanced}" Style="{StaticResource PivotItemStyle}">
+            <fwc:PivotItem Header="{DynamicResource Language_Advanced}" Style="{StaticResource PivotItemStyle}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                 </ScrollViewer>
-            </dc:PivotItem>
-        </dc:Pivot>
+            </fwc:PivotItem>
+        </fwc:Pivot>
     </Grid>
 </Page>

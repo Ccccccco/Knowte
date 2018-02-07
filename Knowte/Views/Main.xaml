@@ -20,7 +20,10 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <fwc:SplitView x:Name="MySplitView" Panel.ZIndex="0" IsPaneOpen="False" OpenPaneLength="300">
+    <fwc:SplitView x:Name="MySplitView" Panel.ZIndex="0" IsPaneOpen="False" OpenPaneLength="300"
+                   ButtonHoveredBackground="{DynamicResource Brush_HamburgerButtonHovered}" 
+                   ButtonPressedBackground="{DynamicResource Brush_HamburgerButtonPressed}"
+                   OverlayBackground="{DynamicResource Brush_Overlay}">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="PaneClosed">
                 <i:InvokeCommandAction Command="{Binding PaneClosedCommand}" />
@@ -44,17 +47,17 @@
                         <StackPanel Panel.ZIndex="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
                             <Viewbox Height="50" Margin="18,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <controls:FullLogo Panel.ZIndex="3" Foreground="{DynamicResource Brush_LightText}" 
-                                                       IconForeground="{DynamicResource Brush_PrimaryAccent}" IconBackground="{DynamicResource Brush_IconBackground}"/>
+                                                   IconForeground="{DynamicResource Brush_PrimaryAccent}" IconBackground="{DynamicResource Brush_IconBackground}"/>
                             </Viewbox>
                             <!-- Button -->
                             <ToggleButton x:Name="CollectionButton" Margin="0,12,0,12" Style="{StaticResource TransparentToggleButton}" 
                                               IsChecked="{Binding ShowCollections}">
                                 <DockPanel Margin="18,6,18,6">
                                     <Grid DockPanel.Dock="Right" VerticalAlignment="Center">
-                                        <TextBlock Text="&#xE5CF;" FontFamily="{StaticResource MaterialIcons}" 
+                                        <fwc:MaterialIcon Text="&#xE5CF;"
                                                        Foreground="{DynamicResource Brush_LightText}" FontSize="18" 
                                                        Visibility="{Binding IsChecked,ElementName=CollectionButton,Converter={StaticResource InvertingBooleanToVisibilityConverter}}"/>
-                                        <TextBlock Text="&#xE5CE;" FontFamily="{StaticResource MaterialIcons}"
+                                        <fwc:MaterialIcon Text="&#xE5CE;"
                                                        Foreground="{DynamicResource Brush_LightText}" FontSize="18" 
                                                        Visibility="{Binding IsChecked,ElementName=CollectionButton,Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                     </Grid>
@@ -64,7 +67,7 @@
                                             <TextBlock Text="{Binding ActiveCollection}" Foreground="{DynamicResource Brush_LightText}" 
                                                            Visibility="{Binding ActiveCollection, Converter={StaticResource NullToCollapsedConverter}}"/>
                                             <TextBlock Text="{DynamicResource Language_No_Active_Collection}" Foreground="{DynamicResource Brush_LightText}" 
-                                                           Visibility="{Binding ActiveCollection, Converter={StaticResource NullToVisibleConverter}}"/>
+                                                       Visibility="{Binding ActiveCollection, Converter={StaticResource NullToVisibleConverter}}"/>
                                         </Grid>
                                     </StackPanel>
                                 </DockPanel>
@@ -86,30 +89,30 @@
                                                                              Margin="12,12,12,0" Command="{Binding ActivateCollectionCommand}"
                                                                              ToolTip="{DynamicResource Language_Activate_Collection}"
                                                                              Visibility="{Binding CanActivateSelectedCollection, Converter={StaticResource BooleanToCollapsedConverter}}">
-                                            <TextBlock Text="&#xE5CA;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
-                                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                            <fwc:MaterialIcon Text="&#xE5CA;" FontSize="22"
+                                                              Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </fwc:MaterialMiniFloatingActionButton>
                                         <!-- Edit collection button-->
                                         <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
                                                                              Margin="12,12,12,0" Command="{Binding EditCollectionCommand}"
                                                                              ToolTip="{DynamicResource Language_Edit_Collection}">
-                                            <TextBlock Text="&#xE254;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
-                                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                            <fwc:MaterialIcon Text="&#xE254;" FontSize="22"
+                                                              Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </fwc:MaterialMiniFloatingActionButton>
                                         <!-- Delete collection button-->
                                         <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
                                                                              Margin="12,12,12,0" Command="{Binding DeleteCollectionCommand}"
                                                                              ToolTip="{DynamicResource Language_Delete_Collection}">
-                                            <TextBlock Text="&#xE872;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
-                                                       Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                            <fwc:MaterialIcon Text="&#xE872;" FontSize="22"
+                                                              Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </fwc:MaterialMiniFloatingActionButton>
                                     </StackPanel>
                                     <!-- Add collection button -->
                                     <fwc:MaterialFloatingActionButton Accent="{DynamicResource Brush_PrimaryAccent}"
-                                                                         Margin="12" Command="{Binding AddCollectionCommand}"
-                                                                         ToolTip="{DynamicResource Language_Add_Collection}">
-                                        <TextBlock Text="&#xE145;" FontSize="22" FontFamily="{DynamicResource MaterialIcons}" 
-                                                       Foreground="{DynamicResource Brush_FloatingActionButtonIcon}"/>
+                                                                      Margin="12" Command="{Binding AddCollectionCommand}"
+                                                                      ToolTip="{DynamicResource Language_Add_Collection}">
+                                        <fwc:MaterialIcon Text="&#xE145;" FontSize="22"
+                                                          Foreground="{DynamicResource Brush_FloatingActionButtonIcon}"/>
                                     </fwc:MaterialFloatingActionButton>
                                 </StackPanel>
                             </Grid>
@@ -124,8 +127,8 @@
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" PanningMode="Both" Margin="0,18,0,0">
                                     <StackPanel>
                                         <controls:SplitViewRadioButton x:Name="NotesButton" Content="{DynamicResource Language_Notes}" 
-                                                                           GroupName="SplitViewButtonGroup" Icon="&#xE02F;" 
-                                                                           Checked="NotesButton_Checked"/>
+                                                                       GroupName="SplitViewButtonGroup" Icon="&#xE02F;" 
+                                                                       Checked="NotesButton_Checked"/>
                                     </StackPanel>
                                 </ScrollViewer>
                             </DockPanel>

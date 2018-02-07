@@ -1,4 +1,4 @@
-﻿using Digimezzo.Utilities.Utils;
+﻿using Digimezzo.Foundation.Core.Utils;
 using Knowte.Presentation.Contracts.Entities;
 using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.Collection;
