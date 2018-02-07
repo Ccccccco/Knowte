@@ -11,13 +11,15 @@
         <TextBlock Text="{DynamicResource Language_Provide_A_Title_For_Collection}" TextWrapping="Wrap" 
                    FontSize="{DynamicResource FontSizeLarge}" Foreground="{DynamicResource Brush_DialogContentText}"/>
         <fwc:MaterialTextBox Style="{StaticResource MaterialTextBoxLightStyle}" Margin="0,18,0,0" HorizontalAlignment="Stretch"
-                            Text="{Binding Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                            Label="{DynamicResource Language_Title}"/>
+                             Text="{Binding Title,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             Label="{DynamicResource Language_Title}" ValidationMode="Text"
+                             ErrorText="{DynamicResource Language_Invalid_Title}" 
+                             ErrorForeground="{DynamicResource Brush_SecondaryAccent}"/>
 
         <DockPanel Margin="0,24,0,0">
-            <fwc:MaterialToggleSwitch DockPanel.Dock="Left" IsChecked="{Binding Activate}" Accent="{DynamicResource Brush_PrimaryAccent}" 
+            <fwc:MaterialToggleSwitch DockPanel.Dock="Right" IsChecked="{Binding Activate}" Accent="{DynamicResource Brush_PrimaryAccent}" 
                                      VerticalAlignment="Center"/>
-            <TextBlock Text="{DynamicResource Language_Activate_Collection_After_Adding}" TextWrapping="Wrap" Margin="24,0,0,0" 
+            <TextBlock Text="{DynamicResource Language_Activate_Collection_After_Adding}" TextWrapping="Wrap" Margin="0,0,12,0" 
                    FontSize="{DynamicResource FontSizeLarge}" Foreground="{DynamicResource Brush_DialogContentText}"  VerticalAlignment="Center"/>
         </DockPanel>
     </StackPanel>

@@ -19,15 +19,21 @@
                     <StackPanel Margin="18,12,18,12">
                         <!-- Color -->
                         <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Color}"/>
-                        <DockPanel Margin="0,24,0,0">
-                            <fwc:MaterialToggleSwitch DockPanel.Dock="Left" Accent="{DynamicResource Brush_PrimaryAccent}"
-                                                     VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}"/>
+                        <DockPanel Margin="0,12,0,0">
+                            <fwc:MaterialToggleSwitch DockPanel.Dock="Right" Accent="{DynamicResource Brush_PrimaryAccent}"
+                                                      VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}" />
                             <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Follow_Windows_Color}"
-                                       VerticalAlignment="Center" Margin="24,0,0,0"/>
+                                       VerticalAlignment="Center" Margin="0,0,12,0"/>
                         </DockPanel>
-                        <ListBox Margin="0,24,0,0" IsHitTestVisible="{Binding CanChooseColor}" HorizontalAlignment="Stretch" 
-                                 Style="{StaticResource ColorSchemeButtons}" Background="Transparent" 
+                        <Border Style="{StaticResource DividerLine}"/>
+                        <StackPanel Visibility="{Binding CanChooseColor,Converter={StaticResource BooleanToCollapsedConverter}}">
+                            <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Choose_A_Color}"
+                                       VerticalAlignment="Center"/>
+                            <ListBox Margin="0,12,0,0"
+                                 HorizontalAlignment="Stretch" Style="{StaticResource ColorSchemeButtons}" Background="Transparent" 
                                  ItemsSource="{Binding Path=ColorSchemes}" SelectedItem="{Binding SelectedColorScheme,Mode=TwoWay}"/>
+                            <Border Style="{StaticResource DividerLine}"/>
+                        </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
             </fwc:PivotItem>
