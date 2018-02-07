@@ -13,12 +13,12 @@
                         <StackPanel Orientation="Horizontal" Panel.ZIndex="1">
                             <Border Margin="16,0,0,0" VerticalAlignment="Center">
                                 <fwc:MaterialIcon x:Name="MyIcon" Text="{TemplateBinding Icon}" Margin="0,2,0,0"
-                                                  Foreground="{DynamicResource Brush_SplitViewItemIcon}"
-                                                  FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                 Foreground="{DynamicResource Brush_SplitViewItemIcon}"
+                                                 FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Border>
                             <Label Padding="0" x:Name="MyContent" Margin="16,0,0,0" 
-                                   FontSize="{DynamicResource FontSizeLarge}" Content="{TemplateBinding Content}" Foreground="{DynamicResource Brush_SplitViewItemText}" 
-                                   VerticalAlignment="Center"/>
+                                   FontSize="{DynamicResource FontSizeLarge}" Content="{TemplateBinding Content}" 
+                                   Foreground="{DynamicResource Brush_SplitViewItemText}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                     <ControlTemplate.Triggers>
