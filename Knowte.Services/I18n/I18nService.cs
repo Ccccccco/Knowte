@@ -1,5 +1,5 @@
-﻿using Digimezzo.Utilities.IO;
-using Digimezzo.Utilities.Settings;
+﻿using Digimezzo.Foundation.Core.IO;
+using Digimezzo.Foundation.Core.Settings;
 using Knowte.Core.Base;
 using Knowte.Core.IO;
 using Knowte.Services.Constracts.I18n;

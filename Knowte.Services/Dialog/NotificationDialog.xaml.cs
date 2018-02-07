@@ -1,13 +1,13 @@
-﻿using Digimezzo.Utilities.IO;
-using Digimezzo.Utilities.Log;
-using Digimezzo.Utilities.Utils;
-using Digimezzo.WPFControls;
+﻿using Digimezzo.Foundation.Core.IO;
+using Digimezzo.Foundation.Core.Logging;
+using Digimezzo.Foundation.Core.Utils;
+using Digimezzo.Foundation.WPF.Controls;
 using System;
 using System.Windows;
 
 namespace Knowte.Services.Dialog
 {
-    public partial class NotificationDialog : BorderlessWindows10Window
+    public partial class NotificationDialog : Windows10BorderlessWindow
     {
         public NotificationDialog(string title, string content, string okText, bool showViewLogs, string viewLogsText) : base()
         {

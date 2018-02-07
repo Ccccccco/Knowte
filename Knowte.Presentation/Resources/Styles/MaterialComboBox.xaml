@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls">
+                    xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF">
 
-    <Style x:Key="MaterialComboBoxLightStyle" TargetType="{x:Type controls:MaterialComboBox}">
+    <Style x:Key="MaterialComboBoxLightStyle" TargetType="{x:Type fwc:MaterialComboBox}">
         <Setter Property="Accent" Value="{DynamicResource Brush_PrimaryAccent}"/>
         <Setter Property="Background" Value="{DynamicResource Brush_ComboBoxLightBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush_DarkText}"/>
@@ -10,11 +10,11 @@
         <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}"/>
     </Style>
 
-    <Style x:Key="MaterialComboBoxLightStyleLarge" TargetType="{x:Type controls:MaterialComboBox}" BasedOn="{StaticResource MaterialComboBoxLightStyle}">
+    <Style x:Key="MaterialComboBoxLightStyleLarge" TargetType="{x:Type fwc:MaterialComboBox}" BasedOn="{StaticResource MaterialComboBoxLightStyle}">
         <Setter Property="FontSize" Value="{DynamicResource FontSizeLarge}"/>
     </Style>
 
-    <Style x:Key="MaterialComboBoxDarkStyle" TargetType="{x:Type controls:MaterialComboBox}">
+    <Style x:Key="MaterialComboBoxDarkStyle" TargetType="{x:Type fwc:MaterialComboBox}">
         <Setter Property="Accent" Value="{DynamicResource Brush_PrimaryAccent}"/>
         <Setter Property="Background" Value="{DynamicResource Brush_ComboBoxDarkBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource Brush_LightText}"/>
@@ -22,7 +22,7 @@
         <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}"/>
     </Style>
 
-    <Style x:Key="MaterialComboBoxDarkStyleLarge" TargetType="{x:Type controls:MaterialComboBox}" BasedOn="{StaticResource MaterialComboBoxDarkStyle}">
+    <Style x:Key="MaterialComboBoxDarkStyleLarge" TargetType="{x:Type fwc:MaterialComboBox}" BasedOn="{StaticResource MaterialComboBoxDarkStyle}">
         <Setter Property="FontSize" Value="{DynamicResource FontSizeLarge}"/>
     </Style>
 </ResourceDictionary>

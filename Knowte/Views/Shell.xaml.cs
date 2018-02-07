@@ -1,5 +1,5 @@
-﻿using Digimezzo.Utilities.Settings;
-using Digimezzo.WPFControls;
+﻿using Digimezzo.Foundation.Core.Settings;
+using Digimezzo.Foundation.WPF.Controls;
 using Knowte.Core.Prism;
 using Prism.Events;
 using System;
@@ -10,7 +10,7 @@ using System.Windows.Navigation;
 
 namespace Knowte.Views
 {
-    public partial class Shell : BorderlessWindows10Window
+    public partial class Shell : Windows10BorderlessWindow
     {
         private IEventAggregator eventAggregator;
 

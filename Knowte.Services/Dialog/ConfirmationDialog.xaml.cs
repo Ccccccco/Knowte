@@ -1,10 +1,10 @@
-﻿using Digimezzo.Utilities.Utils;
-using Digimezzo.WPFControls;
+﻿using Digimezzo.Foundation.Core.Utils;
+using Digimezzo.Foundation.WPF.Controls;
 using System.Windows;
 
 namespace Knowte.Services.Dialog
 {
-    public partial class ConfirmationDialog : BorderlessWindows10Window
+    public partial class ConfirmationDialog : Windows10BorderlessWindow
     {
         public ConfirmationDialog(string title, string content, string okText, string cancelText) : base()
         {

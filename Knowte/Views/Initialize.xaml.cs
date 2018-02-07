@@ -1,9 +1,9 @@
-﻿using Digimezzo.WPFControls;
+﻿using Digimezzo.Foundation.WPF.Controls;
 using System.Threading.Tasks;
 
 namespace Knowte.Views
 {
-    public partial class Initialize : BorderlessWindows10Window
+    public partial class Initialize : Windows10BorderlessWindow
     {
         public Initialize()
         {

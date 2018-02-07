@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/FontFamilies.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/Geometries.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

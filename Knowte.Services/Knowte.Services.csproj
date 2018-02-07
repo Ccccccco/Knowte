@@ -37,11 +37,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Digimezzo.Utilities">
-      <HintPath>..\Knowte\Libraries\Digimezzo.Utilities.dll</HintPath>
+    <Reference Include="Digimezzo.Foundation.Core">
+      <HintPath>..\Knowte\Libraries\Digimezzo.Foundation.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Digimezzo.WPFControls">
-      <HintPath>..\Knowte\Libraries\Digimezzo.WPFControls.dll</HintPath>
+    <Reference Include="Digimezzo.Foundation.WPF">
+      <HintPath>..\Knowte\Libraries\Digimezzo.Foundation.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59" />
     <Reference Include="System" />

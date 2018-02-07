@@ -1,6 +1,6 @@
-﻿using Digimezzo.Utilities.ColorSpace;
-using Digimezzo.Utilities.Log;
-using Digimezzo.Utilities.Settings;
+﻿using Digimezzo.Foundation.Core.Helpers;
+using Digimezzo.Foundation.Core.Logging;
+using Digimezzo.Foundation.Core.Settings;
 using Knowte.Core.Base;
 using Knowte.Core.IO;
 using Knowte.Services.Contracts.Appearance;
@@ -32,7 +32,7 @@ namespace Knowte.Services.Appearance
         private List<ColorScheme> colorSchemes = new List<ColorScheme>();
         private ColorScheme[] builtInColorSchemes = {
                                                         new ColorScheme {
-                                                            Name = "Blue",
+                                                            Name = "Default",
                                                             AccentColor = "#1D7DD4"
                                                         },
                                                         new ColorScheme {
@@ -65,7 +65,7 @@ namespace Knowte.Services.Appearance
             }
 
             // Create the example ColorScheme
-            string exampleColorSchemeFile = Path.Combine(this.colorSchemesSubDirectory, "Red.xml");
+            string exampleColorSchemeFile = Path.Combine(this.colorSchemesSubDirectory, "Example.xml");
 
             if (File.Exists(exampleColorSchemeFile))
             {
@@ -87,7 +87,7 @@ namespace Knowte.Services.Appearance
                                 "How to create ColorSchemes?",
                                 "---------------------------",
                                 "",
-                                "1. Copy and rename the file Red.xml",
+                                "1. Copy and rename the file Example.xml",
                                 "2. Open the file and edit the color code of AccentColor",
                                 "3. Your ColorScheme appears automatically in " + ProductInformation.ApplicationName
                                 };

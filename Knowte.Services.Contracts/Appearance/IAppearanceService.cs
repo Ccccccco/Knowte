@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Knowte.Services.Contracts.Appearance
 {
@@ -23,6 +20,5 @@ namespace Knowte.Services.Contracts.Appearance
         void OnColorSchemeChanged(EventArgs e);
 
         void OnColorSchemesChanged(EventArgs e);
-
     }
 }

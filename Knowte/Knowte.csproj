@@ -39,13 +39,13 @@
     <ApplicationIcon>Knowte.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Digimezzo.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Digimezzo.Foundation.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Digimezzo.Utilities.dll</HintPath>
+      <HintPath>Libraries\Digimezzo.Foundation.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Digimezzo.WPFControls, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Digimezzo.Foundation.WPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Digimezzo.WPFControls.dll</HintPath>
+      <HintPath>Libraries\Digimezzo.Foundation.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -218,8 +218,6 @@
     <Content Include="Languages\EN.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Digimezzo.Utilities.dll" />
-    <Content Include="Libraries\Digimezzo.WPFControls.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -252,6 +250,8 @@
     <Content Include="Changelog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Libraries\Digimezzo.Foundation.Core.dll" />
+    <Content Include="Libraries\Digimezzo.Foundation.WPF.dll" />
     <Content Include="License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

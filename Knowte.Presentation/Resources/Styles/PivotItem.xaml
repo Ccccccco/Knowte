@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:Digimezzo.WPFControls;assembly=Digimezzo.WPFControls">
+                    xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF">
 
-    <Style x:Key="PivotItemStyle" TargetType="{x:Type controls:PivotItem}">
+    <Style x:Key="PivotItemStyle" TargetType="{x:Type fwc:PivotItem}">
         <Setter Property="Padding" Value="20,8,20,8"/>
         <Setter Property="HeaderForeground" Value="{DynamicResource Brush_ToolbarText}"/>
         <Setter Property="SelectedHeaderForeground" Value="{DynamicResource Brush_ToolbarTextSelected}"/>

@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Digimezzo.Foundation.Core.Logging;
+using Knowte.Data.Contracts.Repositories;
 using Knowte.Presentation.Contracts.Entities;
 using Knowte.Services.Contracts.Collection;
-using Knowte.Data.Contracts.Repositories;
-using Digimezzo.Utilities.Log;
+using System.Collections.Generic;
 using System.Linq;
-using System;
+using System.Threading.Tasks;
 
 namespace Knowte.Services.Collection
 {

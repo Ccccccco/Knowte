@@ -1,4 +1,4 @@
-﻿using Digimezzo.Utilities.Log;
+﻿using Digimezzo.Foundation.Core.Logging;
 using Knowte.Data.Contracts;
 using Knowte.Data.Contracts.Entities;
 using Knowte.Data.Contracts.Repositories;

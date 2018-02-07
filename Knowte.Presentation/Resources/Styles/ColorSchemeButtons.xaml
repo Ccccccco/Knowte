@@ -1,9 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/FontFamilies.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF">
 
     <Style x:Key="ColorSchemeButtonsItem" TargetType="{x:Type ListBoxItem}">
         <Setter Property="Template">
@@ -23,15 +20,15 @@
                                 <SolidColorBrush Color="{Binding Path=AccentColor}" />
                             </Border.Background>
                         </Border>
-                        <TextBlock x:Name="ColorSchemeSelector"
-                                   Text="&#xE5CA;"
-                                   FontFamily="{StaticResource MaterialIcons}"
-                                   Panel.ZIndex="1"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Opacity="0"
-                                   Foreground="{DynamicResource Brush_ColorSchemeSelector}" 
-                                   FontSize="18"/>
+                        <fwc:MaterialIcon 
+                            x:Name="ColorSchemeSelector"
+                            Panel.ZIndex="1" 
+                            Text="&#xE5CA;" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Opacity="0"
+                            Foreground="{DynamicResource Brush_ColorSchemeSelector}" 
+                            FontSize="18"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="true">
