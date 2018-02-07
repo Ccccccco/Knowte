@@ -18,8 +18,8 @@
 
         <DockPanel Margin="0,24,0,0">
             <fwc:MaterialToggleSwitch DockPanel.Dock="Right" IsChecked="{Binding Activate}" Accent="{DynamicResource Brush_PrimaryAccent}" 
-                                     VerticalAlignment="Center"/>
-            <TextBlock Text="{DynamicResource Language_Activate_Collection_After_Adding}" TextWrapping="Wrap" Margin="0,0,12,0" 
+                                     VerticalAlignment="Center" Margin="12,0,0,0"/>
+            <TextBlock Text="{DynamicResource Language_Activate_Collection_After_Adding}" TextWrapping="Wrap"
                    FontSize="{DynamicResource FontSizeLarge}" Foreground="{DynamicResource Brush_DialogContentText}"  VerticalAlignment="Center"/>
         </DockPanel>
     </StackPanel>

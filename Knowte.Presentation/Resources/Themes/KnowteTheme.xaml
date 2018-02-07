@@ -17,7 +17,7 @@
     <Color x:Key="Color_MediumGreyAlt">#242A31</Color>
     <Color x:Key="Color_LightGrey">#363D45</Color>
     <Color x:Key="Color_VeryLightGrey">#748393</Color>
-    <Color x:Key="Color_VeryVeryLightGrey">#CCCCCC</Color>
+    <Color x:Key="Color_VeryVeryLightGrey">#DEDEDE</Color>
 
     <!-- Brushes -->
     <SolidColorBrush x:Key="Brush_SecondaryAccent" Color="{StaticResource Color_Red}"/>

@@ -11,42 +11,50 @@
       FontSize="{DynamicResource FontSizeNormal}"
       prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
-    <Grid>
-        <fwc:Pivot IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
-            <!-- Appearance -->
-            <fwc:PivotItem Header="{DynamicResource Language_Appearance}" Style="{StaticResource PivotItemStyle}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,6,0,6" PanningMode="Both">
-                    <StackPanel Margin="18,12,18,12">
-                        <!-- Color -->
-                        <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Color}"/>
+    <fwc:Pivot IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" 
+               HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" 
+               ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
+        <!-- Appearance -->
+        <fwc:PivotItem Header="{DynamicResource Language_Appearance}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,6,0,6" PanningMode="Both">
+                <StackPanel Margin="18,12,18,12">
+                    <!-- Color -->
+                    <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Color}"/>
+                    <DockPanel Margin="0,12,0,0">
+                        <fwc:MaterialToggleSwitch DockPanel.Dock="Right" Accent="{DynamicResource Brush_PrimaryAccent}"
+                                                  VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}"
+                                                  Margin="12,0,0,0"/>
+                        <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Follow_Windows_Color}"
+                                       VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <Border Style="{StaticResource DividerLine}"/>
+                    <StackPanel Visibility="{Binding CanChooseColor,Converter={StaticResource BooleanToCollapsedConverter}}">
+                        <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Choose_A_Color}"
+                                       VerticalAlignment="Center"/>
                         <DockPanel Margin="0,12,0,0">
-                            <fwc:MaterialToggleSwitch DockPanel.Dock="Right" Accent="{DynamicResource Brush_PrimaryAccent}"
-                                                      VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}" />
-                            <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Follow_Windows_Color}"
-                                       VerticalAlignment="Center" Margin="0,0,12,0"/>
+                            <fwc:MaterialMiniFloatingActionButton DockPanel.Dock="Right" VerticalAlignment="Center"
+                                                                  Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                  Command="{Binding AddColorCommand}" Margin="12,6,0,0"
+                                                                  ToolTip="{DynamicResource Language_Add_Color}">
+                                <fwc:MaterialIcon Text="&#xE145;" FontSize="22" Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                            </fwc:MaterialMiniFloatingActionButton>
+                            <ListBox HorizontalAlignment="Stretch" Style="{StaticResource ColorSchemeButtons}" Background="Transparent" 
+                                     ItemsSource="{Binding Path=ColorSchemes}" SelectedItem="{Binding SelectedColorScheme,Mode=TwoWay}"/>
                         </DockPanel>
                         <Border Style="{StaticResource DividerLine}"/>
-                        <StackPanel Visibility="{Binding CanChooseColor,Converter={StaticResource BooleanToCollapsedConverter}}">
-                            <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Choose_A_Color}"
-                                       VerticalAlignment="Center"/>
-                            <ListBox Margin="0,12,0,0"
-                                 HorizontalAlignment="Stretch" Style="{StaticResource ColorSchemeButtons}" Background="Transparent" 
-                                 ItemsSource="{Binding Path=ColorSchemes}" SelectedItem="{Binding SelectedColorScheme,Mode=TwoWay}"/>
-                            <Border Style="{StaticResource DividerLine}"/>
-                        </StackPanel>
                     </StackPanel>
-                </ScrollViewer>
-            </fwc:PivotItem>
-            <!-- Notes -->
-            <fwc:PivotItem Header="{DynamicResource Language_Notes}" Style="{StaticResource PivotItemStyle}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                </ScrollViewer>
-            </fwc:PivotItem>
-            <!-- Advanced -->
-            <fwc:PivotItem Header="{DynamicResource Language_Advanced}" Style="{StaticResource PivotItemStyle}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                </ScrollViewer>
-            </fwc:PivotItem>
-        </fwc:Pivot>
-    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </fwc:PivotItem>
+        <!-- Notes -->
+        <fwc:PivotItem Header="{DynamicResource Language_Notes}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </fwc:PivotItem>
+        <!-- Advanced -->
+        <fwc:PivotItem Header="{DynamicResource Language_Advanced}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </fwc:PivotItem>
+    </fwc:Pivot>
 </Page>

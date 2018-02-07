@@ -3,15 +3,41 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
+      xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
+      xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="Notes"
       FontSize="{DynamicResource FontSizeNormal}"
       prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
-
-    <Grid>
-        
-    </Grid>
+    <fwc:Pivot IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" 
+               HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" 
+               ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
+        <!-- All -->
+        <fwc:PivotItem Header="{DynamicResource Language_All}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </fwc:PivotItem>
+        <!-- Today -->
+        <fwc:PivotItem Header="{DynamicResource Language_Today}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </fwc:PivotItem>
+        <!-- Yesterday -->
+        <fwc:PivotItem Header="{DynamicResource Language_Yesterday}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </fwc:PivotItem>
+        <!-- This week -->
+        <fwc:PivotItem Header="{DynamicResource Language_This_Week}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </fwc:PivotItem>
+        <!-- Marked -->
+        <fwc:PivotItem Header="{DynamicResource Language_Marked}" Style="{StaticResource PivotItemStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </fwc:PivotItem>
+    </fwc:Pivot>
 </Page>
