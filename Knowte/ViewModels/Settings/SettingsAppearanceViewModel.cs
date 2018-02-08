@@ -1,19 +1,25 @@
 ﻿using Digimezzo.Foundation.Core.Settings;
+using Knowte.Core.Base;
+using Knowte.Core.IO;
 using Knowte.Services.Contracts.Appearance;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Knowte.ViewModels.Settings
 {
-    public class SettingsViewModel : BindableBase
+    public class SettingsAppearanceViewModel : BindableBase
     {
         private bool followWindowsColor;
         private IAppearanceService appearanceService;
         private ObservableCollection<ColorScheme> colorSchemes = new ObservableCollection<ColorScheme>();
         private ColorScheme selectedColorScheme;
+
+        public DelegateCommand AddColorCommand { get; set; }
 
         public ObservableCollection<ColorScheme> ColorSchemes
         {
@@ -56,7 +62,7 @@ namespace Knowte.ViewModels.Settings
             }
         }
 
-        public SettingsViewModel(IAppearanceService appearanceService)
+        public SettingsAppearanceViewModel(IAppearanceService appearanceService)
         {
             this.appearanceService = appearanceService;
 
@@ -64,6 +70,11 @@ namespace Knowte.ViewModels.Settings
             this.GetTogglesAsync();
 
             this.appearanceService.ColorSchemesChanged += ColorSchemesChangedHandler;
+
+            this.AddColorCommand = new DelegateCommand(() =>
+            {
+                SafeActions.TryOpenPath(Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.ColorSchemesSubDirectory));
+            });
         }
 
         private void ColorSchemesChangedHandler(object sender, EventArgs e)

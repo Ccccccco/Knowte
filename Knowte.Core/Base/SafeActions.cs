@@ -17,5 +17,17 @@ namespace Knowte.Core.Base
                 LogClient.Error("Could not open the link {0}. Exception: {1}", link, ex.Message);
             }
         }
+
+        public static void TryOpenPath(string path)
+        {
+            try
+            {
+                Actions.TryOpenPath(path);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error("Could not open the path {0}. Exception: {1}", path, ex.Message);
+            }
+        }
     }
 }

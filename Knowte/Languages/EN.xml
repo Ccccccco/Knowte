@@ -48,7 +48,7 @@
   <Text Key="Notes">Notes</Text>
   <Text Key="Advanced">Advanced</Text>
   <Text Key="Color">Color</Text>
-  <Text Key="Add_Color">Add color</Text>
+  <Text Key="Add_Color">Add a color</Text>
   <Text Key="Follow_Windows_Color">Follow the Windows color</Text>
   <Text Key="Choose_A_Color">Choose a color</Text>
   <Text Key="Invalid_Title">Invalid title</Text>
