@@ -14,56 +14,64 @@
       FontSize="{DynamicResource FontSizeNormal}"
       prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,6,0,6" Padding="18,12,18,12" PanningMode="Both">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,6,0,6" PanningMode="Both">
         <StackPanel>
             <!-- About -->
-            <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_About}"/>
-            <controls:FullLogo Margin="0,12,0,0" Foreground="{DynamicResource Brush_DarkText}" 
+            <StackPanel Margin="18">
+                <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_About}"/>
+                <controls:FullLogo Margin="0,12,0,0" Foreground="{DynamicResource Brush_DarkText}" 
                                IconForeground="{DynamicResource Brush_PrimaryAccent}" IconBackground="{DynamicResource Brush_IconBackground}"/>
-            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                <TextBlock Text="{DynamicResource Language_Version}" Foreground="{DynamicResource Brush_DarkText}"/>
-                <TextBlock Text=":" Margin="0,0,5,0" Foreground="{DynamicResource Brush_DarkText}"/>
-                <TextBlock Text="{Binding Package.FormattedVersionNoBuild}" Margin="0,0,6,0" FontWeight="Bold" Foreground="{DynamicResource Brush_DarkText}"/>
-            </StackPanel>
-            <TextBlock Text="{x:Static base:ProductInformation.Copyright}" Margin="0,5,0,0" Foreground="{DynamicResource Brush_DarkText}"/>
-            <fwc:MaterialRaisedButton Margin="0,10,0,0" Content="{DynamicResource Language_License}" 
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                    <TextBlock Text="{DynamicResource Language_Version}" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <TextBlock Text=":" Margin="0,0,5,0" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <TextBlock Text="{Binding Package.FormattedVersionNoBuild}" Margin="0,0,6,0" FontWeight="Bold" Foreground="{DynamicResource Brush_DarkText}"/>
+                </StackPanel>
+                <TextBlock Text="{x:Static base:ProductInformation.Copyright}" Margin="0,5,0,0" Foreground="{DynamicResource Brush_DarkText}"/>
+                <fwc:MaterialRaisedButton Margin="0,10,0,0" Content="{DynamicResource Language_License}" 
                                      Accent="{DynamicResource Brush_PrimaryAccent}" Foreground="{DynamicResource Brush_RaisedButtonForeground}" HorizontalAlignment="Left" 
                                      Command="{Binding ShowLicenseCommand}"/>
+            </StackPanel>
+            <Border Style="{StaticResource DividerLine}"/>
             <!-- Contact us -->
-            <TextBlock Margin="0,18,0,0" Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Contact_Us}"/>
-            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                <TextBlock Margin="0,0,0,0" Text="{DynamicResource Language_Website}" Foreground="{DynamicResource Brush_DarkText}"/>
-                <TextBlock Margin="0,0,6,0" Text=":" Foreground="{DynamicResource Brush_DarkText}"/>
-                <Button Content="{x:Static base:ContactInformation.WebsiteLink}" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.WebsiteLink}" Command="{Binding  OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.WebsiteLink}"/>
+            <StackPanel Margin="18">
+                <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Contact_Us}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                    <TextBlock Margin="0,0,0,0" Text="{DynamicResource Language_Website}" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <TextBlock Margin="0,0,6,0" Text=":" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <Button Content="{x:Static base:ContactInformation.WebsiteLink}" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.WebsiteLink}" Command="{Binding  OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.WebsiteLink}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,0,0" Text="{DynamicResource Language_Email}" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <TextBlock Margin="0,0,6,0" Text=":" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <Button Content="{x:Static base:ContactInformation.WebsiteContactLink}" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.WebsiteContactLink}" Command="{Binding OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.WebsiteContactLink}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,0,0" Text="{DynamicResource Language_Social_Networks}" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <TextBlock Margin="0,0,6,0" Text=":" Foreground="{DynamicResource Brush_DarkText}"/>
+                    <Button Content="Facebook" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.FacebookLink}" Command="{Binding  OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.FacebookLink}"/>
+                    <TextBlock Margin="0,0,6,0" Text="," Foreground="{DynamicResource Brush_DarkText}"/>
+                    <Button Content="Twitter" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.TwitterLink}" Command="{Binding OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.TwitterLink}"/>
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="0,0,0,0" Text="{DynamicResource Language_Email}" Foreground="{DynamicResource Brush_DarkText}"/>
-                <TextBlock Margin="0,0,6,0" Text=":" Foreground="{DynamicResource Brush_DarkText}"/>
-                <Button Content="{x:Static base:ContactInformation.WebsiteContactLink}" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.WebsiteContactLink}" Command="{Binding OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.WebsiteContactLink}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="0,0,0,0" Text="{DynamicResource Language_Social_Networks}" Foreground="{DynamicResource Brush_DarkText}"/>
-                <TextBlock Margin="0,0,6,0" Text=":" Foreground="{DynamicResource Brush_DarkText}"/>
-                <Button Content="Facebook" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.FacebookLink}" Command="{Binding  OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.FacebookLink}"/>
-                <TextBlock Margin="0,0,6,0" Text="," Foreground="{DynamicResource Brush_DarkText}"/>
-                <Button Content="Twitter" Style="{StaticResource LinkButton}" ToolTip="{x:Static base:ContactInformation.TwitterLink}" Command="{Binding OpenLinkCommand}" CommandParameter="{x:Static base:ContactInformation.TwitterLink}"/>
-            </StackPanel>
+            <Border Style="{StaticResource DividerLine}"/>
             <!-- Components -->
-            <TextBlock Margin="0,18,0,0" Style="{StaticResource TitleStyle}" Text="{DynamicResource Language_Components}"/>
-            <ItemsControl Margin="0,0,0,0" ItemsSource="{x:Static base:ProductInformation.Components}" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Margin="0,12,0,0">
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Left" Foreground="{DynamicResource Brush_DarkText}"/>
-                            <TextBlock Text="{Binding Description}" Foreground="{DynamicResource Brush_DarkText}" TextWrapping="Wrap"/>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="{DynamicResource Language_Website}" HorizontalAlignment="Left" Style="{StaticResource LinkButton}" ToolTip="{Binding Url}" Command="{Binding DataContext.OpenLinkCommand, ElementName=This}" CommandParameter="{Binding Url}"/>
-                                <Button Margin="12,0,0,0" Content="{DynamicResource Language_License}" HorizontalAlignment="Left" Style="{StaticResource LinkButton}" ToolTip="{Binding LicenseUrl}" Command="{Binding DataContext.OpenLinkCommand, ElementName=This}" CommandParameter="{Binding LicenseUrl}"/>
+            <StackPanel Margin="18">
+                <TextBlock Style="{StaticResource TitleStyle}" Text="{DynamicResource Language_Components}"/>
+                <ItemsControl ItemsSource="{x:Static base:ProductInformation.Components}" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Center">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,12,0,0">
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" HorizontalAlignment="Left" Foreground="{DynamicResource Brush_DarkText}"/>
+                                <TextBlock Text="{Binding Description}" Foreground="{DynamicResource Brush_DarkText}" TextWrapping="Wrap"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="{DynamicResource Language_Website}" HorizontalAlignment="Left" Style="{StaticResource LinkButton}" ToolTip="{Binding Url}" Command="{Binding DataContext.OpenLinkCommand, ElementName=This}" CommandParameter="{Binding Url}"/>
+                                    <Button Margin="12,0,0,0" Content="{DynamicResource Language_License}" HorizontalAlignment="Left" Style="{StaticResource LinkButton}" ToolTip="{Binding LicenseUrl}" Command="{Binding DataContext.OpenLinkCommand, ElementName=This}" CommandParameter="{Binding LicenseUrl}"/>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>

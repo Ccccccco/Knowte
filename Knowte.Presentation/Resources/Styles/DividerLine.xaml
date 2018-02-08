@@ -4,7 +4,7 @@
     <Style x:Key="DividerLine" TargetType="{x:Type Border}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Margin" Value="0,12,0,12" />
+        <!--<Setter Property="Margin" Value="0,12,0,12" />-->
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="1" />
         <Setter Property="Background" Value="{DynamicResource Brush_DividerLine}" />

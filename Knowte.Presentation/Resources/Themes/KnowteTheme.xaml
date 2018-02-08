@@ -58,6 +58,7 @@
     <SolidColorBrush x:Key="Brush_ToolbarTextSelected" Color="{StaticResource Color_White}"/>
     <SolidColorBrush x:Key="Brush_ColorSchemeSelector" Color="{StaticResource Color_White}"/>
     <SolidColorBrush x:Key="Brush_DividerLine" Color="{StaticResource Color_VeryVeryLightGrey}"/>
+    <SolidColorBrush x:Key="Brush_CountLabelForeground" Color="{StaticResource Color_White}"/>
     
     <LinearGradientBrush x:Key="Brush_WelcomeBackground" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Color="{StaticResource Color_Grey}" Offset="0.0" />
