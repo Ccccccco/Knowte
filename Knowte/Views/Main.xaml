@@ -150,7 +150,7 @@
                         </Border>
                         <Border Height="4" HorizontalAlignment="Stretch" Background="{DynamicResource Brush_ToolbarShadow}"/>
                     </StackPanel>
-                    <Frame x:Name="MainFrame" Canvas.ZIndex="1" VerticalAlignment="Top" Margin="0,48,0,0"/>
+                    <Frame x:Name="MainFrame" Canvas.ZIndex="1" NavigationUIVisibility="Hidden" Margin="0,48,0,0"/>
                 </Grid>
             </Grid>
         </fwc:SplitView.Content>
