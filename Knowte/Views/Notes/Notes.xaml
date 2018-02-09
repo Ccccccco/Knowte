@@ -7,6 +7,7 @@
       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
       xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
       xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
+      xmlns:views="clr-namespace:Knowte.Views.Notes"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="600"
       Title="Notes"
@@ -16,9 +17,11 @@
 
     <Grid>
         <!-- Notebooks -->
-        <Border x:Name="NotebooksContainer" Panel.ZIndex="0" Background="{DynamicResource Brush_NotebooksContainerBackground}" 
-                Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left">
-
+        <Border x:Name="NotebooksContainer" Panel.ZIndex="0" Margin="0,38,0,0" 
+                Background="{DynamicResource Brush_NotebooksContainerBackground}" 
+                Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left"
+                BorderThickness="0,0,1,0" BorderBrush="{DynamicResource Brush_DividerLine}">
+            <views:NotebooksContainer Margin="18"/>
         </Border>
         <!-- Notes -->
         <fwc:Pivot Panel.ZIndex="1" IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" 

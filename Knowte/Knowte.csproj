@@ -111,6 +111,7 @@
     <Compile Include="ViewModels\Information\InformationViewModel.cs" />
     <Compile Include="ViewModels\InitializeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Notes\NotebooksContainerViewModel.cs" />
     <Compile Include="ViewModels\Notes\NotesViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsAppearanceViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -132,6 +133,9 @@
     </Compile>
     <Compile Include="Views\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Notes\NotebooksContainer.xaml.cs">
+      <DependentUpon>NotebooksContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Notes\Notes.xaml.cs">
       <DependentUpon>Notes.xaml</DependentUpon>
@@ -181,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Notes\NotebooksContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
