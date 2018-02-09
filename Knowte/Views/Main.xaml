@@ -20,7 +20,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <fwc:SplitView x:Name="MySplitView" Panel.ZIndex="0" IsPaneOpen="False" OpenPaneLength="300"
+    <fwc:SplitView x:Name="MySplitView" Panel.ZIndex="0" IsPaneOpen="False" OpenPaneLength="304"
                    ButtonHoveredBackground="{DynamicResource Brush_HamburgerButtonHovered}" 
                    ButtonPressedBackground="{DynamicResource Brush_HamburgerButtonPressed}"
                    OverlayBackground="{DynamicResource Brush_Overlay}">
