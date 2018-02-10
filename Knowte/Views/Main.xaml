@@ -83,26 +83,31 @@
                                 <ListBox Margin="0,18,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxCollections}"
                                          ItemsSource="{Binding Collections}" SelectedItem="{Binding SelectedCollection}"/>
                                 <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                                    <StackPanel Visibility="{Binding SelectedCollection, Converter={StaticResource NullToCollapsedConverter}}">
+                                    <StackPanel>
                                         <!--Activate collection button-->
                                         <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                             Margin="12,12,12,0" Command="{Binding ActivateCollectionCommand}"
-                                                                             ToolTip="{DynamicResource Language_Activate_Collection}"
-                                                                             Visibility="{Binding CanActivateSelectedCollection, Converter={StaticResource BooleanToCollapsedConverter}}">
+                                                                              Margin="12,12,12,0" Command="{Binding ActivateCollectionCommand}"
+                                                                              ToolTip="{DynamicResource Language_Activate_Collection}"
+                                                                              Style="{StaticResource SoftAppear}"
+                                                                              Visibility="{Binding CanActivateSelectedCollection, Converter={StaticResource BooleanToCollapsedConverter}}">
                                             <fwc:MaterialIcon Text="&#xE5CA;" FontSize="22"
                                                               Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </fwc:MaterialMiniFloatingActionButton>
                                         <!-- Edit collection button-->
                                         <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                             Margin="12,12,12,0" Command="{Binding EditCollectionCommand}"
-                                                                             ToolTip="{DynamicResource Language_Edit_Collection}">
+                                                                              Margin="12,12,12,0" Command="{Binding EditCollectionCommand}"
+                                                                              ToolTip="{DynamicResource Language_Edit_Collection}"
+                                                                              Style="{StaticResource SoftAppear}"
+                                                                              Visibility="{Binding SelectedCollection, Converter={StaticResource NullToCollapsedConverter}}">
                                             <fwc:MaterialIcon Text="&#xE254;" FontSize="22"
                                                               Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </fwc:MaterialMiniFloatingActionButton>
                                         <!-- Delete collection button-->
                                         <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                             Margin="12,12,12,0" Command="{Binding DeleteCollectionCommand}"
-                                                                             ToolTip="{DynamicResource Language_Delete_Collection}">
+                                                                              Margin="12,12,12,0" Command="{Binding DeleteCollectionCommand}"
+                                                                              ToolTip="{DynamicResource Language_Delete_Collection}"
+                                                                              Style="{StaticResource SoftAppear}"
+                                                                              Visibility="{Binding SelectedCollection, Converter={StaticResource NullToCollapsedConverter}}">
                                             <fwc:MaterialIcon Text="&#xE872;" FontSize="22"
                                                               Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                                         </fwc:MaterialMiniFloatingActionButton>
