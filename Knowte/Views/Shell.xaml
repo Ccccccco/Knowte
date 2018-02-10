@@ -26,5 +26,9 @@
                                ClosePressedBackground="{DynamicResource Brush_WindowButtonPressedBackground}"
                                prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
-    <Frame x:Name="ShellFrame" NavigationUIVisibility="Hidden" Navigating="ShellFrame_Navigating" VerticalAlignment="Stretch"/>
+    <Grid>
+        <Border Panel.ZIndex="1" BorderBrush="{DynamicResource Brush_WindowBorder}" BorderThickness="1"/>
+        <Frame x:Name="ShellFrame" Panel.ZIndex="1" NavigationUIVisibility="Hidden" 
+               Navigating="ShellFrame_Navigating" VerticalAlignment="Stretch"/>
+    </Grid>
 </fwc:Windows10BorderlessWindow>
