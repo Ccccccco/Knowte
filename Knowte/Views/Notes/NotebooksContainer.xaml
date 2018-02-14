@@ -5,17 +5,52 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
              xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
+             xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
              mc:Ignorable="d" 
              FontSize="{DynamicResource FontSizeNormal}"
              d:DesignHeight="300" d:DesignWidth="300"
              prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
     <DockPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+        <!-- Header -->
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="18">
             <TextBlock Text="{DynamicResource Language_Notebooks}" FontSize="{StaticResource FontSizeLarger}" 
                        Foreground="{DynamicResource Brush_NotebooksContainerTitleText}"/>
             <controls:CountLabel Content="{Binding Count}" Margin="6,0,0,6"/>
         </StackPanel>
-        <ContentControl/>
+        <!-- Body -->
+        <Grid>
+            <ListBox Margin="0,18,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotebooks}"
+                                         ItemsSource="{Binding Notebooks}" SelectedItem="{Binding SelectedNotebook}"/>
+            <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <StackPanel>
+                    <!-- Edit notebook button-->
+                    <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                              Margin="12,12,12,0" Command="{Binding EditNotebookCommand}"
+                                                                              ToolTip="{DynamicResource Language_Edit_Notebook}"
+                                                                              Style="{StaticResource SoftAppear}"
+                                                                              Visibility="{Binding SelectedNotebook, Converter={StaticResource NullToCollapsedConverter}}">
+                        <fwc:MaterialIcon Text="&#xE254;" FontSize="22"
+                                                              Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                    </fwc:MaterialMiniFloatingActionButton>
+                    <!-- Delete notebook button-->
+                    <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                              Margin="12,12,12,0" Command="{Binding DeleteNotebookCommand}"
+                                                                              ToolTip="{DynamicResource Language_Delete_Notebook}"
+                                                                              Style="{StaticResource SoftAppear}"
+                                                                              Visibility="{Binding SelectedNotebook, Converter={StaticResource NullToCollapsedConverter}}">
+                        <fwc:MaterialIcon Text="&#xE872;" FontSize="22"
+                                                              Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                    </fwc:MaterialMiniFloatingActionButton>
+                </StackPanel>
+                <!-- Add notebook button -->
+                <fwc:MaterialFloatingActionButton Accent="{DynamicResource Brush_PrimaryAccent}"
+                                                                      Margin="12" Command="{Binding AddNotebookCommand}"
+                                                                      ToolTip="{DynamicResource Language_Add_Notebook}">
+                    <fwc:MaterialIcon Text="&#xE145;" FontSize="22"
+                                                          Foreground="{DynamicResource Brush_FloatingActionButtonIcon}"/>
+                </fwc:MaterialFloatingActionButton>
+            </StackPanel>
+        </Grid>
     </DockPanel>
 </UserControl>

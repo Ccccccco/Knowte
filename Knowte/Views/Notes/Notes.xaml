@@ -21,7 +21,7 @@
                 Background="{DynamicResource Brush_NotebooksContainerBackground}" 
                 Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left"
                 BorderThickness="0,0,1,0" BorderBrush="{DynamicResource Brush_DividerLine}">
-            <views:NotebooksContainer Margin="18"/>
+            <views:NotebooksContainer/>
         </Border>
         <!-- Notes -->
         <fwc:Pivot Panel.ZIndex="1" IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" 

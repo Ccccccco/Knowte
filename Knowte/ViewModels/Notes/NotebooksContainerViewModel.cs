@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
 
 namespace Knowte.ViewModels.Notes
 {
@@ -12,5 +13,15 @@ namespace Knowte.ViewModels.Notes
             set { SetProperty<int>(ref this.count, value); }
         }
 
+        public DelegateCommand AddNotebookCommand { get; set; }
+
+        public DelegateCommand EditNotebookCommand { get; set; }
+
+        public DelegateCommand DeleteNotebookCommand { get; set; }
+
+        public NotebooksContainerViewModel()
+        {
+                    
+        }
     }
 }

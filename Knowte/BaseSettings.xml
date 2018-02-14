@@ -27,4 +27,9 @@
       <Value>False</Value>
     </Setting>
   </Namespace>
+  <Namespace Name="CollectionProvider">
+    <Setting Name="ProviderName">
+      <Value>[Default]</Value>
+    </Setting>
+  </Namespace>
 </Settings>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte", "Knowte\Knowte.csproj", "{6543FF51-3132-4C67-81F5-991460589B0B}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Services.Contracts", "Knowte.Services.Contracts\Knowte.Services.Contracts.csproj", "{F226096F-07E6-4CE3-8AE2-A3C25929A2FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Packager", "Knowte.Packager\Knowte.Packager.csproj", "{5EC0583E-9425-4995-B8BF-1FC104496F75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Plugin.Contracts", "Knowte.Plugin.Contracts\Knowte.Plugin.Contracts.csproj", "{071B3645-618F-4733-8039-2AD08711B77B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{5EC0583E-9425-4995-B8BF-1FC104496F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EC0583E-9425-4995-B8BF-1FC104496F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EC0583E-9425-4995-B8BF-1FC104496F75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{071B3645-618F-4733-8039-2AD08711B77B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{071B3645-618F-4733-8039-2AD08711B77B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{071B3645-618F-4733-8039-2AD08711B77B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{071B3645-618F-4733-8039-2AD08711B77B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

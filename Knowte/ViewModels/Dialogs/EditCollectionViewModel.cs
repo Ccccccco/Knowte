@@ -26,9 +26,9 @@ namespace Knowte.ViewModels.Dialogs
             this.dialogService = dialogService;
             this.collectionService = collectionService;
 
-            if (collection != null && collection.Collection != null)
+            if (collection != null)
             {
-                this.Title = collection.Collection.Title;
+                this.Title = collection.Title;
             }
         }
 

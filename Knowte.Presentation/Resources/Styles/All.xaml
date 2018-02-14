@@ -7,6 +7,7 @@
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/FontSizes.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/Geometries.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/ListBoxCollections.xaml" />
+        <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/ListBoxNotebooks.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/MaterialComboBox.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/MaterialTextBox.xaml" />
         <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/PivotItem.xaml" />

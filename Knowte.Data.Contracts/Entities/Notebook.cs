@@ -1,28 +1,17 @@
-﻿using Knowte.Plugin.Contracts.Collection.Entities;
-using SQLite;
-using System;
+﻿using SQLite;
 
 namespace Knowte.Data.Contracts.Entities
 {
-    public class Collection : ICollection
+    public class Notebook
     {
-        [PrimaryKey]
+        [PrimaryKey()]
         public string Id { get; set; }
 
         public string Title { get; set; }
 
-        public long IsActive { get; set; }
+        public string CollectionId { get; set; }
 
-        public Collection()
-        {
-        }
-
-        public Collection(string title, long isActive)
-        {
-            this.Id = Guid.NewGuid().ToString();
-            this.Title = title;
-            this.IsActive = isActive;
-        }
+        public long CreationDate { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -31,7 +20,7 @@ namespace Knowte.Data.Contracts.Entities
                 return false;
             }
 
-            return this.Id.Equals(((Collection)obj).Id);
+            return this.Id.Equals(((Notebook)obj).Id);
         }
 
         public override int GetHashCode()

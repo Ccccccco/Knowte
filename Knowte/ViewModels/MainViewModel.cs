@@ -154,7 +154,7 @@ namespace Knowte.ViewModels
         {
             if (this.dialogService.ShowConfirmation(
                 ResourceUtils.GetString("Language_Delete_Collection"),
-                ResourceUtils.GetString("Language_Delete_Collection_Confirm").Replace("{collection}", this.SelectedCollection.Collection.Title),
+                ResourceUtils.GetString("Language_Delete_Collection_Confirm").Replace("{collection}", this.SelectedCollection.Title),
                 ResourceUtils.GetString("Language_Yes"),
                 ResourceUtils.GetString("Language_No")))
             {
@@ -171,7 +171,7 @@ namespace Knowte.ViewModels
         private async void GetCollectionsAsync()
         {
             // Remember the selected bank account
-            string selectedCollectionId = this.SelectedCollection != null ? this.SelectedCollection.Collection.Id : string.Empty;
+            string selectedCollectionId = this.SelectedCollection != null ? this.SelectedCollection.Id : string.Empty;
 
             this.Collections = new ObservableCollection<CollectionViewModel>(await this.collectionService.GetCollectionsAsync());
 
@@ -179,7 +179,7 @@ namespace Knowte.ViewModels
             this.ActiveCollection = null;
             this.SelectedCollection = null;
             this.ActiveCollection = this.Collections.Where(c => c.IsActive).FirstOrDefault();
-            this.SelectedCollection = this.Collections.Where(c => c.Collection.Id.Equals(selectedCollectionId)).FirstOrDefault();
+            this.SelectedCollection = this.Collections.Where(c => c.Id.Equals(selectedCollectionId)).FirstOrDefault();
         }
     }
 }

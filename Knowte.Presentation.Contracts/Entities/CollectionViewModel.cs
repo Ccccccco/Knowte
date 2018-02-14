@@ -1,17 +1,20 @@
-﻿using Knowte.Data.Contracts.Entities;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 
 namespace Knowte.Presentation.Contracts.Entities
 {
     public class CollectionViewModel : BindableBase
     {
-        public Collection Collection { get; private set; }
+        public string Id { get; private set; }
 
-        public bool IsActive => this.Collection.IsActive.Equals(1) ? true : false;
+        public string Title { get; private set; }
 
-        public CollectionViewModel(Collection Collection)
+        public bool IsActive { get; private set; }
+
+        public CollectionViewModel(string id, string title, long isActive)
         {
-            this.Collection = Collection;
+            this.Id = id;
+            this.Title = title;
+            this.IsActive = isActive.Equals(1) ? true : false;
         }
 
         public override bool Equals(object obj)
@@ -21,17 +24,17 @@ namespace Knowte.Presentation.Contracts.Entities
                 return false;
             }
 
-            return this.Collection.Id.Equals(((CollectionViewModel)obj).Collection.Id);
+            return this.Id.Equals(((CollectionViewModel)obj).Id);
         }
 
         public override int GetHashCode()
         {
-            return this.Collection.GetHashCode();
+            return this.Id.GetHashCode();
         }
 
         public override string ToString()
         {
-            return this.Collection.Title;
+            return this.Title;
         }
     }
 }

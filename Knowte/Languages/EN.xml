@@ -58,4 +58,7 @@
   <Text Key="This_Week">This week</Text>
   <Text Key="Marked">Marked</Text>
   <Text Key="Notebooks">Notebooks</Text>
+  <Text Key="Edit_Notebook">Edit notebook</Text>
+  <Text Key="Delete_Notebook">Delete notebook</Text>
+  <Text Key="Add_Notebook">Add notebook</Text>
 </Language>
