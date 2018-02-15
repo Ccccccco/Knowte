@@ -1,6 +1,7 @@
 ﻿using Digimezzo.Foundation.Core.Logging;
 using Knowte.Plugin.Contracts.Collection.Entities;
 using Knowte.Presentation.Contracts.Entities;
+using Knowte.Services.Contracts.App;
 using Knowte.Services.Contracts.Collection;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Knowte.Services.Collection
 {
     public class CollectionService : ICollectionService
     {
+        private IAppService appService;
+
         // ProviderName doesn't matter here (it won't appear in the list of available services)
         public string ProviderName => string.Empty;
 
@@ -21,8 +24,9 @@ namespace Knowte.Services.Collection
         public event CollectionChangedEventHandler CollectionDeleted = delegate { };
         public event CollectionChangedEventHandler ActiveCollectionChanged = delegate { };
 
-        public CollectionService()
+        public CollectionService(IAppService appService)
         {
+            this.appService = appService;
             this.importer.DoImport();
         }
 
@@ -40,6 +44,7 @@ namespace Knowte.Services.Collection
                 return false;
             }
 
+            this.appService.IsBusy = true;
 
             bool activateSuccess = false;
 
@@ -55,11 +60,14 @@ namespace Knowte.Services.Collection
             if (!activateSuccess)
             {
                 LogClient.Error($"Activate failed. {nameof(collection.Id)}={collection.Id}");
+                this.appService.IsBusy = false;
+
                 return false;
             }
 
             this.ActiveCollectionChanged(this, new CollectionChangedEventArgs(collection.Id));
             LogClient.Info($"Activate successful. {nameof(collection.Id)}={collection.Id}");
+            this.appService.IsBusy = false;
 
             return true;
         }
@@ -71,6 +79,8 @@ namespace Knowte.Services.Collection
                 LogClient.Error($"{nameof(title)} is empty");
                 return ChangeCollectionResult.Invalid;
             }
+
+            this.appService.IsBusy = true;
 
             string existingCollectionId = string.Empty;
 
@@ -86,6 +96,8 @@ namespace Knowte.Services.Collection
             if (!string.IsNullOrEmpty(existingCollectionId))
             {
                 LogClient.Error($"There is already a collection with the title '{title}'");
+                this.appService.IsBusy = false;
+
                 return ChangeCollectionResult.Duplicate;
             }
 
@@ -103,11 +115,14 @@ namespace Knowte.Services.Collection
             if (string.IsNullOrEmpty(collectionId))
             {
                 LogClient.Error($"Add failed. {nameof(collectionId)} is empty");
+                this.appService.IsBusy = false;
+
                 return ChangeCollectionResult.Error;
             }
 
             this.CollectionAdded(this, new CollectionChangedEventArgs(collectionId));
             LogClient.Info($"Add successful. {nameof(title)}={title}");
+            this.appService.IsBusy = false;
 
             return ChangeCollectionResult.Ok;
         }
@@ -126,6 +141,8 @@ namespace Knowte.Services.Collection
                 return false;
             }
 
+            this.appService.IsBusy = true;
+
             bool deleteSuccess = false;
 
             try
@@ -140,11 +157,14 @@ namespace Knowte.Services.Collection
             if (!deleteSuccess)
             {
                 LogClient.Error($"Delete failed. {nameof(collection.Id)}={collection.Id}");
+                this.appService.IsBusy = false;
+
                 return false;
             }
 
             this.CollectionDeleted(this, new CollectionChangedEventArgs(collection.Id));
             LogClient.Info($"Delete successful. {nameof(collection.Id)}={collection.Id}");
+            this.appService.IsBusy = false;
 
             return true;
         }
@@ -175,6 +195,8 @@ namespace Knowte.Services.Collection
                 return ChangeCollectionResult.Invalid;
             }
 
+            this.appService.IsBusy = true;
+
             string existingCollectionId = string.Empty;
 
             try
@@ -189,10 +211,13 @@ namespace Knowte.Services.Collection
             if (!string.IsNullOrEmpty(existingCollectionId))
             {
                 LogClient.Error($"Collection with {nameof(title)}={title} already exists");
+                this.appService.IsBusy = false;
+
                 return ChangeCollectionResult.Duplicate;
             }
 
             bool editSuccess = false;
+
             try
             {
                 editSuccess = await this.importer.GetProvider().EditCollectionAsync(collection.Id, title);
@@ -205,17 +230,22 @@ namespace Knowte.Services.Collection
             if (!editSuccess)
             {
                 LogClient.Error($"Edit failed. {nameof(collection.Id)}={collection.Id}, {nameof(title)}={title}");
+                this.appService.IsBusy = false;
+
                 return ChangeCollectionResult.Error;
             }
 
             this.CollectionEdited(this, new CollectionChangedEventArgs(collection.Id));
             LogClient.Info($"Edit success. {nameof(collection.Id)}={collection.Id}, {nameof(title)}={title}");
+            this.appService.IsBusy = false;
 
             return ChangeCollectionResult.Ok;
         }
 
         public async Task<List<CollectionViewModel>> GetCollectionsAsync()
         {
+            this.appService.IsBusy = true;
+
             List<ICollection> collections = null;
 
             try
@@ -230,6 +260,8 @@ namespace Knowte.Services.Collection
             if (collections == null || collections.Count.Equals(0))
             {
                 LogClient.Error($"{nameof(collections)} is null or empty");
+                this.appService.IsBusy = false;
+
                 return new List<CollectionViewModel>();
             }
 
@@ -239,6 +271,8 @@ namespace Knowte.Services.Collection
             {
                 collectionViewModels.Add(new CollectionViewModel(collection.Id, collection.Title, collection.IsActive));
             }
+
+            this.appService.IsBusy = false;
 
             return collectionViewModels.OrderBy(c => c.Title).ToList();
         }

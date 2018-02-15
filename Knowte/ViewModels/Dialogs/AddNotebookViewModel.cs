@@ -6,63 +6,49 @@ using System.Threading.Tasks;
 
 namespace Knowte.ViewModels.Dialogs
 {
-    public class AddCollectionViewModel : BindableBase
+    public class AddNotebookViewModel : BindableBase
     {
-        private string title;
-        private bool activate;
         private IDialogService dialogService;
         private ICollectionService collectionService;
 
-        public string Title
-        {
-            get { return this.title; }
-            set { SetProperty<string>(ref this.title, value); }
-        }
-
-        public bool Activate
-        {
-            get { return this.activate; }
-            set { SetProperty<bool>(ref this.activate, value); }
-        }
-
-        public AddCollectionViewModel(IDialogService dialogService, ICollectionService collectionService)
+        public AddNotebookViewModel(IDialogService dialogService, ICollectionService collectionService)
         {
             this.dialogService = dialogService;
             this.collectionService = collectionService;
         }
 
-        public async Task<bool> AddCollectionAsync()
+        public async Task<bool> AddNotebookAsync()
         {
-            ChangeCollectionResult result = ChangeCollectionResult.Ok;
+            ChangeNotebookResult result = ChangeNotebookResult.Ok;
 
-            result = await this.collectionService.AddCollectionAsync(this.title, this.activate);
+            result = await this.collectionService.AddNotebookAsync(this.title);
 
             switch (result)
             {
-                case ChangeCollectionResult.Invalid:
+                case ChangeNotebookResult.Invalid:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Add_Failed"),
-                        ResourceUtils.GetString("Language_Please_Provide_Title_For_Collection"),
+                        ResourceUtils.GetString("Language_Please_Provide_Title_For_Notebook"),
                         ResourceUtils.GetString("Language_Ok"), false, string.Empty);
                     break;
-                case ChangeCollectionResult.Duplicate:
+                case ChangeNotebookResult.Duplicate:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Add_Failed"),
-                        ResourceUtils.GetString("Language_Collection_With_Title_Already_Exists"),
+                        ResourceUtils.GetString("Language_Notebook_With_Title_Already_Exists"),
                         ResourceUtils.GetString("Language_Ok"), false, string.Empty);
                     break;
-                case ChangeCollectionResult.Error:
+                case ChangeNotebookResult.Error:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Add_Failed"),
-                        ResourceUtils.GetString("Language_Could_Not_Add_Collection_Check_Log_File"),
+                        ResourceUtils.GetString("Language_Could_Not_Add_Notebook_Check_Log_File"),
                         ResourceUtils.GetString("Language_Ok"), true, ResourceUtils.GetString("Language_Log_File"));
                     break;
-                case ChangeCollectionResult.Ok:
+                case ChangeNotebookResult.Ok:
                 default:
                     break;
             }
 
-            return result.Equals(ChangeCollectionResult.Ok);
+            return result.Equals(ChangeNotebookResult.Ok);
         }
     }
 }

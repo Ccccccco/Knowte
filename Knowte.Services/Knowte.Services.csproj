@@ -65,6 +65,7 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Appearance\AppearanceService.cs" />
+    <Compile Include="App\AppService.cs" />
     <Compile Include="Collection\CollectionService.cs" />
     <Compile Include="Collection\CollectionProviderDefault.cs" />
     <Compile Include="Collection\CollectionProviderImporter.cs" />

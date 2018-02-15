@@ -63,7 +63,8 @@
     <SolidColorBrush x:Key="Brush_NotebooksContainerTitleText" Color="{StaticResource Color_VeryLightGrey}"/>
     <SolidColorBrush x:Key="Brush_NotesContainerTitleText" Color="{StaticResource Color_VeryLightGrey}"/>
     <SolidColorBrush x:Key="Brush_WindowBorder" Color="{StaticResource Color_VeryVeryLightGrey}"/>
-    
+    <SolidColorBrush x:Key="Brush_BusyIndicatorBackground" Color="{StaticResource Color_White}"/>
+
     <LinearGradientBrush x:Key="Brush_WelcomeBackground" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Color="{StaticResource Color_Grey}" Offset="0.0" />
         <GradientStop Color="{StaticResource Color_GreyAlt}" Offset="1.0" />

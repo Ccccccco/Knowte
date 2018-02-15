@@ -27,7 +27,17 @@
                                prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
-        <Border Panel.ZIndex="1" BorderBrush="{DynamicResource Brush_WindowBorder}" BorderThickness="1"/>
+        <Border x:Name="BusyIndicatorBorder" Panel.ZIndex="2" Background="#00000000" 
+                Visibility="{Binding IsBusyIndicatorVisible,Converter={StaticResource BooleanToCollapsedConverter}}">
+            <Border Background="{DynamicResource Brush_BusyIndicatorBackground}" Width="60" Height="60" CornerRadius="30">
+                <fwc:MaterialCircularProgressBar Width="40" Height="40" VerticalAlignment="Center" StrokeThickness="4"
+                                                 Accent="{DynamicResource Brush_PrimaryAccent}" IsIndeterminate="True"/>
+                <Border.Effect>
+                    <DropShadowEffect x:Name="shadow" BlurRadius="6" ShadowDepth="2" Color="Black" Opacity="0.5"/>
+                </Border.Effect>
+            </Border>
+        </Border>
+        <Border x:Name="WindowBorder" Panel.ZIndex="1" BorderBrush="{DynamicResource Brush_WindowBorder}" BorderThickness="1"/>
         <Frame x:Name="ShellFrame" Panel.ZIndex="1" NavigationUIVisibility="Hidden" 
                Navigating="ShellFrame_Navigating" VerticalAlignment="Stretch"/>
     </Grid>

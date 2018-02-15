@@ -61,4 +61,5 @@
   <Text Key="Edit_Notebook">Edit notebook</Text>
   <Text Key="Delete_Notebook">Delete notebook</Text>
   <Text Key="Add_Notebook">Add notebook</Text>
+  <Text Key="Provide_A_Title_For_Notebook">Provide a title for your notebook</Text>
 </Language>

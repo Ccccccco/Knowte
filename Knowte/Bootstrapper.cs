@@ -5,10 +5,12 @@ using Knowte.Data;
 using Knowte.Data.Contracts;
 using Knowte.Data.Contracts.Repositories;
 using Knowte.Data.Repositories;
+using Knowte.Services.App;
 using Knowte.Services.Appearance;
 using Knowte.Services.Collection;
 using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Constracts.I18n;
+using Knowte.Services.Contracts.App;
 using Knowte.Services.Contracts.Appearance;
 using Knowte.Services.Contracts.Collection;
 using Knowte.Services.Dialog;
@@ -50,6 +52,7 @@ namespace Knowte
         private void RegisterServices()
         {
             Container.RegisterSingletonType<IDialogService, DialogService>();
+            Container.RegisterSingletonType<IAppService, AppService>();
             Container.RegisterSingletonType<II18nService, I18nService>();
             Container.RegisterSingletonType<IAppearanceService, AppearanceService>();
             Container.RegisterSingletonType<ICollectionService, CollectionService>();

@@ -107,6 +107,7 @@
     <Compile Include="Initializer.cs" />
     <Compile Include="SharedAssemblyInfo.cs" />
     <Compile Include="ViewModels\Dialogs\AddCollectionViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AddNotebookViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditCollectionViewModel.cs" />
     <Compile Include="ViewModels\Information\InformationViewModel.cs" />
     <Compile Include="ViewModels\InitializeViewModel.cs" />
@@ -118,6 +119,9 @@
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="Views\Dialogs\AddCollection.xaml.cs">
       <DependentUpon>AddCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\AddNotebook.xaml.cs">
+      <DependentUpon>AddNotebook.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\EditCollection.xaml.cs">
       <DependentUpon>EditCollection.xaml</DependentUpon>
@@ -165,6 +169,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Dialogs\AddCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\AddNotebook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
