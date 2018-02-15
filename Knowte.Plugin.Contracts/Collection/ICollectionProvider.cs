@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace Knowte.Plugin.Contracts.Collection
 {
+    /// <summary>
+    /// Implement this interface to create a plugin that is able to store notes in any alternative location.
+    /// Instructions on how to write plugins, can be found in the file: "How to write plugins.md" in this project.
+    /// </summary>
     public interface ICollectionProvider
     {
         /// <summary>
