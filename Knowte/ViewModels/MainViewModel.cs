@@ -154,7 +154,7 @@ namespace Knowte.ViewModels
         {
             if (this.dialogService.ShowConfirmation(
                 ResourceUtils.GetString("Language_Delete_Collection"),
-                ResourceUtils.GetString("Language_Delete_Collection_Confirm").Replace("{collection}", this.SelectedCollection.Title),
+                ResourceUtils.GetString("Language_Delete_Collection_Confirm").Replace("{collection}", this.selectedCollection.Title),
                 ResourceUtils.GetString("Language_Yes"),
                 ResourceUtils.GetString("Language_No")))
             {

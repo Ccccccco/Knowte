@@ -56,5 +56,10 @@ namespace Knowte.Services.Collection
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<bool> DeleteNotebookAsync(string notebookId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

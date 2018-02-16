@@ -408,5 +408,47 @@ namespace Knowte.Services.Collection
 
             return ChangeNotebookResult.Ok;
         }
+
+        public async Task<bool> DeleteNotebookAsync(NotebookViewModel notebook)
+        {
+            if (notebook == null)
+            {
+                LogClient.Error($"{nameof(notebook)} is null");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(notebook.Id))
+            {
+                LogClient.Error($"{nameof(notebook.Id)} is null or empty");
+                return false;
+            }
+
+            this.appService.IsBusy = true;
+
+            bool deleteSuccess = false;
+
+            try
+            {
+                deleteSuccess = await this.importer.GetProvider().DeleteNotebookAsync(notebook.Id);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"Delete failed. Exception: {ex.Message}");
+            }
+
+            if (!deleteSuccess)
+            {
+                LogClient.Error($"Delete failed. {nameof(notebook.Id)}={notebook.Id}");
+                this.appService.IsBusy = false;
+
+                return false;
+            }
+
+            this.NotebookDeleted(this, new NotebookChangedEventArgs(notebook.Id));
+            LogClient.Info($"Delete successful. {nameof(notebook.Id)}={notebook.Id}");
+            this.appService.IsBusy = false;
+
+            return true;
+        }
     }
 }

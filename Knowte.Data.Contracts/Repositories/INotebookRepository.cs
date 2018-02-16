@@ -10,5 +10,7 @@ namespace Knowte.Data.Contracts.Repositories
         Task<string> AddNotebookAsync(string title);
 
         Task<bool> EditNotebookAsync(string notebookId, string title);
+
+        Task<bool> DeleteNotebookAsync(string notebookId);
     }
 }

@@ -107,5 +107,36 @@ namespace Knowte.Data.Repositories
 
             return notebook;
         }
+
+        public async Task<bool> DeleteNotebookAsync(string notebookId)
+        {
+            bool isSuccess = false;
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (var conn = this.factory.GetConnection())
+                    {
+                        try
+                        {
+                            conn.Execute("DELETE FROM Notebook WHERE Id = ?;", notebookId);
+
+                            isSuccess = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            LogClient.Error($"Could not delete the notebook. {nameof(notebookId)}={notebookId}. Exception: {ex.Message}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                }
+            });
+
+            return isSuccess;
+        }
     }
 }

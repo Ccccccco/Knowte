@@ -85,5 +85,10 @@ namespace Knowte.Services.Collection
         {
             return await this.notebookRepository.EditNotebookAsync(notebookId, title);
         }
+
+        public async Task<bool> DeleteNotebookAsync(string notebookId)
+        {
+            return await this.notebookRepository.DeleteNotebookAsync(notebookId);
+        }
     }
 }
