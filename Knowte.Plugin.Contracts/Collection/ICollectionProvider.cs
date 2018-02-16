@@ -57,5 +57,27 @@ namespace Knowte.Plugin.Contracts.Collection
         /// </summary>
         /// <returns>A list of all collections</returns>
         Task<List<ICollection>> GetCollectionsAsync();
+
+        /// <summary>
+        /// Get notebookId based on the notebook title
+        /// </summary>
+        /// <param name="title">The notebook title</param>
+        /// <returns>The notebookId if the notebook was found. An empty string if the notebook was not found.</returns>
+        Task<string> GetNotebookIdAsync(string title);
+
+        /// <summary>
+        /// Adds a notebook based on its title
+        /// </summary>
+        /// <param name="title">The notebook title</param>
+        /// <returns>The notebookId if successful. An empty string if failure.</returns>
+        Task<string> AddNotebookAsync(string title);
+
+        /// <summary>
+        /// Edits the title of a notebook based on notebookId
+        /// </summary>
+        /// <param name="notebookId">The notebookId</param>
+        /// <param name="title">The new title for the notebook</param>
+        /// <returns>True if successful</returns>
+        Task<bool> EditNotebookAsync(string notebookId, string title);
     }
 }

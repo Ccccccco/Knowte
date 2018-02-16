@@ -1,4 +1,5 @@
 ﻿using Knowte.Data;
+using Knowte.Data.Contracts.Entities;
 using Knowte.Data.Contracts.Repositories;
 using Knowte.Data.Repositories;
 using Knowte.Plugin.Contracts.Collection;
@@ -14,12 +15,14 @@ namespace Knowte.Services.Collection
     public class CollectionProviderDefault : ICollectionProvider
     {
         private ICollectionRepository collectionRepository;
+        private INotebookRepository notebookRepository;
 
         public string ProviderName => "[Default]";
 
         public CollectionProviderDefault()
         {
             this.collectionRepository = new CollectionRepository(new SQLiteConnectionFactory());
+            this.notebookRepository = new NotebookRepository(new SQLiteConnectionFactory());
         }
 
         public async Task<bool> ActivateCollectionAsync(string collectionId)
@@ -59,6 +62,28 @@ namespace Knowte.Services.Collection
             List<Data.Contracts.Entities.Collection> collections = await this.collectionRepository.GetCollectionsAsync();
 
             return collections.Cast<ICollection>().ToList();
+        }
+
+        public async Task<string> GetNotebookIdAsync(string title)
+        {
+            Notebook notebook = await this.notebookRepository.GetNotebookAsync(title);
+
+            if (notebook == null)
+            {
+                return string.Empty;
+            }
+
+            return notebook.Id;
+        }
+
+        public async Task<string> AddNotebookAsync(string title)
+        {
+            return await this.notebookRepository.AddNotebookAsync(title);
+        }
+
+        public async Task<bool> EditNotebookAsync(string notebookId, string title)
+        {
+            return await this.notebookRepository.EditNotebookAsync(notebookId, title);
         }
     }
 }

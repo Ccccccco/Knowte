@@ -21,34 +21,34 @@
         <!-- Body -->
         <Grid>
             <ListBox Margin="0,18,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotebooks}"
-                                         ItemsSource="{Binding Notebooks}" SelectedItem="{Binding SelectedNotebook}"/>
+                     ItemsSource="{Binding Notebooks}" SelectedItem="{Binding SelectedNotebook}"/>
             <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <StackPanel>
                     <!-- Edit notebook button-->
                     <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                              Margin="12,12,12,0" Command="{Binding EditNotebookCommand}"
-                                                                              ToolTip="{DynamicResource Language_Edit_Notebook}"
-                                                                              Style="{StaticResource SoftAppear}"
-                                                                              Visibility="{Binding SelectedNotebook, Converter={StaticResource NullToCollapsedConverter}}">
+                                                          Margin="12,12,12,0" Command="{Binding EditNotebookCommand}"
+                                                          ToolTip="{DynamicResource Language_Edit_Notebook}"
+                                                          Style="{StaticResource SoftAppear}"
+                                                          Visibility="{Binding SelectedNotebook, Converter={StaticResource NullToCollapsedConverter}}">
                         <fwc:MaterialIcon Text="&#xE254;" FontSize="22"
-                                                              Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                          Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                     </fwc:MaterialMiniFloatingActionButton>
                     <!-- Delete notebook button-->
                     <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                              Margin="12,12,12,0" Command="{Binding DeleteNotebookCommand}"
-                                                                              ToolTip="{DynamicResource Language_Delete_Notebook}"
-                                                                              Style="{StaticResource SoftAppear}"
-                                                                              Visibility="{Binding SelectedNotebook, Converter={StaticResource NullToCollapsedConverter}}">
+                                                          Margin="12,12,12,0" Command="{Binding DeleteNotebookCommand}"
+                                                          ToolTip="{DynamicResource Language_Delete_Notebook}"
+                                                          Style="{StaticResource SoftAppear}"
+                                                          Visibility="{Binding SelectedNotebook, Converter={StaticResource NullToCollapsedConverter}}">
                         <fwc:MaterialIcon Text="&#xE872;" FontSize="22"
-                                                              Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                                          Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                     </fwc:MaterialMiniFloatingActionButton>
                 </StackPanel>
                 <!-- Add notebook button -->
                 <fwc:MaterialFloatingActionButton Accent="{DynamicResource Brush_PrimaryAccent}"
-                                                                      Margin="12" Command="{Binding AddNotebookCommand}"
-                                                                      ToolTip="{DynamicResource Language_Add_Notebook}">
+                                                  Margin="12" Command="{Binding AddNotebookCommand}"
+                                                  ToolTip="{DynamicResource Language_Add_Notebook}">
                     <fwc:MaterialIcon Text="&#xE145;" FontSize="22"
-                                                          Foreground="{DynamicResource Brush_FloatingActionButtonIcon}"/>
+                                      Foreground="{DynamicResource Brush_FloatingActionButtonIcon}"/>
                 </fwc:MaterialFloatingActionButton>
             </StackPanel>
         </Grid>

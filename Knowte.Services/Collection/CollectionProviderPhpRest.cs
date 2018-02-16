@@ -41,5 +41,20 @@ namespace Knowte.Services.Collection
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<string> GetNotebookIdAsync(string title)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<string> AddNotebookAsync(string title)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<bool> EditNotebookAsync(string notebookId, string title)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

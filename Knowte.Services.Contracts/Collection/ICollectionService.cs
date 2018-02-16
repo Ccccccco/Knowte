@@ -14,6 +14,10 @@ namespace Knowte.Services.Contracts.Collection
         event CollectionChangedEventHandler CollectionDeleted;
         event CollectionChangedEventHandler ActiveCollectionChanged;
 
+        event NotebookChangedEventHandler NotebookAdded;
+        event NotebookChangedEventHandler NotebookEdited;
+        event NotebookChangedEventHandler NotebookDeleted;
+
         Task<List<CollectionViewModel>> GetCollectionsAsync();
 
         Task<ChangeCollectionResult> AddCollectionAsync(string title, bool isActive);
@@ -23,5 +27,9 @@ namespace Knowte.Services.Contracts.Collection
         Task<bool> ActivateCollectionAsync(CollectionViewModel collection);
 
         Task<bool> DeleteCollectionAsync(CollectionViewModel collection);
+
+        Task<ChangeNotebookResult> AddNotebookAsync(string title);
+
+        Task<ChangeNotebookResult> EditNotebookAsync(NotebookViewModel notebook, string title);
     }
 }

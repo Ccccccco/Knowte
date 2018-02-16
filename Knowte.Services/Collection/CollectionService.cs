@@ -24,6 +24,10 @@ namespace Knowte.Services.Collection
         public event CollectionChangedEventHandler CollectionDeleted = delegate { };
         public event CollectionChangedEventHandler ActiveCollectionChanged = delegate { };
 
+        public event NotebookChangedEventHandler NotebookAdded = delegate { };
+        public event NotebookChangedEventHandler NotebookEdited = delegate { };
+        public event NotebookChangedEventHandler NotebookDeleted = delegate { };
+
         public CollectionService(IAppService appService)
         {
             this.appService = appService;
@@ -275,6 +279,134 @@ namespace Knowte.Services.Collection
             this.appService.IsBusy = false;
 
             return collectionViewModels.OrderBy(c => c.Title).ToList();
+        }
+
+        public async Task<ChangeNotebookResult> AddNotebookAsync(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                LogClient.Error($"{nameof(title)} is empty");
+                return ChangeNotebookResult.Invalid;
+            }
+
+            this.appService.IsBusy = true;
+
+            string existingNotebookId = string.Empty;
+
+            try
+            {
+                existingNotebookId = await this.importer.GetProvider().GetNotebookIdAsync(title);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"Add failed. Exception: {ex.Message}");
+            }
+
+            if (!string.IsNullOrEmpty(existingNotebookId))
+            {
+                LogClient.Error($"There is already a notebook with the title '{title}'");
+                this.appService.IsBusy = false;
+
+                return ChangeNotebookResult.Duplicate;
+            }
+
+            string notebookId = string.Empty;
+
+            try
+            {
+                notebookId = await this.importer.GetProvider().AddNotebookAsync(title);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"Add failed. Exception: {ex.Message}");
+            }
+
+            if (string.IsNullOrEmpty(notebookId))
+            {
+                LogClient.Error($"Add failed. {nameof(notebookId)} is empty");
+                this.appService.IsBusy = false;
+
+                return ChangeNotebookResult.Error;
+            }
+
+            this.NotebookAdded(this, new NotebookChangedEventArgs(notebookId));
+            LogClient.Info($"Add successful. {nameof(title)}={title}");
+            this.appService.IsBusy = false;
+
+            return ChangeNotebookResult.Ok;
+        }
+
+        public async Task<ChangeNotebookResult> EditNotebookAsync(NotebookViewModel notebook, string title)
+        {
+            if (notebook == null)
+            {
+                LogClient.Error($"{nameof(notebook)} is null");
+                return ChangeNotebookResult.Invalid;
+            }
+
+            if (notebook == null)
+            {
+                LogClient.Error($"{nameof(notebook)} is null");
+                return ChangeNotebookResult.Invalid;
+            }
+
+            if (string.IsNullOrEmpty(notebook.Id))
+            {
+                LogClient.Error($"{nameof(notebook.Id)} is null or empty");
+                return ChangeNotebookResult.Invalid;
+            }
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                LogClient.Error($"{nameof(title)} is empty");
+                return ChangeNotebookResult.Invalid;
+            }
+
+            this.appService.IsBusy = true;
+
+            string existingNotebookId = string.Empty;
+
+            try
+            {
+                existingNotebookId = await this.importer.GetProvider().GetNotebookIdAsync(title);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"Edit failed. Exception: {ex.Message}");
+            }
+
+            if (!string.IsNullOrEmpty(existingNotebookId))
+            {
+                LogClient.Error($"Notebook with {nameof(title)}={title} already exists");
+                this.appService.IsBusy = false;
+
+                return ChangeNotebookResult.Duplicate;
+            }
+
+            bool editSuccess = false;
+
+            try
+            {
+                editSuccess = await this.importer.GetProvider().EditNotebookAsync(notebook.Id, title);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"Edit failed. Exception: {ex.Message}");
+            }
+
+            if (!editSuccess)
+            {
+                LogClient.Error($"Edit failed. {nameof(notebook.Id)}={notebook.Id}, {nameof(title)}={title}");
+                this.appService.IsBusy = false;
+
+                return ChangeNotebookResult.Error;
+            }
+
+            this.NotebookEdited(this, new NotebookChangedEventArgs(notebook.Id));
+            LogClient.Info($"Edit success. {nameof(notebook.Id)}={notebook.Id}, {nameof(title)}={title}");
+            this.appService.IsBusy = false;
+
+            return ChangeNotebookResult.Ok;
         }
     }
 }

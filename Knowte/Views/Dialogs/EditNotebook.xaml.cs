@@ -2,9 +2,9 @@
 
 namespace Knowte.Views.Dialogs
 {
-    public partial class EditCollection : UserControl
+    public partial class EditNotebook : UserControl
     {
-        public EditCollection()
+        public EditNotebook()
         {
             InitializeComponent();
         }

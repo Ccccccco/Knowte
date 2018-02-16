@@ -17,10 +17,13 @@
 
     <Grid>
         <!-- Notebooks -->
-        <Border x:Name="NotebooksContainer" Panel.ZIndex="0" Margin="1,38,0,1" 
+        <Border x:Name="NotebooksContainerBackground" Panel.ZIndex="0" Margin="1,38,0,1" 
                 Background="{DynamicResource Brush_NotebooksContainerBackground}" 
                 Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left"
-                BorderThickness="0,0,1,0" BorderBrush="{DynamicResource Brush_DividerLine}">
+                BorderThickness="0,0,1,0" BorderBrush="{DynamicResource Brush_DividerLine}"/>
+        <Border x:Name="NotebooksContainerContent" Panel.ZIndex="2" Margin="1,38,0,1" 
+                Background="Transparent" 
+                Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left">
             <views:NotebooksContainer/>
         </Border>
         <!-- Notes -->
@@ -34,7 +37,7 @@
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemAll}"/>
                 </fwc:PivotItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
-                 
+
                 </ScrollViewer>
             </fwc:PivotItem>
             <!-- Today -->
@@ -44,7 +47,7 @@
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemToday}"/>
                 </fwc:PivotItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
-                   
+
                 </ScrollViewer>
             </fwc:PivotItem>
             <!-- Yesterday -->
@@ -54,7 +57,7 @@
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemYesterday}"/>
                 </fwc:PivotItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
-                   
+
                 </ScrollViewer>
             </fwc:PivotItem>
             <!-- This week -->
@@ -64,7 +67,7 @@
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemThisWeek}"/>
                 </fwc:PivotItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
-                    
+
                 </ScrollViewer>
             </fwc:PivotItem>
             <!-- Marked -->
@@ -74,7 +77,7 @@
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemMarked}"/>
                 </fwc:PivotItem.Header>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
-                   
+
                 </ScrollViewer>
             </fwc:PivotItem>
         </fwc:Pivot>

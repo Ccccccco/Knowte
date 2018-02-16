@@ -197,7 +197,7 @@ namespace Knowte.Data.Repositories
                         }
                         catch (Exception ex)
                         {
-                            LogClient.Error($"Could activate the collection. {nameof(collectionId)}={collectionId}, {nameof(title)}={title}. Exception: {ex.Message}");
+                            LogClient.Error($"Could edit the collection. {nameof(collectionId)}={collectionId}, {nameof(title)}={title}. Exception: {ex.Message}");
                         }
                     }
                 }
