@@ -33,5 +33,7 @@ namespace Knowte.Services.Contracts.Collection
         Task<ChangeNotebookResult> EditNotebookAsync(NotebookViewModel notebook, string title);
 
         Task<bool> DeleteNotebookAsync(NotebookViewModel notebook);
+
+        Task<List<NotebookViewModel>> GetNotebooksAsync();
     }
 }

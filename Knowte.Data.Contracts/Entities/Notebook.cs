@@ -1,9 +1,10 @@
-﻿using SQLite;
+﻿using Knowte.Plugin.Contracts.Collection.Entities;
+using SQLite;
 using System;
 
 namespace Knowte.Data.Contracts.Entities
 {
-    public class Notebook
+    public class Notebook : INotebook
     {
         [PrimaryKey()]
         public string Id { get; set; }

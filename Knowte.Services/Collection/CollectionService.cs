@@ -450,5 +450,40 @@ namespace Knowte.Services.Collection
 
             return true;
         }
+
+        public async Task<List<NotebookViewModel>> GetNotebooksAsync()
+        {
+            this.appService.IsBusy = true;
+
+            List<INotebook> notebooks = null;
+
+            try
+            {
+                notebooks = await this.importer.GetProvider().GetNotebooksAsync();
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"Get failed. Exception: {ex.Message}");
+            }
+
+            if (notebooks == null || notebooks.Count.Equals(0))
+            {
+                LogClient.Error($"{nameof(notebooks)} is null or empty");
+                this.appService.IsBusy = false;
+
+                return new List<NotebookViewModel>();
+            }
+
+            var notebookViewModels = new List<NotebookViewModel>();
+
+            foreach (Data.Contracts.Entities.Notebook notebook in notebooks)
+            {
+                notebookViewModels.Add(new NotebookViewModel(notebook.Id, notebook.Title));
+            }
+
+            this.appService.IsBusy = false;
+
+            return notebookViewModels.OrderBy(n => n.Title).ToList();
+        }
     }
 }

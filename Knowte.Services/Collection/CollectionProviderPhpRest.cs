@@ -61,5 +61,10 @@ namespace Knowte.Services.Collection
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<List<INotebook>> GetNotebooksAsync()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

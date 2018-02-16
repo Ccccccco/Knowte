@@ -7,8 +7,9 @@ using Knowte.Views.Dialogs;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Knowte.ViewModels.Notes
 {
@@ -42,6 +43,8 @@ namespace Knowte.ViewModels.Notes
             }
         }
 
+        public DelegateCommand LoadedCommand { get; set; }
+
         public DelegateCommand AddNotebookCommand { get; set; }
 
         public DelegateCommand EditNotebookCommand { get; set; }
@@ -54,12 +57,14 @@ namespace Knowte.ViewModels.Notes
             this.dialogService = dialogService;
             this.collectionService = collectionService;
 
-            this.AddNotebookCommand = new DelegateCommand(() => this.AddNotebookCommandHandler());
-            this.EditNotebookCommand = new DelegateCommand(() => this.EditNotebookCommandHandler());
-            this.DeleteNotebookCommand = new DelegateCommand(() => this.DeleteNotebookCommandHandler());
+            this.LoadedCommand = new DelegateCommand(async() => await this.GetNotebooksAsync());
+
+            this.AddNotebookCommand = new DelegateCommand(() => this.AddNotebook());
+            this.EditNotebookCommand = new DelegateCommand(() => this.EditNotebook());
+            this.DeleteNotebookCommand = new DelegateCommand(async() => await this.DeleteNotebookAsync());
         }
 
-        private void AddNotebookCommandHandler()
+        private void AddNotebook()
         {
             AddNotebook view = this.container.Resolve<AddNotebook>();
             AddNotebookViewModel viewModel = this.container.Resolve<AddNotebookViewModel>();
@@ -79,7 +84,7 @@ namespace Knowte.ViewModels.Notes
                 async () => await viewModel.AddNotebookAsync());
         }
 
-        private void EditNotebookCommandHandler()
+        private void EditNotebook()
         {
             EditNotebook view = this.container.Resolve<EditNotebook>();
             EditNotebookViewModel viewModel = this.container.Resolve<EditNotebookViewModel>(new DependencyOverride(typeof(NotebookViewModel), this.SelectedNotebook));
@@ -99,7 +104,7 @@ namespace Knowte.ViewModels.Notes
                 async () => await viewModel.EditNotebookAsync());
         }
 
-        private async void DeleteNotebookCommandHandler()
+        private async Task DeleteNotebookAsync()
         {
             if (this.dialogService.ShowConfirmation(
                  ResourceUtils.GetString("Language_Delete_Notebook"),
@@ -115,6 +120,18 @@ namespace Knowte.ViewModels.Notes
                             ResourceUtils.GetString("Language_Ok"), true, ResourceUtils.GetString("Language_Log_File"));
                 }
             }
+        }
+
+        private async Task GetNotebooksAsync()
+        {
+            // Remember the selected notebook
+            string selectedNotebookId = this.selectedNotebook != null ? this.selectedNotebook.Id : string.Empty;
+
+            this.Notebooks = new ObservableCollection<NotebookViewModel>(await this.collectionService.GetNotebooksAsync());
+
+            // Clear selected notebook. Otherwise it's not updated after editing the selected notebook.
+            this.SelectedNotebook = null;
+            this.SelectedNotebook = this.Notebooks.Where(n => n.Id.Equals(selectedNotebookId)).FirstOrDefault();
         }
     }
 }

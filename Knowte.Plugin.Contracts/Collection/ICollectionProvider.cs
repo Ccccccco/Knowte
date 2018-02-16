@@ -86,5 +86,11 @@ namespace Knowte.Plugin.Contracts.Collection
         /// <param name="notebookId">The notebookId</param>
         /// <returns>True if successful</returns>
         Task<bool> DeleteNotebookAsync(string notebookId);
+
+        /// <summary>
+        /// Gets all the notebooks
+        /// </summary>
+        /// <returns>A list of all notebooks</returns>
+        Task<List<INotebook>> GetNotebooksAsync();
     }
 }

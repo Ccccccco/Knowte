@@ -90,5 +90,12 @@ namespace Knowte.Services.Collection
         {
             return await this.notebookRepository.DeleteNotebookAsync(notebookId);
         }
+
+        public async Task<List<INotebook>> GetNotebooksAsync()
+        {
+            List<Data.Contracts.Entities.Notebook> notebooks = await this.notebookRepository.GetNotebooksAsync();
+
+            return notebooks.Cast<INotebook>().ToList();
+        }
     }
 }

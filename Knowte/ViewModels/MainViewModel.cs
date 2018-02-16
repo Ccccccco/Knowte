@@ -88,10 +88,10 @@ namespace Knowte.ViewModels
 
             this.PaneClosedCommand = new DelegateCommand(() => this.ShowCollections = false);
             this.LoadedCommand = new DelegateCommand(() => this.GetCollectionsAsync());
-            this.ActivateCollectionCommand = new DelegateCommand(async () => await this.ActivateCollectionCommandHandlerAsync());
-            this.AddCollectionCommand = new DelegateCommand(() => this.AddCollectionCommandHandler());
-            this.EditCollectionCommand = new DelegateCommand(() => this.EditCollectionCommandHandler());
-            this.DeleteCollectionCommand = new DelegateCommand(async () => await this.DeleteCollectionCommandHandler());
+            this.ActivateCollectionCommand = new DelegateCommand(async () => await this.ActivateCollectionAsync());
+            this.AddCollectionCommand = new DelegateCommand(() => this.AddCollection());
+            this.EditCollectionCommand = new DelegateCommand(() => this.EditCollection());
+            this.DeleteCollectionCommand = new DelegateCommand(async () => await this.DeleteCollectionAsync());
 
             this.collectionService.CollectionAdded += (_, __) => this.GetCollectionsAsync();
             this.collectionService.CollectionEdited += (_, __) => this.GetCollectionsAsync();
@@ -99,7 +99,7 @@ namespace Knowte.ViewModels
             this.collectionService.ActiveCollectionChanged += (_, __) => this.GetCollectionsAsync();
         }
 
-        private async Task ActivateCollectionCommandHandlerAsync()
+        private async Task ActivateCollectionAsync()
         {
             if (!await this.collectionService.ActivateCollectionAsync(this.selectedCollection))
             {
@@ -110,7 +110,7 @@ namespace Knowte.ViewModels
             }
         }
 
-        private void AddCollectionCommandHandler()
+        private void AddCollection()
         {
             AddCollection view = this.container.Resolve<AddCollection>();
             AddCollectionViewModel viewModel = this.container.Resolve<AddCollectionViewModel>();
@@ -130,7 +130,7 @@ namespace Knowte.ViewModels
                 async () => await viewModel.AddCollectionAsync());
         }
 
-        private void EditCollectionCommandHandler()
+        private void EditCollection()
         {
             EditCollection view = this.container.Resolve<EditCollection>();
             EditCollectionViewModel viewModel = this.container.Resolve<EditCollectionViewModel>(new DependencyOverride(typeof(CollectionViewModel), this.SelectedCollection));
@@ -150,7 +150,7 @@ namespace Knowte.ViewModels
                 async () => await viewModel.EditCollectionAsync());
         }
 
-        private async Task DeleteCollectionCommandHandler()
+        private async Task DeleteCollectionAsync()
         {
             if (this.dialogService.ShowConfirmation(
                 ResourceUtils.GetString("Language_Delete_Collection"),
@@ -170,8 +170,8 @@ namespace Knowte.ViewModels
 
         private async void GetCollectionsAsync()
         {
-            // Remember the selected bank account
-            string selectedCollectionId = this.SelectedCollection != null ? this.SelectedCollection.Id : string.Empty;
+            // Remember the selected collection
+            string selectedCollectionId = this.selectedCollection != null ? this.selectedCollection.Id : string.Empty;
 
             this.Collections = new ObservableCollection<CollectionViewModel>(await this.collectionService.GetCollectionsAsync());
 

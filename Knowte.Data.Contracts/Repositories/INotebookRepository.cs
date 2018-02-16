@@ -1,4 +1,5 @@
 ﻿using Knowte.Data.Contracts.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Knowte.Data.Contracts.Repositories
@@ -12,5 +13,7 @@ namespace Knowte.Data.Contracts.Repositories
         Task<bool> EditNotebookAsync(string notebookId, string title);
 
         Task<bool> DeleteNotebookAsync(string notebookId);
+
+        Task<List<Notebook>> GetNotebooksAsync();
     }
 }

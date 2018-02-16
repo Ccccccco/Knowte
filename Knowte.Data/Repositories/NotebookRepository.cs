@@ -3,6 +3,8 @@ using Knowte.Data.Contracts;
 using Knowte.Data.Contracts.Entities;
 using Knowte.Data.Contracts.Repositories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Knowte.Data.Repositories
@@ -137,6 +139,35 @@ namespace Knowte.Data.Repositories
             });
 
             return isSuccess;
+        }
+
+        public async Task<List<Notebook>> GetNotebooksAsync()
+        {
+            var notebooks = new List<Notebook>();
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    using (var conn = this.factory.GetConnection())
+                    {
+                        try
+                        {
+                            notebooks = conn.Table<Notebook>().Select((c) => c).ToList();
+                        }
+                        catch (Exception ex)
+                        {
+                            LogClient.Error($"Could not get notebooks. Exception: {ex.Message}");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                }
+            });
+
+            return notebooks;
         }
     }
 }
