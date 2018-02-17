@@ -9,7 +9,6 @@ using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Knowte.ViewModels
 {
@@ -43,7 +42,7 @@ namespace Knowte.ViewModels
         public ObservableCollection<CollectionViewModel> Collections
         {
             get { return this.collections; }
-            set { SetProperty<ObservableCollection<CollectionViewModel>>(ref this.collections, value); }
+            set { SetProperty(ref this.collections, value); }
         }
 
         public CollectionViewModel SelectedCollection
@@ -51,7 +50,7 @@ namespace Knowte.ViewModels
             get { return this.selectedCollection; }
             set
             {
-                SetProperty<CollectionViewModel>(ref this.selectedCollection, value);
+                SetProperty(ref this.selectedCollection, value);
                 RaisePropertyChanged(nameof(this.CanActivateSelectedCollection));
             }
         }
@@ -61,7 +60,7 @@ namespace Knowte.ViewModels
             get { return this.activeCollection; }
             set
             {
-                SetProperty<CollectionViewModel>(ref this.activeCollection, value);
+                SetProperty(ref this.activeCollection, value);
                 RaisePropertyChanged(nameof(this.CanActivateSelectedCollection));
             }
         }
@@ -88,10 +87,10 @@ namespace Knowte.ViewModels
 
             this.PaneClosedCommand = new DelegateCommand(() => this.ShowCollections = false);
             this.LoadedCommand = new DelegateCommand(() => this.GetCollectionsAsync());
-            this.ActivateCollectionCommand = new DelegateCommand(async () => await this.ActivateCollectionAsync());
+            this.ActivateCollectionCommand = new DelegateCommand(() => this.ActivateCollectionAsync());
             this.AddCollectionCommand = new DelegateCommand(() => this.AddCollection());
             this.EditCollectionCommand = new DelegateCommand(() => this.EditCollection());
-            this.DeleteCollectionCommand = new DelegateCommand(async () => await this.DeleteCollectionAsync());
+            this.DeleteCollectionCommand = new DelegateCommand(() => this.DeleteCollectionAsync());
 
             this.collectionService.CollectionAdded += (_, __) => this.GetCollectionsAsync();
             this.collectionService.CollectionEdited += (_, __) => this.GetCollectionsAsync();
@@ -99,7 +98,7 @@ namespace Knowte.ViewModels
             this.collectionService.ActiveCollectionChanged += (_, __) => this.GetCollectionsAsync();
         }
 
-        private async Task ActivateCollectionAsync()
+        private async void ActivateCollectionAsync()
         {
             if (!await this.collectionService.ActivateCollectionAsync(this.selectedCollection))
             {
@@ -150,7 +149,7 @@ namespace Knowte.ViewModels
                 async () => await viewModel.EditCollectionAsync());
         }
 
-        private async Task DeleteCollectionAsync()
+        private async void DeleteCollectionAsync()
         {
             if (this.dialogService.ShowConfirmation(
                 ResourceUtils.GetString("Language_Delete_Collection"),

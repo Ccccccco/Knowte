@@ -67,4 +67,6 @@
   <Text Key="Could_Not_Add_Notebook_Check_Log_File">The notebook could not be added. Please review the log file for details.</Text>
   <Text Key="Could_Not_Edit_Notebook_Check_Log_File">The notebook could not be edited. Please review the log file for details.</Text>
   <Text Key="Delete_Notebook_Confirm">Are you sure you want to delete the notebook '{notebook}'?</Text>
+  <Text Key="All_Notes">All notes</Text>
+  <Text Key="Unfiled_Notes">Unfiled notes</Text>
 </Language>

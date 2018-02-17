@@ -45,25 +45,25 @@ namespace Knowte.ViewModels.Dialogs
                         ResourceUtils.GetString("Language_Edit_Failed"),
                         ResourceUtils.GetString("Language_Please_Provide_Title_For_Notebook"),
                         ResourceUtils.GetString("Language_Ok"), false, string.Empty);
-                    break;
+                    return false;
                 case ChangeNotebookResult.Duplicate:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Edit_Failed"),
                         ResourceUtils.GetString("Language_Notebook_With_Title_Already_Exists"),
                         ResourceUtils.GetString("Language_Ok"), false, string.Empty);
-                    break;
+                    return false;
                 case ChangeNotebookResult.Error:
                     this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Edit_Failed"),
                         ResourceUtils.GetString("Language_Could_Not_Edit_Notebook_Check_Log_File"),
                         ResourceUtils.GetString("Language_Ok"), true, ResourceUtils.GetString("Language_Log_File"));
-                    break;
+                    return false;
                 case ChangeNotebookResult.Ok:
                 default:
                     break;
             }
 
-            return result.Equals(ChangeCollectionResult.Ok);
+            return result.Equals(ChangeNotebookResult.Ok);
         }
     }
 }

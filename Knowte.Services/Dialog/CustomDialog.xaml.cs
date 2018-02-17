@@ -93,7 +93,7 @@ namespace Knowte.Services.Dialog
                 // That keeps the dialog open.
                 if (await this.callback.Invoke())
                 {
-                    DialogResult = true;
+                    this.DialogResult = true;
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace Knowte.Services.Dialog
             }
             else
             {
-                DialogResult = true;
+                this.DialogResult = true;
             }
         }
 

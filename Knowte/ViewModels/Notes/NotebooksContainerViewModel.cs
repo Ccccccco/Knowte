@@ -9,7 +9,6 @@ using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Knowte.ViewModels.Notes
 {
@@ -31,7 +30,7 @@ namespace Knowte.ViewModels.Notes
         public ObservableCollection<NotebookViewModel> Notebooks
         {
             get { return this.notebooks; }
-            set { SetProperty<ObservableCollection<NotebookViewModel>>(ref this.notebooks, value); }
+            set { SetProperty(ref this.notebooks, value); }
         }
 
         public NotebookViewModel SelectedNotebook
@@ -39,8 +38,14 @@ namespace Knowte.ViewModels.Notes
             get { return this.selectedNotebook; }
             set
             {
-                SetProperty<NotebookViewModel>(ref this.selectedNotebook, value);
+                SetProperty(ref this.selectedNotebook, value);
+                this.RaisePropertyChanged(nameof(this.CanEdit));
             }
+        }
+
+        public bool CanEdit
+        {
+            get { return this.selectedNotebook != null && !this.selectedNotebook.IsDefault; }
         }
 
         public DelegateCommand LoadedCommand { get; set; }
@@ -57,11 +62,15 @@ namespace Knowte.ViewModels.Notes
             this.dialogService = dialogService;
             this.collectionService = collectionService;
 
-            this.LoadedCommand = new DelegateCommand(async() => await this.GetNotebooksAsync());
+            this.LoadedCommand = new DelegateCommand(() => this.GetNotebooksAsync());
 
             this.AddNotebookCommand = new DelegateCommand(() => this.AddNotebook());
             this.EditNotebookCommand = new DelegateCommand(() => this.EditNotebook());
-            this.DeleteNotebookCommand = new DelegateCommand(async() => await this.DeleteNotebookAsync());
+            this.DeleteNotebookCommand = new DelegateCommand(() => this.DeleteNotebookAsync());
+
+            this.collectionService.NotebookAdded += (_, __) => this.GetNotebooksAsync();
+            this.collectionService.NotebookEdited += (_, __) => this.GetNotebooksAsync();
+            this.collectionService.NotebookDeleted += (_, __) => this.GetNotebooksAsync();
         }
 
         private void AddNotebook()
@@ -104,7 +113,7 @@ namespace Knowte.ViewModels.Notes
                 async () => await viewModel.EditNotebookAsync());
         }
 
-        private async Task DeleteNotebookAsync()
+        private async void DeleteNotebookAsync()
         {
             if (this.dialogService.ShowConfirmation(
                  ResourceUtils.GetString("Language_Delete_Notebook"),
@@ -122,7 +131,7 @@ namespace Knowte.ViewModels.Notes
             }
         }
 
-        private async Task GetNotebooksAsync()
+        private async void GetNotebooksAsync()
         {
             // Remember the selected notebook
             string selectedNotebookId = this.selectedNotebook != null ? this.selectedNotebook.Id : string.Empty;

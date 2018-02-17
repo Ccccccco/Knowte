@@ -1,6 +1,5 @@
 ﻿using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.App;
-using Prism.Commands;
 using Prism.Mvvm;
 
 namespace Knowte.ViewModels
@@ -13,13 +12,13 @@ namespace Knowte.ViewModels
         public bool IsBusyIndicatorVisible
         {
             get { return this.isBusyIndicatorVisible; }
-            set { SetProperty<bool>(ref this.isBusyIndicatorVisible, value); }
+            set { SetProperty(ref this.isBusyIndicatorVisible, value); }
         }
 
         public bool IsOverlayVisible
         {
             get { return this.isOverlayVisible; }
-            set { SetProperty<bool>(ref this.isOverlayVisible, value); }
+            set { SetProperty(ref this.isOverlayVisible, value); }
         }
 
         public ShellViewModel(IDialogService dialogService, IAppService appService)

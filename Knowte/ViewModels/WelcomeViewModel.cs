@@ -37,7 +37,7 @@ namespace Knowte.ViewModels
             get { return this.showStartButton; }
             set
             {
-                SetProperty<bool>(ref this.showStartButton, value);
+                SetProperty(ref this.showStartButton, value);
                 RaisePropertyChanged(nameof(this.ShowNavigationButtons));
             }
         }
@@ -47,7 +47,7 @@ namespace Knowte.ViewModels
             get { return this.showFinishButton; }
             set
             {
-                SetProperty<bool>(ref this.showFinishButton, value);
+                SetProperty(ref this.showFinishButton, value);
                 RaisePropertyChanged(nameof(this.ShowNavigationButtons));
             }
         }

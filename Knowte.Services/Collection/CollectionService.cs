@@ -1,4 +1,6 @@
 ﻿using Digimezzo.Foundation.Core.Logging;
+using Digimezzo.Foundation.Core.Utils;
+using Knowte.Core.Base;
 using Knowte.Plugin.Contracts.Collection.Entities;
 using Knowte.Presentation.Contracts.Entities;
 using Knowte.Services.Contracts.App;
@@ -475,15 +477,23 @@ namespace Knowte.Services.Collection
             }
 
             var notebookViewModels = new List<NotebookViewModel>();
+            var userNotebookViewModels = new List<NotebookViewModel>();
 
+            // Add the default notebooks
+            notebookViewModels.Add(new NotebookViewModel(NotebookViewModel.AllNotesNotebookId, ResourceUtils.GetString("Language_All_Notes")));
+            notebookViewModels.Add(new NotebookViewModel(NotebookViewModel.UnfiledNotesNotebookId, ResourceUtils.GetString("Language_Unfiled_Notes")));
+
+            // Add the user's notebooks
             foreach (Data.Contracts.Entities.Notebook notebook in notebooks)
             {
-                notebookViewModels.Add(new NotebookViewModel(notebook.Id, notebook.Title));
+                userNotebookViewModels.Add(new NotebookViewModel(notebook.Id, notebook.Title));
             }
+
+            notebookViewModels.AddRange(userNotebookViewModels.OrderBy(n => n.Title).ToList());
 
             this.appService.IsBusy = false;
 
-            return notebookViewModels.OrderBy(n => n.Title).ToList();
+            return notebookViewModels;
         }
     }
 }
