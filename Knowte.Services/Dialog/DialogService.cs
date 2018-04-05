@@ -51,13 +51,13 @@ namespace Knowte.Services.Dialog
             return true;
         }
 
-        public bool ShowCustom(string title, UserControl content, int width, int height, bool canResize, bool autoSize, bool showTitle, bool showCancelButton, string okText, string cancelText, Func<Task<bool>> callback)
+        public bool ShowCustom(string title, object datacontext, int width, int height, bool canResize, bool autoSize, bool showTitle, bool showCancelButton, string okText, string cancelText, Func<Task<bool>> callback)
         {
             bool returnValue = false;
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var dialog = new CustomDialog(title: title, content: content, width: width, height: height, canResize: canResize, autoSize: autoSize, showTitle: showTitle, showCancelButton: showCancelButton, okText: okText, cancelText: cancelText, callback: callback);
+                var dialog = new CustomDialog(title: title, datacontext: datacontext, width: width, height: height, canResize: canResize, autoSize: autoSize, showTitle: showTitle, showCancelButton: showCancelButton, okText: okText, cancelText: cancelText, callback: callback);
 
                 if (dialog != null)
                 {

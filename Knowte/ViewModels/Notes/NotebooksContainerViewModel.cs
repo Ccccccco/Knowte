@@ -4,7 +4,6 @@ using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.Collection;
 using Knowte.ViewModels.Dialogs;
 using Knowte.Views.Dialogs;
-using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
@@ -14,7 +13,6 @@ namespace Knowte.ViewModels.Notes
 {
     public class NotebooksContainerViewModel : BindableBase
     {
-        private IUnityContainer container;
         private IDialogService dialogService;
         private ICollectionService collectionService;
         private int count;
@@ -56,9 +54,8 @@ namespace Knowte.ViewModels.Notes
 
         public DelegateCommand DeleteNotebookCommand { get; set; }
 
-        public NotebooksContainerViewModel(IUnityContainer container, IDialogService dialogService, ICollectionService collectionService)
+        public NotebooksContainerViewModel(IDialogService dialogService, ICollectionService collectionService)
         {
-            this.container = container;
             this.dialogService = dialogService;
             this.collectionService = collectionService;
 
@@ -75,13 +72,11 @@ namespace Knowte.ViewModels.Notes
 
         private void AddNotebook()
         {
-            AddNotebook view = this.container.Resolve<AddNotebook>();
-            AddNotebookViewModel viewModel = this.container.Resolve<AddNotebookViewModel>();
-            view.DataContext = viewModel;
+            var viewModel = new AddNotebookViewModel(this.dialogService, this.collectionService);
 
             this.dialogService.ShowCustom(
                 ResourceUtils.GetString("Language_Add_Notebook"),
-                view,
+                viewModel,
                 420,
                 0,
                 false,
@@ -95,13 +90,11 @@ namespace Knowte.ViewModels.Notes
 
         private void EditNotebook()
         {
-            EditNotebook view = this.container.Resolve<EditNotebook>();
-            EditNotebookViewModel viewModel = this.container.Resolve<EditNotebookViewModel>(new DependencyOverride(typeof(NotebookViewModel), this.SelectedNotebook));
-            view.DataContext = viewModel;
-
+            var viewModel = new EditNotebookViewModel(this.SelectedNotebook, this.dialogService, this.collectionService);
+            
             this.dialogService.ShowCustom(
                 ResourceUtils.GetString("Language_Edit_Notebook"),
-                view,
+                viewModel,
                 420,
                 0,
                 false,

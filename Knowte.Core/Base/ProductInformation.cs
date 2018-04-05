@@ -22,11 +22,12 @@ namespace Knowte.Core.Base
                 Url = "https://github.com/praeclarum/sqlite-net",
                 LicenseUrl = "https://github.com/praeclarum/sqlite-net/blob/master/LICENSE.md"
             },
-            new ExternalComponent {
-                Name = "Unity",
-                Description = "A lightweight extensible dependency injection container with support for constructor, property, and method call injection.",
-                Url = "https://github.com/unitycontainer/unity",
-                LicenseUrl = "https://github.com/unitycontainer/unity/blob/master/LICENSE.txt"
+            new ExternalComponent
+            {
+                Name = "DryIoc",
+                Description = "DryIoc is fast, small, full-featured IoC Container for .NET",
+                Url = "https://bitbucket.org/dadhi/dryioc",
+                LicenseUrl = "https://opensource.org/licenses/MIT"
             },
             new ExternalComponent {
                 Name = "WiX",

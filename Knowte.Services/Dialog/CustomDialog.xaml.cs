@@ -11,15 +11,15 @@ namespace Knowte.Services.Dialog
     {
         private Func<Task<bool>> callback;
 
-        public CustomDialog(string title, UserControl content, int width, int height, bool canResize, bool autoSize, bool showTitle, bool showCancelButton, string okText, string cancelText, Func<Task<bool>> callback) : base()
+        public CustomDialog(string title, object datacontext, int width, int height, bool canResize, bool autoSize, bool showTitle, bool showCancelButton, string okText, string cancelText, Func<Task<bool>> callback) : base()
         {
             InitializeComponent();
 
             this.Title = title;
+            this.DataContext = datacontext;
             this.TextBlockTitle.Text = title;
             this.Width = width;
             this.MinWidth = width;
-            this.CustomContent.Content = content;
 
             if (canResize)
             {

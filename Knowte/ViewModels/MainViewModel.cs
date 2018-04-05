@@ -4,7 +4,6 @@ using Knowte.Services.Constracts.Dialog;
 using Knowte.Services.Contracts.Collection;
 using Knowte.ViewModels.Dialogs;
 using Knowte.Views.Dialogs;
-using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
@@ -16,7 +15,6 @@ namespace Knowte.ViewModels
     {
         private bool showCollections;
         private ObservableCollection<CollectionViewModel> collections;
-        private IUnityContainer container;
         private ICollectionService collectionService;
         private IDialogService dialogService;
         private CollectionViewModel selectedCollection;
@@ -79,9 +77,8 @@ namespace Knowte.ViewModels
 
         public DelegateCommand DeleteCollectionCommand { get; set; }
 
-        public MainViewModel(IUnityContainer container, ICollectionService collectionService, IDialogService dialogService)
+        public MainViewModel(ICollectionService collectionService, IDialogService dialogService)
         {
-            this.container = container;
             this.collectionService = collectionService;
             this.dialogService = dialogService;
 
@@ -111,13 +108,11 @@ namespace Knowte.ViewModels
 
         private void AddCollection()
         {
-            AddCollection view = this.container.Resolve<AddCollection>();
-            AddCollectionViewModel viewModel = this.container.Resolve<AddCollectionViewModel>();
-            view.DataContext = viewModel;
+            var viewModel = new AddCollectionViewModel(this.dialogService, this.collectionService);
 
             this.dialogService.ShowCustom(
                 ResourceUtils.GetString("Language_Add_Collection"),
-                view,
+                viewModel,
                 420,
                 0,
                 false,
@@ -131,13 +126,11 @@ namespace Knowte.ViewModels
 
         private void EditCollection()
         {
-            EditCollection view = this.container.Resolve<EditCollection>();
-            EditCollectionViewModel viewModel = this.container.Resolve<EditCollectionViewModel>(new DependencyOverride(typeof(CollectionViewModel), this.SelectedCollection));
-            view.DataContext = viewModel;
+            var viewModel = new EditCollectionViewModel(this.SelectedCollection, this.dialogService, this.collectionService);
 
             this.dialogService.ShowCustom(
                 ResourceUtils.GetString("Language_Edit_Collection"),
-                view,
+                viewModel,
                 420,
                 0,
                 false,

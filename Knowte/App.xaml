@@ -1,10 +1,29 @@
-﻿<Application x:Class="Knowte.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Converters;assembly=Digimezzo.Foundation.WPF"
-             DispatcherUnhandledException="App_DispatcherUnhandledException">
+﻿<prism:PrismApplication 
+    x:Class="Knowte.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Converters;assembly=Digimezzo.Foundation.WPF"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:dialogviewmodels="clr-namespace:Knowte.ViewModels.Dialogs"
+    xmlns:dialogviews="clr-namespace:Knowte.Views.Dialogs"
+    DispatcherUnhandledException="App_DispatcherUnhandledException">
     <Application.Resources>
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type dialogviewmodels:AddCollectionViewModel}" >
+                <dialogviews:AddCollection/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type dialogviewmodels:AddNotebookViewModel}" >
+                <dialogviews:AddNotebook/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type dialogviewmodels:EditCollectionViewModel}" >
+                <dialogviews:EditCollection/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type dialogviewmodels:EditNotebookViewModel}" >
+                <dialogviews:EditNotebook/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type dialogviewmodels:LicenseViewModel}" >
+                <dialogviews:License/>
+            </DataTemplate>
             <fwc:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <fwc:BooleanToCollapsedConverter x:Key="BooleanToCollapsedConverter" />
             <fwc:InvertingBooleanToVisibilityConverter x:Key="InvertingBooleanToVisibilityConverter" />
@@ -20,4 +39,4 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
-</Application>
+</prism:PrismApplication>

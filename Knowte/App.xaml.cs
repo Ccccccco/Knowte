@@ -4,7 +4,23 @@ using Digimezzo.Foundation.Core.Settings;
 using Digimezzo.Foundation.Core.Utils;
 using Digimezzo.Foundation.WPF.Controls;
 using Knowte.Core.Base;
+using Knowte.Data;
+using Knowte.Data.Contracts;
+using Knowte.Data.Contracts.Repositories;
+using Knowte.Data.Repositories;
+using Knowte.Services.App;
+using Knowte.Services.Appearance;
+using Knowte.Services.Collection;
+using Knowte.Services.Constracts.Dialog;
+using Knowte.Services.Constracts.I18n;
+using Knowte.Services.Contracts.App;
+using Knowte.Services.Contracts.Appearance;
+using Knowte.Services.Contracts.Collection;
+using Knowte.Services.Dialog;
+using Knowte.Services.I18n;
 using Knowte.Views;
+using Prism.DryIoc;
+using Prism.Ioc;
 using System;
 using System.Threading;
 using System.Windows;
@@ -12,14 +28,12 @@ using System.Windows.Threading;
 
 namespace Knowte
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
         private Mutex instanceMutex = null;
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-
             // Check that there is only one instance of the application running
             instanceMutex = new Mutex(true, string.Format("{0}-{1}", ProductInformation.ApplicationGuid, ProcessExecutable.AssemblyVersion().ToString()), out bool isNewInstance);
 
@@ -29,7 +43,7 @@ namespace Knowte
             if (isNewInstance)
             {
                 instanceMutex.ReleaseMutex();
-                this.ExecuteStartup();
+                base.OnStartup(e);
             }
             else
             {
@@ -38,7 +52,7 @@ namespace Knowte
             }
         }
 
-        private void ExecuteStartup()
+        protected override void InitializeShell(Window shell)
         {
             LogClient.Info($"### STARTING {ProcessExecutable.Name()}, version {ProcessExecutable.AssemblyVersion()}, IsPortable = {SettingsClient.Get<bool>("Configuration", "IsPortable")}, Windows version = {EnvironmentUtils.GetFriendlyWindowsVersion()} ({EnvironmentUtils.GetInternalWindowsVersion()}) ###");
 
@@ -54,12 +68,11 @@ namespace Knowte
                 initWin.Show();
                 initWin.ForceActivate();
             }
-            else
-            {
-                // Start the bootstrapper
-                Bootstrapper bootstrapper = new Bootstrapper();
-                bootstrapper.Run();
-            }
+
+            Application.Current.MainWindow = shell;
+
+            LogClient.Info("Showing Main screen");
+            Application.Current.MainWindow.Show();
         }
 
         private void ProcessCommandLineArguments(bool isNewInstance)
@@ -121,6 +134,58 @@ namespace Knowte
             SettingsClient.Write();
 
             this.Shutdown();
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            RegisterFactories();
+            RegisterRepositories();
+            RegisterServices();
+            InitializeServices();
+            RegisterViews();
+            RegisterViewModels();
+
+            void RegisterFactories()
+            {
+                containerRegistry.RegisterSingleton<ISQLiteConnectionFactory, SQLiteConnectionFactory>();
+            }
+
+            void RegisterRepositories()
+            {
+                containerRegistry.RegisterSingleton<ICollectionRepository, CollectionRepository>();
+            }
+
+            void RegisterServices()
+            {
+                containerRegistry.RegisterSingleton<IDialogService, DialogService>();
+                containerRegistry.RegisterSingleton<IAppService, AppService>();
+                containerRegistry.RegisterSingleton<II18nService, I18nService>();
+                containerRegistry.RegisterSingleton<IAppearanceService, AppearanceService>();
+                containerRegistry.RegisterSingleton<ICollectionService, CollectionService>();
+            }
+
+            void InitializeServices()
+            {
+                // Making sure resources are set before we need them
+                Container.Resolve<II18nService>().ApplyLanguageAsync(SettingsClient.Get<string>("Configuration", "Language"));                                                                                                 
+                Container.Resolve<IAppearanceService>().ApplyColorScheme(
+                    SettingsClient.Get<string>("Appearance", "ColorScheme"),
+                    SettingsClient.Get<bool>("Appearance", "FollowWindowsColor"));
+            }
+
+            void RegisterViews()
+            {
+                containerRegistry.Register<object, Shell>(typeof(Shell).FullName);
+            }
+
+            void RegisterViewModels()
+            {
+            }
+        }
+
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<Shell>();
         }
     }
 }

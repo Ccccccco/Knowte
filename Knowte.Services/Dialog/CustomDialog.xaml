@@ -29,7 +29,9 @@
                 <fwc:MaterialFlatButton x:Name="ButtonCancel" IsCancel="True" Margin="6,0,0,0" Click="ButtonCancel_Click"
                                        Foreground="{DynamicResource Brush_PrimaryAccent}"/>
             </StackPanel>
-            <ContentControl x:Name="CustomContent"/>
+            <ContentPresenter x:Name="DialogPresenter" Content="{Binding .}">
+
+            </ContentPresenter>
         </DockPanel>
     </Border>
 </fwc:Windows10BorderlessWindow>

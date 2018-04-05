@@ -3,7 +3,7 @@ using Digimezzo.Foundation.Core.Packaging;
 using Digimezzo.Foundation.Core.Utils;
 using Knowte.Core.Base;
 using Knowte.Services.Constracts.Dialog;
-using Microsoft.Practices.Unity;
+using Knowte.ViewModels.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -11,7 +11,6 @@ namespace Knowte.ViewModels.Information
 {
     public class InformationViewModel : BindableBase
     {
-        private IUnityContainer container;
         private IDialogService dialogService;
         private Package package;
 
@@ -25,20 +24,19 @@ namespace Knowte.ViewModels.Information
 
         public DelegateCommand ShowLicenseCommand { get; set; }
 
-        public InformationViewModel(IUnityContainer container, IDialogService dialogService)
+        public InformationViewModel(IDialogService dialogService)
         {
-            this.container = container;
             this.dialogService = dialogService;
 
             this.Package = new Package(ProcessExecutable.Name(), ProcessExecutable.AssemblyVersion());
 
             this.ShowLicenseCommand = new DelegateCommand(() =>
             {
-                var view = this.container.Resolve<Views.Information.License>();
+                var viewModel = new LicenseViewModel();
 
                 this.dialogService.ShowCustom(
                     ResourceUtils.GetString("Language_License"),
-                    view,
+                    viewModel,
                     400,
                     0,
                     false,
