@@ -25,7 +25,7 @@ namespace Knowte.Services.Appearance
 
         private FileSystemWatcher colorSchemeWatcher;
         private Timer colorSchemeTimer = new Timer();
-        private string colorSchemesSubDirectory;
+        private string colorSchemesFolder;
         private double colorSchemeTimeoutSeconds = 0.2;
         private bool followWindowsColor = false;
         private List<ColorScheme> colorSchemes = new List<ColorScheme>();
@@ -54,17 +54,17 @@ namespace Knowte.Services.Appearance
 
         public AppearanceService() : base()
         {
-            // Initialize the ColorSchemes directory
-            this.colorSchemesSubDirectory = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.ColorSchemesSubDirectory);
+            // Initialize the ColorSchemes folder
+            this.colorSchemesFolder = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.ColorSchemesFolder);
 
-            // If the ColorSchemes subdirectory doesn't exist, create it
-            if (!Directory.Exists(this.colorSchemesSubDirectory))
+            // If the ColorSchemes folder doesn't exist, create it.
+            if (!Directory.Exists(this.colorSchemesFolder))
             {
-                Directory.CreateDirectory(Path.Combine(this.colorSchemesSubDirectory));
+                Directory.CreateDirectory(Path.Combine(this.colorSchemesFolder));
             }
 
             // Create the example ColorScheme
-            string exampleColorSchemeFile = Path.Combine(this.colorSchemesSubDirectory, "Example.xml");
+            string exampleColorSchemeFile = Path.Combine(this.colorSchemesFolder, "Example.xml");
 
             if (File.Exists(exampleColorSchemeFile))
             {
@@ -75,7 +75,7 @@ namespace Knowte.Services.Appearance
             exampleColorSchemeXml.Save(exampleColorSchemeFile);
 
             // Create the "How to create ColorSchemes.txt" file
-            string howToFile = Path.Combine(this.colorSchemesSubDirectory, "How to create ColorSchemes.txt");
+            string howToFile = Path.Combine(this.colorSchemesFolder, "How to create ColorSchemes.txt");
 
             if (File.Exists(howToFile))
             {
@@ -98,7 +98,7 @@ namespace Knowte.Services.Appearance
             this.colorSchemeTimer.Elapsed += new ElapsedEventHandler(ColorSchemeTimerElapsed);
 
             // Start the ColorSchemeWatcher
-            this.colorSchemeWatcher = new FileSystemWatcher(this.colorSchemesSubDirectory);
+            this.colorSchemeWatcher = new FileSystemWatcher(this.colorSchemesFolder);
             this.colorSchemeWatcher.EnableRaisingEvents = true;
 
             this.colorSchemeWatcher.Changed += new FileSystemEventHandler(WatcherChangedHandler);
@@ -166,7 +166,7 @@ namespace Knowte.Services.Appearance
 
         private void GetCustomColorSchemes()
         {
-            var dirInfo = new DirectoryInfo(this.colorSchemesSubDirectory);
+            var dirInfo = new DirectoryInfo(this.colorSchemesFolder);
 
             foreach (FileInfo fileInfo in dirInfo.GetFiles("*.xml"))
             {

@@ -73,7 +73,7 @@ namespace Knowte.ViewModels.Settings
 
             this.AddColorCommand = new DelegateCommand(() =>
             {
-                SafeActions.TryOpenPath(Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.ColorSchemesSubDirectory));
+                SafeActions.TryOpenPath(Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.ColorSchemesFolder));
             });
         }
 

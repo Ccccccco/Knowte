@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Knowte.Core.IO;
+using Digimezzo.Foundation.Core.Settings;
 
 namespace Knowte.Services.Collection
 {
@@ -18,7 +21,7 @@ namespace Knowte.Services.Collection
         // ProviderName doesn't matter here (it won't appear in the list of available services)
         public string ProviderName => string.Empty;
 
-        private CollectionProviderImporter importer = new CollectionProviderImporter();
+        private CollectionProviderImporter importer;
 
         public event CollectionChangedEventHandler CollectionAdded = delegate { };
         public event CollectionChangedEventHandler CollectionEdited = delegate { };
@@ -32,6 +35,16 @@ namespace Knowte.Services.Collection
         public CollectionService(IAppService appService)
         {
             this.appService = appService;
+
+            string pluginsFolder = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.PluginsFolder);
+
+            // If the Plugins folder doesn't exist, create it.
+            if (!Directory.Exists(pluginsFolder))
+            {
+                Directory.CreateDirectory(Path.Combine(pluginsFolder));
+            }
+
+            this.importer = new CollectionProviderImporter(pluginsFolder);
             this.importer.DoImport();
         }
 
