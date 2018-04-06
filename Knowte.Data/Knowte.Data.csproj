@@ -112,9 +112,9 @@
       <Project>{fbe4a424-ba3b-46a6-9843-57f1a5f5050c}</Project>
       <Name>Knowte.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Knowte.Plugin.Contracts\Knowte.Plugin.Contracts.csproj">
-      <Project>{071B3645-618F-4733-8039-2AD08711B77B}</Project>
-      <Name>Knowte.Plugin.Contracts</Name>
+    <ProjectReference Include="..\Knowte.WPF.PluginBase\Knowte.WPF.PluginBase.csproj">
+      <Project>{7B8A78A1-B816-4C88-9470-A63274D8A5E2}</Project>
+      <Name>Knowte.WPF.PluginBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

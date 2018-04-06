@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
       xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
-      xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
+      xmlns:controls="clr-namespace:Knowte.Controls"
       xmlns:views="clr-namespace:Knowte.Views.Notes"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="600"

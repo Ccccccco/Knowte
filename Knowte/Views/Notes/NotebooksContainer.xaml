@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
-             xmlns:controls="clr-namespace:Knowte.Presentation.Controls;assembly=Knowte.Presentation"
+             xmlns:controls="clr-namespace:Knowte.Controls"
              xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 

@@ -34,8 +34,8 @@
             <fwc:StringToLowerConverter x:Key="StringToLowerConverter" />
             <fwc:StringToUpperConverter x:Key="StringToUpperConverter" />
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Styles/All.xaml" />
-                <ResourceDictionary Source="/Knowte.Presentation;component/Resources/Themes/KnowteTheme.xaml" />
+                <ResourceDictionary Source="/Knowte;component/Resources/Styles/All.xaml" />
+                <ResourceDictionary Source="/Knowte;component/Resources/Themes/KnowteTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

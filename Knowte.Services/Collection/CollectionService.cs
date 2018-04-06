@@ -1,9 +1,9 @@
 ﻿using Digimezzo.Foundation.Core.Logging;
 using Digimezzo.Foundation.Core.Utils;
 using Knowte.Data.Entities;
-using Knowte.Plugin.Contracts.Collection.Entities;
 using Knowte.Services.App;
 using Knowte.Services.Entities;
+using Knowte.WPF.PluginBase.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

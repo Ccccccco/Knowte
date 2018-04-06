@@ -1,8 +1,8 @@
 ﻿using Knowte.Data;
 using Knowte.Data.Entities;
 using Knowte.Data.Repositories;
-using Knowte.Plugin.Contracts.Collection;
-using Knowte.Plugin.Contracts.Collection.Entities;
+using Knowte.WPF.PluginBase;
+using Knowte.WPF.PluginBase.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;

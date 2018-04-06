@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Knowte.Presentation.Controls
+namespace Knowte.Controls
 {
     public class SplitViewRadioButton : RadioButton
     {

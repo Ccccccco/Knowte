@@ -1,5 +1,5 @@
 ﻿using Digimezzo.Foundation.Core.Settings;
-using Knowte.Plugin.Contracts.Collection;
+using Knowte.WPF.PluginBase;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;

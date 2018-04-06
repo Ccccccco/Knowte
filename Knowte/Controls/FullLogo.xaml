@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Knowte.Presentation.Controls.FullLogo"
+﻿<UserControl x:Class="Knowte.Controls.FullLogo"
              x:Name="FullLogoName"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

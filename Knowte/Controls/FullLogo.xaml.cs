@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Knowte.Presentation.Controls
+namespace Knowte.Controls
 {
     public partial class FullLogo : UserControl
     {
