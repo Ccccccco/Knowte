@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Knowte.Services.Contracts.App
+namespace Knowte.Services.App
 {
     public class IsBusyChangedEventArgs : EventArgs
     {

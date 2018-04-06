@@ -1,5 +1,4 @@
-﻿using Knowte.Services.Contracts.App;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Knowte.Services.App
 {

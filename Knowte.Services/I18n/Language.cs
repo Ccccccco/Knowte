@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Knowte.Services.Constracts.I18n
+namespace Knowte.Services.I18n
 {
     public class Language
     {

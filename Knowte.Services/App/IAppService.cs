@@ -1,4 +1,4 @@
-﻿namespace Knowte.Services.Contracts.App
+﻿namespace Knowte.Services.App
 {
     public delegate void IsBusyChangedEventHandler(object sender, IsBusyChangedEventArgs e);
 

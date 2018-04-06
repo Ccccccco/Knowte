@@ -1,7 +1,7 @@
 ﻿using Digimezzo.Foundation.Core.Settings;
 using Knowte.Core.Base;
 using Knowte.Core.IO;
-using Knowte.Services.Contracts.Appearance;
+using Knowte.Services.Appearance;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;

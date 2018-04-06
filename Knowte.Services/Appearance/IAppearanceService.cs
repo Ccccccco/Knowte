@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Knowte.Services.Contracts.Appearance
+namespace Knowte.Services.Appearance
 {
     public interface IAppearanceService
     {

@@ -1,4 +1,4 @@
-﻿namespace Knowte.Services.Contracts.Appearance
+﻿namespace Knowte.Services.Appearance
 {
     public class ColorScheme
     {

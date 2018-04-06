@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Knowte.Services.Constracts.Dialog
+namespace Knowte.Services.Dialog
 {
     public class DialogVisibleChangedEventArgs : EventArgs
     {

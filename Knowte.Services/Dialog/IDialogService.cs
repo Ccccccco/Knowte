@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Knowte.Services.Constracts.Dialog
+namespace Knowte.Services.Dialog
 {
     public delegate void DialogVisibleChangedEventHandler(object sender, DialogVisibleChangedEventArgs e);
 

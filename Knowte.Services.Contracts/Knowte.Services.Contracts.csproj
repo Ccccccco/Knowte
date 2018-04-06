@@ -56,19 +56,6 @@
     <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Appearance\ColorScheme.cs" />
-    <Compile Include="Appearance\IAppearanceService.cs" />
-    <Compile Include="App\IsBusyChangedEventArgs.cs" />
-    <Compile Include="App\IAppService.cs" />
-    <Compile Include="Collection\ChangeCollectionResult.cs" />
-    <Compile Include="Collection\CollectionChangedEventArgs.cs" />
-    <Compile Include="Collection\ICollectionService.cs" />
-    <Compile Include="Dialog\DialogVisibleChangedEventArgs.cs" />
-    <Compile Include="Dialog\IDialogService.cs" />
-    <Compile Include="I18n\II18nService.cs" />
-    <Compile Include="I18n\Language.cs" />
-    <Compile Include="Collection\ChangeNotebookResult.cs" />
-    <Compile Include="Collection\NotebookChangedEventArgs.cs" />
     <Compile Include="Note\INoteService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

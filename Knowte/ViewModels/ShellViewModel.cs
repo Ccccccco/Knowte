@@ -1,5 +1,5 @@
-﻿using Knowte.Services.Constracts.Dialog;
-using Knowte.Services.Contracts.App;
+﻿using Knowte.Services.App;
+using Knowte.Services.Dialog;
 using Prism.Mvvm;
 
 namespace Knowte.ViewModels

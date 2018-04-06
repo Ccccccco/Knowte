@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Knowte.Services.Contracts.Collection
+namespace Knowte.Services.Collection
 {
     public delegate void CollectionChangedEventHandler(object sender, CollectionChangedEventArgs e);
     public delegate void NotebookChangedEventHandler(object sender, NotebookChangedEventArgs e);

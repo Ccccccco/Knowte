@@ -2,7 +2,7 @@
 using Digimezzo.Foundation.Core.Packaging;
 using Digimezzo.Foundation.Core.Utils;
 using Knowte.Core.Base;
-using Knowte.Services.Constracts.Dialog;
+using Knowte.Services.Dialog;
 using Knowte.ViewModels.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;

@@ -303,10 +303,6 @@
       <Project>{c13a112d-9888-48a4-baa6-3a55de886d38}</Project>
       <Name>Knowte.Presentation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Knowte.Services.Contracts\Knowte.Services.Contracts.csproj">
-      <Project>{F226096F-07E6-4CE3-8AE2-A3C25929A2FB}</Project>
-      <Name>Knowte.Services.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Knowte.Services\Knowte.Services.csproj">
       <Project>{21d77129-617c-4eae-b169-6744df48cebd}</Project>
       <Name>Knowte.Services</Name>

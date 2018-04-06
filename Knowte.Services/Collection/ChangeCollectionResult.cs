@@ -1,6 +1,6 @@
-﻿namespace Knowte.Services.Contracts.Collection
+﻿namespace Knowte.Services.Collection
 {
-    public enum ChangeNotebookResult
+    public enum ChangeCollectionResult
     {
         Ok = 0,
         Invalid = 1,

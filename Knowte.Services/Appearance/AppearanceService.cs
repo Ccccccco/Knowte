@@ -3,7 +3,6 @@ using Digimezzo.Foundation.Core.Logging;
 using Digimezzo.Foundation.Core.Settings;
 using Knowte.Core.Base;
 using Knowte.Core.IO;
-using Knowte.Services.Contracts.Appearance;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;

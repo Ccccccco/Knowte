@@ -1,10 +1,8 @@
 ﻿using Digimezzo.Foundation.WPF.Controls;
-using Knowte.Services.Constracts.Dialog;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Knowte.Services.Dialog
 {

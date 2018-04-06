@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Knowte.Services.Contracts.Collection
+namespace Knowte.Services.Collection
 {
     public class CollectionChangedEventArgs : EventArgs
     {

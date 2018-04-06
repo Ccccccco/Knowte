@@ -1,9 +1,8 @@
 ﻿using Digimezzo.Foundation.Core.Utils;
 using Knowte.Presentation.Contracts.Entities;
-using Knowte.Services.Constracts.Dialog;
-using Knowte.Services.Contracts.Collection;
+using Knowte.Services.Collection;
+using Knowte.Services.Dialog;
 using Knowte.ViewModels.Dialogs;
-using Knowte.Views.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;

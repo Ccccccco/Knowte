@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Knowte.Services.Constracts.I18n
+namespace Knowte.Services.I18n
 {
     public interface II18nService
     {
