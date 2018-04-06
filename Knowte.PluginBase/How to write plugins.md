@@ -3,7 +3,7 @@
 Writing plugins for Knowte is very easy. These are the steps:
 
 * In Visual Studio, create a new Class Library project (.NET version >= 4.6.1)
-* Add a reference to this dll: Knowte.WPF.PluginBase
+* Add a reference to this dll: Knowte.PluginBase
 * Implement one of the following interfaces:
 ..* Collection\ICollectionProvider
 ..* (Currently, there is only 1 interface available: ICollectionProvider)

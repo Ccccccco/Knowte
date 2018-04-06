@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Knowte.WPF.PluginBase")]
+[assembly: AssemblyTitle("Knowte.PluginBase")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Knowte.WPF.PluginBase")]
+[assembly: AssemblyProduct("Knowte.PluginBase")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7b8a78a1-b816-4c88-9470-a63274d8a5e2")]
+[assembly: Guid("76731eca-3052-4268-8987-1ed2c633b8c0")]
 
 // Version information for an assembly consists of the following four values:
 //

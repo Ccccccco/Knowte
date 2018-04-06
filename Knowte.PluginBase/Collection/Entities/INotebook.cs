@@ -1,4 +1,4 @@
-﻿namespace Knowte.WPF.PluginBase.Entities
+﻿namespace Knowte.PluginBase.Entities
 {
     public interface INotebook
     {

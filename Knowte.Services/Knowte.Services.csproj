@@ -141,9 +141,9 @@
       <Project>{43D60B4A-05D7-4828-A4ED-14A9C3C7C450}</Project>
       <Name>Knowte.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Knowte.WPF.PluginBase\Knowte.WPF.PluginBase.csproj">
-      <Project>{7B8A78A1-B816-4C88-9470-A63274D8A5E2}</Project>
-      <Name>Knowte.WPF.PluginBase</Name>
+    <ProjectReference Include="..\Knowte.PluginBase\Knowte.PluginBase.csproj">
+      <Project>{76731ECA-3052-4268-8987-1ED2C633B8C0}</Project>
+      <Name>Knowte.PluginBase</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Knowte.WPF.PluginBase.Entities;
+﻿using Knowte.PluginBase.Entities;
 using SQLite;
 using System;
 

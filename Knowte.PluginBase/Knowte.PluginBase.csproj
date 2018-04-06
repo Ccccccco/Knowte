@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7B8A78A1-B816-4C88-9470-A63274D8A5E2}</ProjectGuid>
+    <ProjectGuid>{76731ECA-3052-4268-8987-1ED2C633B8C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Knowte.WPF.PluginBase</RootNamespace>
-    <AssemblyName>Knowte.WPF.PluginBase</AssemblyName>
+    <RootNamespace>Knowte.PluginBase</RootNamespace>
+    <AssemblyName>Knowte.PluginBase</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

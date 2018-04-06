@@ -1,5 +1,5 @@
-﻿using Knowte.WPF.PluginBase;
-using Knowte.WPF.PluginBase.Entities;
+﻿using Knowte.PluginBase;
+using Knowte.PluginBase.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;

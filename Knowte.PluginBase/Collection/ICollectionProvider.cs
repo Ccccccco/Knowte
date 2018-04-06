@@ -1,8 +1,8 @@
-﻿using Knowte.WPF.PluginBase.Entities;
+﻿using Knowte.PluginBase.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Knowte.WPF.PluginBase
+namespace Knowte.PluginBase
 {
     /// <summary>
     /// Implement this interface to create a plugin that is able to store notes in any alternative location.

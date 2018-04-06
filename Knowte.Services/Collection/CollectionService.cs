@@ -3,7 +3,7 @@ using Digimezzo.Foundation.Core.Utils;
 using Knowte.Data.Entities;
 using Knowte.Services.App;
 using Knowte.Services.Entities;
-using Knowte.WPF.PluginBase.Entities;
+using Knowte.PluginBase.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
