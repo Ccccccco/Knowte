@@ -1,7 +1,5 @@
 ﻿using Digimezzo.Foundation.Core.Logging;
-using Knowte.Data.Contracts;
-using Knowte.Data.Contracts.Entities;
-using Knowte.Data.Contracts.Repositories;
+using Knowte.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

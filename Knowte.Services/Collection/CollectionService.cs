@@ -1,5 +1,6 @@
 ﻿using Digimezzo.Foundation.Core.Logging;
 using Digimezzo.Foundation.Core.Utils;
+using Knowte.Data.Entities;
 using Knowte.Plugin.Contracts.Collection.Entities;
 using Knowte.Services.App;
 using Knowte.Services.Entities;
@@ -271,7 +272,7 @@ namespace Knowte.Services.Collection
 
             var collectionViewModels = new List<CollectionViewModel>();
 
-            foreach (Data.Contracts.Entities.Collection collection in collections)
+            foreach (Data.Entities.Collection collection in collections)
             {
                 collectionViewModels.Add(new CollectionViewModel(collection.Id, collection.Title, collection.IsActive));
             }
@@ -482,7 +483,7 @@ namespace Knowte.Services.Collection
             notebookViewModels.Add(new NotebookViewModel(NotebookViewModel.UnfiledNotesNotebookId, ResourceUtils.GetString("Language_Unfiled_Notes")));
 
             // Add the user's notebooks
-            foreach (Data.Contracts.Entities.Notebook notebook in notebooks)
+            foreach (Notebook notebook in notebooks)
             {
                 userNotebookViewModels.Add(new NotebookViewModel(notebook.Id, notebook.Title));
             }

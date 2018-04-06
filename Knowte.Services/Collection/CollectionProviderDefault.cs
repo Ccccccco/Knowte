@@ -1,6 +1,5 @@
 ﻿using Knowte.Data;
-using Knowte.Data.Contracts.Entities;
-using Knowte.Data.Contracts.Repositories;
+using Knowte.Data.Entities;
 using Knowte.Data.Repositories;
 using Knowte.Plugin.Contracts.Collection;
 using Knowte.Plugin.Contracts.Collection.Entities;
@@ -37,7 +36,7 @@ namespace Knowte.Services.Collection
 
         public async Task<string> GetCollectionIdAsync(string title)
         {
-            Data.Contracts.Entities.Collection collection = await this.collectionRepository.GetCollectionAsync(title);
+            Data.Entities.Collection collection = await this.collectionRepository.GetCollectionAsync(title);
 
             if( collection == null)
             {
@@ -59,7 +58,7 @@ namespace Knowte.Services.Collection
 
         public async Task<List<ICollection>> GetCollectionsAsync()
         {
-            List<Data.Contracts.Entities.Collection> collections = await this.collectionRepository.GetCollectionsAsync();
+            List<Data.Entities.Collection> collections = await this.collectionRepository.GetCollectionsAsync();
 
             return collections.Cast<ICollection>().ToList();
         }
@@ -93,7 +92,7 @@ namespace Knowte.Services.Collection
 
         public async Task<List<INotebook>> GetNotebooksAsync()
         {
-            List<Data.Contracts.Entities.Notebook> notebooks = await this.notebookRepository.GetNotebooksAsync();
+            List<Notebook> notebooks = await this.notebookRepository.GetNotebooksAsync();
 
             return notebooks.Cast<INotebook>().ToList();
         }

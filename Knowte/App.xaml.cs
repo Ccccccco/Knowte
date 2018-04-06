@@ -5,8 +5,6 @@ using Digimezzo.Foundation.Core.Utils;
 using Digimezzo.Foundation.WPF.Controls;
 using Knowte.Core.Base;
 using Knowte.Data;
-using Knowte.Data.Contracts;
-using Knowte.Data.Contracts.Repositories;
 using Knowte.Data.Repositories;
 using Knowte.Services.App;
 using Knowte.Services.Appearance;

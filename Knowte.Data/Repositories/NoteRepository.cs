@@ -1,5 +1,4 @@
-﻿using Knowte.Data.Contracts.Repositories;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Knowte.Data.Repositories

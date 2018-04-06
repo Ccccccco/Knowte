@@ -287,10 +287,6 @@
       <Project>{fbe4a424-ba3b-46a6-9843-57f1a5f5050c}</Project>
       <Name>Knowte.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Knowte.Data.Contracts\Knowte.Data.Contracts.csproj">
-      <Project>{ACCD6C35-90D1-47C6-B18C-EDCACC6F0B6E}</Project>
-      <Name>Knowte.Data.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Knowte.Data\Knowte.Data.csproj">
       <Project>{43d60b4a-05d7-4828-a4ed-14a9c3c7c450}</Project>
       <Name>Knowte.Data</Name>

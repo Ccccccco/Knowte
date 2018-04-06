@@ -1,5 +1,4 @@
 ﻿using Knowte.Core.IO;
-using Knowte.Data.Contracts;
 using SQLite;
 using System.IO;
 
