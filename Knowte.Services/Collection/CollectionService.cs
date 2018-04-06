@@ -467,28 +467,24 @@ namespace Knowte.Services.Collection
                 LogClient.Error($"Get failed. Exception: {ex.Message}");
             }
 
-            if (notebooks == null || notebooks.Count.Equals(0))
-            {
-                LogClient.Error($"{nameof(notebooks)} is null or empty");
-                this.appService.IsBusy = false;
-
-                return new List<NotebookViewModel>();
-            }
-
             var notebookViewModels = new List<NotebookViewModel>();
-            var userNotebookViewModels = new List<NotebookViewModel>();
 
             // Add the default notebooks
             notebookViewModels.Add(new NotebookViewModel(NotebookViewModel.AllNotesNotebookId, ResourceUtils.GetString("Language_All_Notes")));
             notebookViewModels.Add(new NotebookViewModel(NotebookViewModel.UnfiledNotesNotebookId, ResourceUtils.GetString("Language_Unfiled_Notes")));
 
-            // Add the user's notebooks
-            foreach (Notebook notebook in notebooks)
+            // If found, add the user's notebooks
+            if (notebooks != null && notebooks.Count > 0)
             {
-                userNotebookViewModels.Add(new NotebookViewModel(notebook.Id, notebook.Title));
-            }
+                var userNotebookViewModels = new List<NotebookViewModel>();
 
-            notebookViewModels.AddRange(userNotebookViewModels.OrderBy(n => n.Title).ToList());
+                foreach (Notebook notebook in notebooks)
+                {
+                    userNotebookViewModels.Add(new NotebookViewModel(notebook.Id, notebook.Title));
+                }
+
+                notebookViewModels.AddRange(userNotebookViewModels.OrderBy(n => n.Title).ToList());
+            }
 
             this.appService.IsBusy = false;
 
