@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Knowte\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Collection\Entities\ICollection.cs" />
     <Compile Include="Collection\Entities\INotebook.cs" />
     <Compile Include="Collection\ICollectionProvider.cs" />

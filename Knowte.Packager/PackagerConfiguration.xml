@@ -41,6 +41,10 @@
         <File>SQLitePCL.batteries.dll</File>
         <File>SQLitePCL.raw.dll</File>
         <File>SQLitePCLPlugin_esqlite3.dll</File>
+        <File>SQLitePCLRaw.batteries_green.dll</File>
+        <File>SQLitePCLRaw.batteries_v2.dll</File>
+        <File>SQLitePCLRaw.core.dll</File>
+        <File>SQLitePCLRaw.provider.e_sqlite3.dll</File>
         <File>System.Windows.Interactivity.dll</File>
       </Files>
     </Portable>

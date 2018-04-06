@@ -62,12 +62,12 @@
           <!-- SQLite -->
           <Directory Id="X64FOLDER" Name="x64">
             <Component Id="X64CMP" DiskId="1" Guid="4FA42DB7-BBF0-40E2-A90D-50CCABB80A24">
-              <File Id="ESQLITEX64" Source="x64\esqlite3.dll" />
+              <File Id="ESQLITEX64" Source="x64\e_sqlite3.dll" />
             </Component>
           </Directory>
           <Directory Id="X86FOLDER" Name="x86">
             <Component Id="X86CMP" DiskId="1" Guid="5D7947C3-CF79-4478-A3D9-BFAB45B8231E">
-              <File Id="ESQLITEX86" Source="x86\esqlite3.dll" />
+              <File Id="ESQLITEX86" Source="x86\e_sqlite3.dll" />
             </Component>
           </Directory>
           <Directory Id="LANGUAGESFOLDER" Name="Languages">
@@ -104,6 +104,10 @@
             <File Source="SQLitePCL.batteries.dll" />
             <File Source="SQLitePCL.raw.dll" />
             <File Source="SQLitePCLPlugin_esqlite3.dll" />
+            <File Source="SQLitePCLRaw.batteries_green.dll" />
+            <File Source="SQLitePCLRaw.batteries_v2.dll" />
+            <File Source="SQLitePCLRaw.core.dll" />
+            <File Source="SQLitePCLRaw.provider.e_sqlite3.dll" />
             <File Source="System.Windows.Interactivity.dll" />
           </Component>
         </Directory>
