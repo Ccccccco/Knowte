@@ -1,4 +1,4 @@
-﻿using Knowte.Presentation.Contracts.Entities;
+﻿using Knowte.Services.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

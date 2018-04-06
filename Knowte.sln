@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Data.Contracts", "Kn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Presentation", "Knowte.Presentation\Knowte.Presentation.csproj", "{C13A112D-9888-48A4-BAA6-3A55DE886D38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Presentation.Contracts", "Knowte.Presentation.Contracts\Knowte.Presentation.Contracts.csproj", "{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Services", "Knowte.Services\Knowte.Services.csproj", "{21D77129-617C-4EAE-B169-6744DF48CEBD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Knowte.Packager", "Knowte.Packager\Knowte.Packager.csproj", "{5EC0583E-9425-4995-B8BF-1FC104496F75}"
@@ -47,10 +45,6 @@ Global
 		{C13A112D-9888-48A4-BAA6-3A55DE886D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C13A112D-9888-48A4-BAA6-3A55DE886D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C13A112D-9888-48A4-BAA6-3A55DE886D38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21D77129-617C-4EAE-B169-6744DF48CEBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21D77129-617C-4EAE-B169-6744DF48CEBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D77129-617C-4EAE-B169-6744DF48CEBD}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -102,6 +102,8 @@
     <Compile Include="Dialog\NotificationDialog.xaml.cs">
       <DependentUpon>NotificationDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Entities\CollectionViewModel.cs" />
+    <Compile Include="Entities\NotebookViewModel.cs" />
     <Compile Include="I18n\I18nService.cs" />
     <Compile Include="I18n\II18nService.cs" />
     <Compile Include="I18n\Language.cs" />
@@ -146,10 +148,6 @@
     <ProjectReference Include="..\Knowte.Plugin.Contracts\Knowte.Plugin.Contracts.csproj">
       <Project>{071B3645-618F-4733-8039-2AD08711B77B}</Project>
       <Name>Knowte.Plugin.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Knowte.Presentation.Contracts\Knowte.Presentation.Contracts.csproj">
-      <Project>{9E321BA3-2EFE-47AC-B09A-DFCDC949A1B6}</Project>
-      <Name>Knowte.Presentation.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

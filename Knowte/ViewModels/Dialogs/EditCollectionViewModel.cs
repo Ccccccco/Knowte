@@ -1,7 +1,7 @@
 ﻿using Digimezzo.Foundation.Core.Utils;
-using Knowte.Presentation.Contracts.Entities;
 using Knowte.Services.Collection;
 using Knowte.Services.Dialog;
+using Knowte.Services.Entities;
 using Prism.Mvvm;
 using System.Threading.Tasks;
 
