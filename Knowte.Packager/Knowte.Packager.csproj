@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70438454-8211-44DA-BD6B-D7C4851EFE3E}</ProjectGuid>
+    <ProjectGuid>{CB015199-F090-4AF9-AF41-D32049B4AAF5}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Knowte.WPF.Packager</RootNamespace>
-    <AssemblyName>Knowte.WPF.Packager</AssemblyName>
+    <RootNamespace>Knowte.Packager</RootNamespace>
+    <AssemblyName>Knowte.Packager</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

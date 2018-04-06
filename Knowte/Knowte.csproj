@@ -373,13 +373,13 @@
       <Project>{43d60b4a-05d7-4828-a4ed-14a9c3c7c450}</Project>
       <Name>Knowte.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Knowte.Packager\Knowte.Packager.csproj">
+      <Project>{cb015199-f090-4af9-af41-d32049b4aaf5}</Project>
+      <Name>Knowte.Packager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Knowte.Services\Knowte.Services.csproj">
       <Project>{21d77129-617c-4eae-b169-6744df48cebd}</Project>
       <Name>Knowte.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Knowte.WPF.Packager\Knowte.WPF.Packager.csproj">
-      <Project>{70438454-8211-44da-bd6b-d7c4851efe3e}</Project>
-      <Name>Knowte.WPF.Packager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,4 @@
-﻿namespace Knowte.WPF.Packager
+﻿namespace Knowte.Packager
 {
     class Program
     {
