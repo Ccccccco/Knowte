@@ -8,12 +8,12 @@ namespace Knowte.Data.Repositories
     {
         Task<Notebook> GetNotebookAsync(string title);
 
-        Task<string> AddNotebookAsync(string title);
+        Task<string> AddNotebookAsync(string collectionId, string title);
 
-        Task<bool> EditNotebookAsync(string notebookId, string title);
+        Task EditNotebookAsync(string notebookId, string title);
 
-        Task<bool> DeleteNotebookAsync(string notebookId);
+        Task DeleteNotebookAsync(string notebookId);
 
-        Task<List<Notebook>> GetNotebooksAsync();
+        Task<List<Notebook>> GetNotebooksAsync(string collectionId);
     }
 }

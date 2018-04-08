@@ -11,7 +11,7 @@ namespace Knowte.Services.Collection
     {
         public string ProviderName => "PHP REST";
 
-        public async Task<bool> ActivateCollectionAsync(string collectionId)
+        public async Task ActivateCollectionAsync(string collectionId)
         {
             throw new System.NotImplementedException();
         }
@@ -22,12 +22,12 @@ namespace Knowte.Services.Collection
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> DeleteCollectionAsync(string collectionId)
+        public async Task DeleteCollectionAsync(string collectionId)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> EditCollectionAsync(string collectionId, string title)
+        public async Task EditCollectionAsync(string collectionId, string title)
         {
             throw new System.NotImplementedException();
         }
@@ -47,22 +47,27 @@ namespace Knowte.Services.Collection
             throw new System.NotImplementedException();
         }
 
-        public async Task<string> AddNotebookAsync(string title)
+        public async Task<string> AddNotebookAsync(string collectionId, string title)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> EditNotebookAsync(string notebookId, string title)
+        public async Task EditNotebookAsync(string notebookId, string title)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> DeleteNotebookAsync(string notebookId)
+        public async Task DeleteNotebookAsync(string notebookId)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<List<INotebook>> GetNotebooksAsync()
+        public async Task<List<INotebook>> GetNotebooksAsync(string collectionId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<string> GetActiveCollectionId()
         {
             throw new System.NotImplementedException();
         }

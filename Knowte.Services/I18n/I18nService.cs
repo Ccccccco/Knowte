@@ -29,8 +29,8 @@ namespace Knowte.Services.I18n
             // --------------------------------
 
             // Initialize variables
-            this.builtinLanguagesDirectory = Path.Combine(ProcessExecutable.ExecutionFolder(), ApplicationPaths.BuiltinLanguagesFolder);
-            this.customLanguagesDirectory = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.CustomLanguagesFolder);
+            this.builtinLanguagesDirectory = Path.Combine(ProcessExecutable.ExecutionFolder(), ApplicationPaths.BuiltinLanguagesDirectory);
+            this.customLanguagesDirectory = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.CustomLanguagesDirectory);
 
             // If the CustomLanguages subdirectory doesn't exist, create it
             if (!Directory.Exists(this.customLanguagesDirectory))

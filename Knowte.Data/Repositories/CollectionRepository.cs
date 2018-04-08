@@ -1,6 +1,4 @@
-﻿using Digimezzo.Foundation.Core.Logging;
-using Knowte.Data.Entities;
-using System;
+﻿using Knowte.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,32 +20,18 @@ namespace Knowte.Data.Repositories
 
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
+                    if (isActive)
                     {
-                        try
-                        {
-                            if (isActive)
-                            {
-                                // If this collection should be active, make all other collections inactive.
-                                conn.Execute("UPDATE Collection SET IsActive = 0;");
-                            }
-
-                            var collection = new Collection(title, isActive ? 1 : 0);
-
-                            conn.Insert(collection);
-                            collectionId = collection.Id;
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not add collection. {nameof(title)}={title}. Exception: {ex.Message}");
-                        }
+                        // If this collection should be active, make all other collections inactive.
+                        conn.Execute("UPDATE Collection SET IsActive = 0;");
                     }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+
+                    var collection = new Collection(title, isActive ? 1 : 0);
+
+                    conn.Insert(collection);
+                    collectionId = collection.Id;
                 }
             });
 
@@ -60,23 +44,9 @@ namespace Knowte.Data.Repositories
 
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            collection = conn.Table<Collection>().Where((c) => c.Title.Equals(title)).FirstOrDefault();
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not get collection. {nameof(title)}={title}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    collection = conn.Table<Collection>().ToList().Where((c) => c.Title.Equals(title)).FirstOrDefault();
                 }
             });
 
@@ -89,123 +59,66 @@ namespace Knowte.Data.Repositories
 
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            collections = conn.Table<Collection>().Select((c) => c).ToList();
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not get collections. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+
+                    collections = conn.Table<Collection>().Select((c) => c).ToList();
                 }
             });
 
             return collections;
         }
 
-        public async Task<bool> ActivateCollectionAsync(string collectionId)
+        public async Task ActivateCollectionAsync(string collectionId)
         {
-            bool isSuccess = false;
-
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            conn.BeginTransaction();
-                            conn.Execute("UPDATE Collection SET IsActive = 0;");
-                            conn.Execute("UPDATE Collection SET IsActive = 1 WHERE Id=?;", collectionId);
-                            conn.Commit();
+                    conn.BeginTransaction();
+                    conn.Execute("UPDATE Collection SET IsActive = 0;");
+                    conn.Execute("UPDATE Collection SET IsActive = 1 WHERE Id=?;", collectionId);
+                    conn.Commit();
+                }
 
-                            isSuccess = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not activate the collection. {nameof(collectionId)}={collectionId}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
-                }
             });
-
-            return isSuccess;
         }
 
-        public async Task<bool> DeleteCollectionAsync(string collectionId)
+        public async Task DeleteCollectionAsync(string collectionId)
         {
-            bool isSuccess = false;
-
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            conn.Execute("DELETE FROM Collection WHERE Id = ?;", collectionId);
-
-                            isSuccess = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not delete the collection. {nameof(collectionId)}={collectionId}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    conn.Execute("DELETE FROM Collection WHERE Id = ?;", collectionId);
                 }
             });
-
-            return isSuccess;
         }
 
-        public async Task<bool> EditCollectionAsync(string collectionId, string title)
+        public async Task EditCollectionAsync(string collectionId, string title)
         {
-            bool isSuccess = false;
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    conn.Execute("UPDATE Collection SET Title = ? WHERE Id=?;", title, collectionId, title);
+                }
+            });
+        }
+
+        public async Task<string> GetActiveCollectionId()
+        {
+            string activeCollectionId = string.Empty;
 
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            conn.Execute("UPDATE Collection SET Title = ? WHERE Id=?;", title, collectionId, title);
-
-                            isSuccess = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could edit the collection. {nameof(collectionId)}={collectionId}, {nameof(title)}={title}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    activeCollectionId = conn.Table<Collection>().ToList().Where(c => c.IsActive == 1).Select(c => c.Id).FirstOrDefault();
                 }
             });
 
-            return isSuccess;
+            return activeCollectionId;
         }
     }
 }

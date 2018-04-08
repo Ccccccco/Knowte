@@ -5,7 +5,7 @@ namespace Knowte.Data.Repositories
 {
     public class NoteRepository : INoteRepository
     {
-        public Task<bool> DeleteNotes(string notebookId)
+        public async Task DeleteNotes(string notebookId)
         {
             throw new NotImplementedException();
         }

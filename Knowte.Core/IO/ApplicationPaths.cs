@@ -4,10 +4,10 @@ namespace Knowte.Core.IO
 {
     public class ApplicationPaths
     {
-        public static string ColorSchemesFolder = "ColorSchemes";
-        public static string BuiltinLanguagesFolder = "Languages";
-        public static string CustomLanguagesFolder = "Languages";
-        public static string PluginsFolder = "Plugins";
+        public static string ColorSchemesDirectory = "ColorSchemes";
+        public static string BuiltinLanguagesDirectory = "Languages";
+        public static string CustomLanguagesDirectory = "Languages";
+        public static string PluginsDirectory = "Plugins";
 
         public static string DefaultNoteStorageLocation
         {

@@ -36,7 +36,7 @@ namespace Knowte.Services.Collection
         {
             this.appService = appService;
 
-            string pluginsFolder = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.PluginsFolder);
+            string pluginsFolder = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.PluginsDirectory);
 
             // If the Plugins folder doesn't exist, create it.
             if (!Directory.Exists(pluginsFolder))
@@ -68,23 +68,24 @@ namespace Knowte.Services.Collection
 
             try
             {
-                activateSuccess = await this.importer.GetProvider().ActivateCollectionAsync(collection.Id);
+                await this.importer.GetProvider().ActivateCollectionAsync(collection.Id);
+                activateSuccess = true;
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Activate failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(ActivateCollectionAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!activateSuccess)
             {
-                LogClient.Error($"Activate failed. {nameof(collection.Id)}={collection.Id}");
+                LogClient.Error($"{nameof(ActivateCollectionAsync)} failed. {nameof(collection.Id)}={collection.Id}");
                 this.appService.IsBusy = false;
 
                 return false;
             }
 
             this.ActiveCollectionChanged(this, new CollectionChangedEventArgs(collection.Id));
-            LogClient.Info($"Activate successful. {nameof(collection.Id)}={collection.Id}");
+            LogClient.Info($"{nameof(ActivateCollectionAsync)} successful. {nameof(collection.Id)}={collection.Id}");
             this.appService.IsBusy = false;
 
             return true;
@@ -108,7 +109,7 @@ namespace Knowte.Services.Collection
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Add failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(AddCollectionAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!string.IsNullOrEmpty(existingCollectionId))
@@ -127,19 +128,26 @@ namespace Knowte.Services.Collection
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Add failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(AddCollectionAsync)} failed. Exception: {ex.Message}");
             }
 
             if (string.IsNullOrEmpty(collectionId))
             {
-                LogClient.Error($"Add failed. {nameof(collectionId)} is empty");
+                LogClient.Error($"{nameof(AddCollectionAsync)} failed. {nameof(collectionId)} is empty");
                 this.appService.IsBusy = false;
 
                 return ChangeCollectionResult.Error;
             }
 
             this.CollectionAdded(this, new CollectionChangedEventArgs(collectionId));
-            LogClient.Info($"Add successful. {nameof(title)}={title}");
+            LogClient.Info($"{nameof(AddCollectionAsync)} successful. {nameof(title)}={title}");
+
+            if (isActive)
+            {
+                this.ActiveCollectionChanged(this, new CollectionChangedEventArgs(collectionId));
+                LogClient.Info($"Collection activated: {nameof(title)}={title}");
+            }
+
             this.appService.IsBusy = false;
 
             return ChangeCollectionResult.Ok;
@@ -165,23 +173,24 @@ namespace Knowte.Services.Collection
 
             try
             {
-                deleteSuccess = await this.importer.GetProvider().DeleteCollectionAsync(collection.Id);
+                await this.importer.GetProvider().DeleteCollectionAsync(collection.Id);
+                deleteSuccess = true;
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Delete failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(DeleteCollectionAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!deleteSuccess)
             {
-                LogClient.Error($"Delete failed. {nameof(collection.Id)}={collection.Id}");
+                LogClient.Error($"{nameof(DeleteCollectionAsync)} failed. {nameof(collection.Id)}={collection.Id}");
                 this.appService.IsBusy = false;
 
                 return false;
             }
 
             this.CollectionDeleted(this, new CollectionChangedEventArgs(collection.Id));
-            LogClient.Info($"Delete successful. {nameof(collection.Id)}={collection.Id}");
+            LogClient.Info($"{nameof(DeleteCollectionAsync)} successful. {nameof(collection.Id)}={collection.Id}");
             this.appService.IsBusy = false;
 
             return true;
@@ -223,7 +232,7 @@ namespace Knowte.Services.Collection
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Edit failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(EditCollectionAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!string.IsNullOrEmpty(existingCollectionId))
@@ -238,16 +247,17 @@ namespace Knowte.Services.Collection
 
             try
             {
-                editSuccess = await this.importer.GetProvider().EditCollectionAsync(collection.Id, title);
+                await this.importer.GetProvider().EditCollectionAsync(collection.Id, title);
+                editSuccess = true;
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Edit failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(EditCollectionAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!editSuccess)
             {
-                LogClient.Error($"Edit failed. {nameof(collection.Id)}={collection.Id}, {nameof(title)}={title}");
+                LogClient.Error($"{nameof(EditCollectionAsync)} failed. {nameof(collection.Id)}={collection.Id}, {nameof(title)}={title}");
                 this.appService.IsBusy = false;
 
                 return ChangeCollectionResult.Error;
@@ -272,7 +282,7 @@ namespace Knowte.Services.Collection
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Get failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(GetCollectionsAsync)} failed. Exception: {ex.Message}");
             }
 
             if (collections == null || collections.Count.Equals(0))
@@ -305,6 +315,25 @@ namespace Knowte.Services.Collection
 
             this.appService.IsBusy = true;
 
+            string activeCollectionId = string.Empty;
+
+            try
+            {
+                activeCollectionId = await this.importer.GetProvider().GetActiveCollectionId();
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"{nameof(AddNotebookAsync)} failed. Exception: {ex.Message}");
+            }
+
+            if (string.IsNullOrEmpty(activeCollectionId))
+            {
+                LogClient.Error($"There is no active collection");
+                this.appService.IsBusy = false;
+
+                return ChangeNotebookResult.Error;
+            }
+
             string existingNotebookId = string.Empty;
 
             try
@@ -313,7 +342,7 @@ namespace Knowte.Services.Collection
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Add failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(AddNotebookAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!string.IsNullOrEmpty(existingNotebookId))
@@ -328,23 +357,23 @@ namespace Knowte.Services.Collection
 
             try
             {
-                notebookId = await this.importer.GetProvider().AddNotebookAsync(title);
+                notebookId = await this.importer.GetProvider().AddNotebookAsync(activeCollectionId, title);
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Add failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(AddNotebookAsync)} failed. Exception: {ex.Message}");
             }
 
             if (string.IsNullOrEmpty(notebookId))
             {
-                LogClient.Error($"Add failed. {nameof(notebookId)} is empty");
+                LogClient.Error($"{nameof(AddNotebookAsync)} failed. {nameof(notebookId)} is empty");
                 this.appService.IsBusy = false;
 
                 return ChangeNotebookResult.Error;
             }
 
             this.NotebookAdded(this, new NotebookChangedEventArgs(notebookId));
-            LogClient.Info($"Add successful. {nameof(title)}={title}");
+            LogClient.Info($"{nameof(AddNotebookAsync)} successful. {nameof(title)}={title}");
             this.appService.IsBusy = false;
 
             return ChangeNotebookResult.Ok;
@@ -386,7 +415,7 @@ namespace Knowte.Services.Collection
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Edit failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(EditNotebookAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!string.IsNullOrEmpty(existingNotebookId))
@@ -401,23 +430,24 @@ namespace Knowte.Services.Collection
 
             try
             {
-                editSuccess = await this.importer.GetProvider().EditNotebookAsync(notebook.Id, title);
+                await this.importer.GetProvider().EditNotebookAsync(notebook.Id, title);
+                editSuccess = true;
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Edit failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(EditNotebookAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!editSuccess)
             {
-                LogClient.Error($"Edit failed. {nameof(notebook.Id)}={notebook.Id}, {nameof(title)}={title}");
+                LogClient.Error($"{nameof(EditNotebookAsync)} failed. {nameof(notebook.Id)}={notebook.Id}, {nameof(title)}={title}");
                 this.appService.IsBusy = false;
 
                 return ChangeNotebookResult.Error;
             }
 
             this.NotebookEdited(this, new NotebookChangedEventArgs(notebook.Id));
-            LogClient.Info($"Edit success. {nameof(notebook.Id)}={notebook.Id}, {nameof(title)}={title}");
+            LogClient.Info($"{nameof(EditNotebookAsync)} success. {nameof(notebook.Id)}={notebook.Id}, {nameof(title)}={title}");
             this.appService.IsBusy = false;
 
             return ChangeNotebookResult.Ok;
@@ -443,23 +473,24 @@ namespace Knowte.Services.Collection
 
             try
             {
-                deleteSuccess = await this.importer.GetProvider().DeleteNotebookAsync(notebook.Id);
+                await this.importer.GetProvider().DeleteNotebookAsync(notebook.Id);
+                deleteSuccess = true;
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Delete failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(DeleteNotebookAsync)} failed. Exception: {ex.Message}");
             }
 
             if (!deleteSuccess)
             {
-                LogClient.Error($"Delete failed. {nameof(notebook.Id)}={notebook.Id}");
+                LogClient.Error($"{nameof(DeleteNotebookAsync)} failed. {nameof(notebook.Id)}={notebook.Id}");
                 this.appService.IsBusy = false;
 
                 return false;
             }
 
             this.NotebookDeleted(this, new NotebookChangedEventArgs(notebook.Id));
-            LogClient.Info($"Delete successful. {nameof(notebook.Id)}={notebook.Id}");
+            LogClient.Info($"{nameof(DeleteNotebookAsync)} successful. {nameof(notebook.Id)}={notebook.Id}");
             this.appService.IsBusy = false;
 
             return true;
@@ -469,15 +500,35 @@ namespace Knowte.Services.Collection
         {
             this.appService.IsBusy = true;
 
+            string activeCollectionId = string.Empty;
+
+            try
+            {
+                activeCollectionId = await this.importer.GetProvider().GetActiveCollectionId();
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"{nameof(GetNotebooksAsync)} failed. Exception: {ex.Message}");
+            }
+
+            if (string.IsNullOrEmpty(activeCollectionId))
+            {
+                LogClient.Error($"{nameof(activeCollectionId)} is null or empty");
+                this.appService.IsBusy = false;
+
+                return new List<NotebookViewModel>();
+            }
+
+
             List<INotebook> notebooks = null;
 
             try
             {
-                notebooks = await this.importer.GetProvider().GetNotebooksAsync();
+                notebooks = await this.importer.GetProvider().GetNotebooksAsync(activeCollectionId);
             }
             catch (Exception ex)
             {
-                LogClient.Error($"Get failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(GetNotebooksAsync)} failed. Exception: {ex.Message}");
             }
 
             var notebookViewModels = new List<NotebookViewModel>();
@@ -502,6 +553,22 @@ namespace Knowte.Services.Collection
             this.appService.IsBusy = false;
 
             return notebookViewModels;
+        }
+
+        public async Task<bool> HasActiveCollection()
+        {
+            string activeCollectionId = string.Empty;
+
+            try
+            {
+                activeCollectionId = await this.importer.GetProvider().GetActiveCollectionId();
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"{nameof(HasActiveCollection)} failed. Exception: {ex.Message}");
+            }
+
+            return !string.IsNullOrEmpty(activeCollectionId);
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Knowte.Data.Repositories
 {
     public interface INoteRepository
     {
-        Task<bool> DeleteNotes(string notebookId);
+        Task DeleteNotes(string notebookId);
     }
 }

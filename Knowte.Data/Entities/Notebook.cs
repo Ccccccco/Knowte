@@ -19,9 +19,10 @@ namespace Knowte.Data.Entities
         {
         }
 
-        public Notebook(string title)
+        public Notebook(string collectionId, string title)
         {
             this.Id = Guid.NewGuid().ToString();
+            this.CollectionId = collectionId;
             this.Title = title;
         }
 

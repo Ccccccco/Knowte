@@ -12,10 +12,12 @@ namespace Knowte.Data.Repositories
 
         Task<string> AddCollectionAsync(string title, bool isActive);
 
-        Task<bool> ActivateCollectionAsync(string collectionId);
+        Task ActivateCollectionAsync(string collectionId);
 
-        Task<bool> DeleteCollectionAsync(string collectionId);
+        Task DeleteCollectionAsync(string collectionId);
 
-        Task<bool> EditCollectionAsync(string collectionId, string title);
+        Task EditCollectionAsync(string collectionId, string title);
+
+        Task<string> GetActiveCollectionId();
     }
 }

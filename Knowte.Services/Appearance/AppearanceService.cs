@@ -55,7 +55,7 @@ namespace Knowte.Services.Appearance
         public AppearanceService() : base()
         {
             // Initialize the ColorSchemes folder
-            this.colorSchemesFolder = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.ColorSchemesFolder);
+            this.colorSchemesFolder = Path.Combine(SettingsClient.ApplicationFolder(), ApplicationPaths.ColorSchemesDirectory);
 
             // If the ColorSchemes folder doesn't exist, create it.
             if (!Directory.Exists(this.colorSchemesFolder))

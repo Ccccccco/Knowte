@@ -16,70 +16,79 @@
       prismmvvm:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid>
-        <!-- Notebooks -->
-        <Border x:Name="NotebooksContainerBackground" Panel.ZIndex="0" Margin="1,38,0,1" 
+        <!-- No active collection -->
+        <StackPanel Margin="18" Visibility="{Binding HasActiveCollection,Converter={StaticResource InvertingBooleanToCollapsedConverter}}">
+            <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_No_Active_Collection}"/>
+            <TextBlock Margin="0,12,0,0" Foreground="{DynamicResource Brush_DarkText}" 
+                       Text="{DynamicResource Language_No_Active_Collection_Please_Activate_A_Collection}"/>
+        </StackPanel>
+        <!-- Content -->
+        <Grid Visibility="{Binding HasActiveCollection,Converter={StaticResource BooleanToCollapsedConverter}}">
+            <!-- Notebooks -->
+            <Border x:Name="NotebooksContainerBackground" Panel.ZIndex="0" Margin="1,38,0,1" 
                 Background="{DynamicResource Brush_NotebooksContainerBackground}" 
                 Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left"
                 BorderThickness="0,0,1,0" BorderBrush="{DynamicResource Brush_DividerLine}"/>
-        <Border x:Name="NotebooksContainerContent" Panel.ZIndex="2" Margin="1,38,0,1" 
+            <Border x:Name="NotebooksContainerContent" Panel.ZIndex="2" Margin="1,38,0,1" 
                 Background="Transparent" 
                 Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left">
-            <views:NotebooksContainer/>
-        </Border>
-        <!-- Notes -->
-        <fwc:Pivot Panel.ZIndex="1" IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" 
+                <views:NotebooksContainer/>
+            </Border>
+            <!-- Notes -->
+            <fwc:Pivot Panel.ZIndex="1" IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" 
                HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" 
                ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
-            <!-- All -->
-            <fwc:PivotItem x:Name="PivotItemAll" Style="{StaticResource PivotItemStyle}">
-                <fwc:PivotItem.Header>
-                    <controls:NotesPivotItemHeader Text="{DynamicResource Language_All}" Count="{Binding CountAll}" 
+                <!-- All -->
+                <fwc:PivotItem x:Name="PivotItemAll" Style="{StaticResource PivotItemStyle}">
+                    <fwc:PivotItem.Header>
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_All}" Count="{Binding CountAll}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemAll}"/>
-                </fwc:PivotItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
+                    </fwc:PivotItem.Header>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
 
-                </ScrollViewer>
-            </fwc:PivotItem>
-            <!-- Today -->
-            <fwc:PivotItem x:Name="PivotItemToday" Style="{StaticResource PivotItemStyle}">
-                <fwc:PivotItem.Header>
-                    <controls:NotesPivotItemHeader Text="{DynamicResource Language_Today}" Count="{Binding CountToday}" 
+                    </ScrollViewer>
+                </fwc:PivotItem>
+                <!-- Today -->
+                <fwc:PivotItem x:Name="PivotItemToday" Style="{StaticResource PivotItemStyle}">
+                    <fwc:PivotItem.Header>
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Today}" Count="{Binding CountToday}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemToday}"/>
-                </fwc:PivotItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
+                    </fwc:PivotItem.Header>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
 
-                </ScrollViewer>
-            </fwc:PivotItem>
-            <!-- Yesterday -->
-            <fwc:PivotItem x:Name="PivotItemYesterday" Style="{StaticResource PivotItemStyle}">
-                <fwc:PivotItem.Header>
-                    <controls:NotesPivotItemHeader Text="{DynamicResource Language_Yesterday}" Count="{Binding CountYesterday}" 
+                    </ScrollViewer>
+                </fwc:PivotItem>
+                <!-- Yesterday -->
+                <fwc:PivotItem x:Name="PivotItemYesterday" Style="{StaticResource PivotItemStyle}">
+                    <fwc:PivotItem.Header>
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Yesterday}" Count="{Binding CountYesterday}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemYesterday}"/>
-                </fwc:PivotItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
+                    </fwc:PivotItem.Header>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
 
-                </ScrollViewer>
-            </fwc:PivotItem>
-            <!-- This week -->
-            <fwc:PivotItem x:Name="PivotItemThisWeek" Style="{StaticResource PivotItemStyle}">
-                <fwc:PivotItem.Header>
-                    <controls:NotesPivotItemHeader Text="{DynamicResource Language_This_Week}" Count="{Binding CountThisWeek}" 
+                    </ScrollViewer>
+                </fwc:PivotItem>
+                <!-- This week -->
+                <fwc:PivotItem x:Name="PivotItemThisWeek" Style="{StaticResource PivotItemStyle}">
+                    <fwc:PivotItem.Header>
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_This_Week}" Count="{Binding CountThisWeek}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemThisWeek}"/>
-                </fwc:PivotItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
+                    </fwc:PivotItem.Header>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
 
-                </ScrollViewer>
-            </fwc:PivotItem>
-            <!-- Marked -->
-            <fwc:PivotItem x:Name="PivotItemMarked" Style="{StaticResource PivotItemStyle}">
-                <fwc:PivotItem.Header>
-                    <controls:NotesPivotItemHeader Text="{DynamicResource Language_Marked}" Count="{Binding CountMarked}" 
+                    </ScrollViewer>
+                </fwc:PivotItem>
+                <!-- Marked -->
+                <fwc:PivotItem x:Name="PivotItemMarked" Style="{StaticResource PivotItemStyle}">
+                    <fwc:PivotItem.Header>
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Marked}" Count="{Binding CountMarked}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemMarked}"/>
-                </fwc:PivotItem.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
+                    </fwc:PivotItem.Header>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="{Binding Path=NotesContainerMargin, ElementName=This}">
 
-                </ScrollViewer>
-            </fwc:PivotItem>
-        </fwc:Pivot>
+                    </ScrollViewer>
+                </fwc:PivotItem>
+            </fwc:Pivot>
+        </Grid>
     </Grid>
 </Page>

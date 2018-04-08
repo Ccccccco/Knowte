@@ -24,9 +24,9 @@ namespace Knowte.Services.Collection
             this.notebookRepository = new NotebookRepository(new SQLiteConnectionFactory());
         }
 
-        public async Task<bool> ActivateCollectionAsync(string collectionId)
+        public async Task ActivateCollectionAsync(string collectionId)
         {
-            return await this.collectionRepository.ActivateCollectionAsync(collectionId);
+            await this.collectionRepository.ActivateCollectionAsync(collectionId);
         }
 
         public async Task<string> AddCollectionAsync(string title, bool isActive)
@@ -46,14 +46,14 @@ namespace Knowte.Services.Collection
             return collection.Id;
         }
 
-        public async Task<bool> DeleteCollectionAsync(string collectionId)
+        public async Task DeleteCollectionAsync(string collectionId)
         {
-            return await this.collectionRepository.DeleteCollectionAsync(collectionId);
+            await this.collectionRepository.DeleteCollectionAsync(collectionId);
         }
 
-        public async Task<bool> EditCollectionAsync(string collectionId, string title)
+        public async Task EditCollectionAsync(string collectionId, string title)
         {
-            return await this.collectionRepository.EditCollectionAsync(collectionId, title);
+            await this.collectionRepository.EditCollectionAsync(collectionId, title);
         }
 
         public async Task<List<ICollection>> GetCollectionsAsync()
@@ -75,26 +75,31 @@ namespace Knowte.Services.Collection
             return notebook.Id;
         }
 
-        public async Task<string> AddNotebookAsync(string title)
+        public async Task<string> AddNotebookAsync(string collectionId, string title)
         {
-            return await this.notebookRepository.AddNotebookAsync(title);
+            return await this.notebookRepository.AddNotebookAsync(collectionId, title);
         }
 
-        public async Task<bool> EditNotebookAsync(string notebookId, string title)
+        public async Task EditNotebookAsync(string notebookId, string title)
         {
-            return await this.notebookRepository.EditNotebookAsync(notebookId, title);
+            await this.notebookRepository.EditNotebookAsync(notebookId, title);
         }
 
-        public async Task<bool> DeleteNotebookAsync(string notebookId)
+        public async Task DeleteNotebookAsync(string notebookId)
         {
-            return await this.notebookRepository.DeleteNotebookAsync(notebookId);
+            await this.notebookRepository.DeleteNotebookAsync(notebookId);
         }
 
-        public async Task<List<INotebook>> GetNotebooksAsync()
+        public async Task<List<INotebook>> GetNotebooksAsync(string collectionId)
         {
-            List<Notebook> notebooks = await this.notebookRepository.GetNotebooksAsync();
+            List<Notebook> notebooks = await this.notebookRepository.GetNotebooksAsync(collectionId);
 
             return notebooks.Cast<INotebook>().ToList();
+        }
+
+        public async Task<string> GetActiveCollectionId()
+        {
+            return await this.collectionRepository.GetActiveCollectionId();
         }
     }
 }

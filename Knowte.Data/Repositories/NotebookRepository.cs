@@ -1,6 +1,4 @@
-﻿using Digimezzo.Foundation.Core.Logging;
-using Knowte.Data.Entities;
-using System;
+﻿using Knowte.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,67 +14,34 @@ namespace Knowte.Data.Repositories
             this.factory = factory;
         }
 
-        public async Task<string> AddNotebookAsync(string title)
+        public async Task<string> AddNotebookAsync(string collectionId, string title)
         {
             string notebookId = string.Empty;
 
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            var notebook = new Notebook(title);
 
-                            conn.Insert(notebook);
-                            notebookId = notebook.Id;
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not add notebook. {nameof(title)}={title}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    var notebook = new Notebook(collectionId, title);
+
+                    conn.Insert(notebook);
+                    notebookId = notebook.Id;
                 }
             });
 
             return notebookId;
         }
 
-        public async Task<bool> EditNotebookAsync(string notebookId, string title)
+        public async Task EditNotebookAsync(string notebookId, string title)
         {
-            bool isSuccess = false;
-
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            conn.Execute("UPDATE Notebook SET Title = ? WHERE Id=?;", title, notebookId, title);
-
-                            isSuccess = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could edit the notebook. {nameof(notebookId)}={notebookId}, {nameof(title)}={title}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    conn.Execute("UPDATE Notebook SET Title = ? WHERE Id=?;", title, notebookId, title);
                 }
             });
-
-            return isSuccess;
         }
 
         public async Task<Notebook> GetNotebookAsync(string title)
@@ -85,83 +50,36 @@ namespace Knowte.Data.Repositories
 
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            notebook = conn.Table<Notebook>().Where((c) => c.Title.Equals(title)).FirstOrDefault();
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not get notebook. {nameof(title)}={title}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    notebook = conn.Table<Notebook>().Where((c) => c.Title.Equals(title)).FirstOrDefault();
                 }
             });
 
             return notebook;
         }
 
-        public async Task<bool> DeleteNotebookAsync(string notebookId)
+        public async Task DeleteNotebookAsync(string notebookId)
         {
-            bool isSuccess = false;
-
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            conn.Execute("DELETE FROM Notebook WHERE Id = ?;", notebookId);
-
-                            isSuccess = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not delete the notebook. {nameof(notebookId)}={notebookId}. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    conn.Execute("DELETE FROM Notebook WHERE Id = ?;", notebookId);
                 }
             });
-
-            return isSuccess;
         }
 
-        public async Task<List<Notebook>> GetNotebooksAsync()
+        public async Task<List<Notebook>> GetNotebooksAsync(string collectionId)
         {
             var notebooks = new List<Notebook>();
 
             await Task.Run(() =>
             {
-                try
+                using (var conn = this.factory.GetConnection())
                 {
-                    using (var conn = this.factory.GetConnection())
-                    {
-                        try
-                        {
-                            notebooks = conn.Table<Notebook>().Select((c) => c).ToList();
-                        }
-                        catch (Exception ex)
-                        {
-                            LogClient.Error($"Could not get notebooks. Exception: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogClient.Error($"Could not connect to the database. Exception: {ex.Message}");
+                    notebooks = conn.Table<Notebook>().Select((c) => c).Where(c => c.CollectionId.Equals(collectionId)).ToList();
+
                 }
             });
 

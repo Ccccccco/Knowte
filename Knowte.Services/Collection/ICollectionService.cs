@@ -35,5 +35,7 @@ namespace Knowte.Services.Collection
         Task<bool> DeleteNotebookAsync(NotebookViewModel notebook);
 
         Task<List<NotebookViewModel>> GetNotebooksAsync();
+
+        Task<bool> HasActiveCollection();
     }
 }
