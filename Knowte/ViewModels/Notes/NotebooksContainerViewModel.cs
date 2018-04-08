@@ -67,6 +67,7 @@ namespace Knowte.ViewModels.Notes
             this.collectionService.NotebookAdded += (_, __) => this.GetNotebooksAsync();
             this.collectionService.NotebookEdited += (_, __) => this.GetNotebooksAsync();
             this.collectionService.NotebookDeleted += (_, __) => this.GetNotebooksAsync();
+            this.collectionService.ActiveCollectionChanged += (_, __) => this.GetNotebooksAsync();
         }
 
         private void AddNotebook()
