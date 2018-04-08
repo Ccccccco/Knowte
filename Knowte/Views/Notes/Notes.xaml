@@ -17,10 +17,24 @@
 
     <Grid>
         <!-- No active collection -->
-        <StackPanel Margin="18" Visibility="{Binding HasActiveCollection,Converter={StaticResource InvertingBooleanToCollapsedConverter}}">
-            <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_No_Active_Collection}"/>
-            <TextBlock Margin="0,12,0,0" Foreground="{DynamicResource Brush_DarkText}" 
-                       Text="{DynamicResource Language_No_Active_Collection_Please_Activate_A_Collection}"/>
+        <StackPanel Visibility="{Binding HasActiveCollection, Converter={StaticResource InvertingBooleanToCollapsedConverter}}">
+            <controls:FullLogo Margin="18,30,18,30" Grid.Row="0" HorizontalAlignment="Center" ShowApplicationName="True"
+                           Foreground="{DynamicResource Brush_DarkText}" IconForeground="{DynamicResource Brush_PrimaryAccent}" 
+                           IconBackground="{DynamicResource Brush_IconBackground}"/>
+            <Grid Margin="18" >
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+                           Text="{DynamicResource Language_No_Collections_Please_add}" FontSize="{DynamicResource FontSizeLarge}" 
+                           Foreground="{DynamicResource Brush_NotesNoCollectionsText}"
+                           Visibility="{Binding HasCollections, Converter={StaticResource InvertingBooleanToCollapsedConverter}}"/>
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" 
+                           Text="{DynamicResource Language_No_Active_Collection_Please_Activate}" FontSize="{DynamicResource FontSizeLarge}" 
+                           Foreground="{DynamicResource Brush_NotesNoCollectionsText}"
+                           Visibility="{Binding HasCollections, Converter={StaticResource BooleanToCollapsedConverter}}"/>
+            </Grid>
+            <fwc:MaterialRaisedButton Accent="{DynamicResource Brush_PrimaryAccent}" Margin="8,0,0,0" 
+                                      Foreground="{DynamicResource Brush_RaisedButtonForeground}" 
+                                      Content="{DynamicResource Language_Manage_Collections}"
+                                      Command="{Binding ManageCollectionsCommand}" HorizontalAlignment="Center"/>
         </StackPanel>
         <!-- Content -->
         <Grid Visibility="{Binding HasActiveCollection,Converter={StaticResource BooleanToCollapsedConverter}}">

@@ -39,7 +39,7 @@ namespace Knowte.Views
         {
             this.ShowMaxRestoreButton = true;
             this.ShowMinButton = true;
-            this.ShellFrame.Navigate(new Main());
+            this.ShellFrame.Navigate(new Main(this.eventAggregator));
         }
 
         private void ShowWelcome()

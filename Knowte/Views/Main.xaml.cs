@@ -1,8 +1,8 @@
 ﻿using Digimezzo.Foundation.Core.Utils;
-using System.Threading.Tasks;
+using Knowte.Core.Prism;
+using Prism.Events;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
 
 namespace Knowte.Views
 {
@@ -12,9 +12,11 @@ namespace Knowte.Views
         private Settings.Settings settingsPage;
         private Information.Information informationPage;
 
-        public Main()
+        public Main(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+
+            eventAggregator.GetEvent<ManageCollections>().Subscribe((_) => this.MySplitView.IsPaneOpen = true);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

@@ -1,9 +1,11 @@
 ﻿using Digimezzo.Foundation.Core.Utils;
+using Knowte.Core.Prism;
 using Knowte.Services.Collection;
 using Knowte.Services.Dialog;
 using Knowte.Services.Entities;
 using Knowte.ViewModels.Dialogs;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -76,7 +78,7 @@ namespace Knowte.ViewModels
 
         public DelegateCommand DeleteCollectionCommand { get; set; }
 
-        public MainViewModel(ICollectionService collectionService, IDialogService dialogService)
+        public MainViewModel(ICollectionService collectionService, IDialogService dialogService, IEventAggregator eventAggregator)
         {
             this.collectionService = collectionService;
             this.dialogService = dialogService;
@@ -92,6 +94,8 @@ namespace Knowte.ViewModels
             this.collectionService.CollectionEdited += (_, __) => this.GetCollectionsAsync();
             this.collectionService.CollectionDeleted += (_, __) => this.GetCollectionsAsync();
             this.collectionService.ActiveCollectionChanged += (_, __) => this.GetCollectionsAsync();
+
+            eventAggregator.GetEvent<ManageCollections>().Subscribe((_) => this.ShowCollections = true);
         }
 
         private async void ActivateCollectionAsync()

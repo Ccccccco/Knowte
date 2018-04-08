@@ -69,6 +69,7 @@
   <Text Key="Delete_Notebook_Confirm">Are you sure you want to delete the notebook '{notebook}'?</Text>
   <Text Key="All_Notes">All notes</Text>
   <Text Key="Unfiled_Notes">Unfiled notes</Text>
-  <Text Key="No_Active_Collection">No active collection</Text>
-  <Text Key="No_Active_Collection_Please_Activate_A_Collection">There is no active collection. Please make sure there are collections and that a collection is activated.</Text>
+  <Text Key="Manage_Collections">Manage collections</Text>
+  <Text Key="No_Collections_Please_add">You currently have no collections. Please add a collection and activate it in order to manage its notebooks and notes.</Text>
+  <Text Key="No_Active_Collection_Please_Activate">You currently have collections, but none is active. Please activate a collection in order to manage its notebooks and notes.</Text>
 </Language>

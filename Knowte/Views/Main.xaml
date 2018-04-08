@@ -75,7 +75,7 @@
                         </StackPanel>
                     </Grid>
                     <!-- Content -->
-                    <fwc:Pivot SelectedIndex="{Binding ContentIndex,Mode=OneWay}" 
+                    <fwc:Pivot x:Name="ContentPivot" SelectedIndex="{Binding ContentIndex,Mode=OneWay}" 
                                   DisableTabKey="True" AnimationType="SlideVertical" HeaderVisibility="Collapsed">
                         <!-- Collections -->
                         <fwc:PivotItem>
