@@ -20,7 +20,7 @@ namespace Knowte.ViewModels.Notes
 
         public int Count
         {
-            get { return count; }
+            get { return this.count; }
             set { SetProperty<int>(ref this.count, value); }
         }
 
@@ -37,6 +37,10 @@ namespace Knowte.ViewModels.Notes
             {
                 SetProperty(ref this.selectedNotebook, value);
                 this.RaisePropertyChanged(nameof(this.CanEdit));
+
+                this.collectionService.OnNotebookSelectionChanged(
+                    value != null ? value.Id : string.Empty,
+                    value != null ? value.Title : string.Empty);
             }
         }
 
@@ -91,7 +95,7 @@ namespace Knowte.ViewModels.Notes
         private void EditNotebook()
         {
             var viewModel = new EditNotebookViewModel(this.SelectedNotebook, this.dialogService, this.collectionService);
-            
+
             this.dialogService.ShowCustom(
                 ResourceUtils.GetString("Language_Edit_Notebook"),
                 viewModel,

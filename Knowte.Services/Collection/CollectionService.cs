@@ -31,6 +31,7 @@ namespace Knowte.Services.Collection
         public event NotebookChangedEventHandler NotebookAdded = delegate { };
         public event NotebookChangedEventHandler NotebookEdited = delegate { };
         public event NotebookChangedEventHandler NotebookDeleted = delegate { };
+        public event NotebookSelectionChangedEventHandler NotebookSelectionChanged = delegate { };
 
         public CollectionService(IAppService appService)
         {
@@ -569,6 +570,11 @@ namespace Knowte.Services.Collection
             }
 
             return !string.IsNullOrEmpty(activeCollectionId);
+        }
+
+        public void OnNotebookSelectionChanged(string notebookId, string notebookTitle)
+        {
+            this.NotebookSelectionChanged(this, new NotebookSelectionChangedEventArgs(notebookId, notebookTitle));
         }
     }
 }

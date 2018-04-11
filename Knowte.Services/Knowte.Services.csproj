@@ -90,6 +90,7 @@
     <Compile Include="Collection\CollectionProviderPhpRest.cs" />
     <Compile Include="Collection\ICollectionService.cs" />
     <Compile Include="Collection\NotebookChangedEventArgs.cs" />
+    <Compile Include="Collection\NotebookSelectionChangedEventArgs.cs" />
     <Compile Include="Dialog\ConfirmationDialog.xaml.cs">
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>
     </Compile>

@@ -72,4 +72,8 @@
   <Text Key="Manage_Collections">Manage collections</Text>
   <Text Key="No_Collections_Please_add">You currently have no collections. Please add a collection and activate it in order to manage its notebooks and notes.</Text>
   <Text Key="No_Active_Collection_Please_Activate">You currently have collections, but none is active. Please activate a collection in order to manage its notebooks and notes.</Text>
+  <Text Key="Add_Note">Add note</Text>
+  <Text Key="Delete_Note">Delete note</Text>
+  <Text Key="Mark_Note">Mark note</Text>
+  <Text Key="Select_A_Notebook">Please select a notebook</Text>
 </Language>

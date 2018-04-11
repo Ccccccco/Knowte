@@ -11,6 +11,7 @@ namespace Knowte.ViewModels.Notes
         private ICollectionService collectionService;
         private bool hasActiveCollection;
         private bool hasCollections;
+        private bool isNotebookSelected;
 
         public DelegateCommand ManageCollectionsCommand { get; set; }
 

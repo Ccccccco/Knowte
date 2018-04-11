@@ -8,17 +8,6 @@ namespace Knowte.Views.Notes
     {
         private double notebooksContainerMaximumWidth = 300;
 
-        public Thickness NotesContainerMargin
-        {
-            get { return (Thickness)GetValue(NotesContainerMarginProperty); }
-            set { SetValue(NotesContainerMarginProperty, value); }
-        }
-
-        public static readonly DependencyProperty NotesContainerMarginProperty =
-            DependencyProperty.Register(nameof(NotesContainerMargin), typeof(Thickness), typeof(Notes), new PropertyMetadata(null));
-
-
-
         public double NotebooksContainerWidth
         {
             get { return (double)GetValue(NotebooksContainerWidthProperty); }
@@ -39,7 +28,6 @@ namespace Knowte.Views.Notes
             {
                 if (this.ActualWidth < 800)
                 {
-                    this.NotesContainerMargin = new Thickness(0, 0, 0, 0);
                     this.NotebooksContainerWidth = 0;
                     return;
                 }
@@ -49,7 +37,6 @@ namespace Knowte.Views.Notes
                 // Intentional suppression
             }
 
-            this.NotesContainerMargin = new Thickness(this.notebooksContainerMaximumWidth, 0, 0, 0);
             this.NotebooksContainerWidth = this.notebooksContainerMaximumWidth;
         }
     }

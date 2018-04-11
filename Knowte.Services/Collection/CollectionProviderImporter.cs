@@ -27,7 +27,7 @@ namespace Knowte.Services.Collection
 
         private void AddBuiltInParts(ref AggregateCatalog catalog)
         {
-            // For builtin parts, we can safely assume that loading will succeed for all parts.
+            // For built-in parts, we can safely assume that loading will succeed for all parts.
             // So use a DirectoryCatalog, which will scan all assemblies in the given directory.
             catalog.Catalogs.Add(new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)));
         }
