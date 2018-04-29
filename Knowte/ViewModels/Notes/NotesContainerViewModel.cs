@@ -1,14 +1,18 @@
 ﻿using Knowte.Services.Collection;
+using Knowte.Services.Entities;
 using Prism.Commands;
 using Prism.Mvvm;
+using System.Collections.ObjectModel;
 
 namespace Knowte.ViewModels.Notes
 {
     public class NotesContainerViewModel : BindableBase
     {
+        private ObservableCollection<NoteViewModel> notes;
         private ICollectionService collectionService;
         private bool isNotebookSelected;
         private string notebookTitle;
+        private int count;
 
         public DelegateCommand LoadedCommand { get; set; }
 
@@ -17,6 +21,18 @@ namespace Knowte.ViewModels.Notes
         public DelegateCommand AddNoteCommand { get; set; }
 
         public DelegateCommand DeleteNoteCommand { get; set; }
+
+        public ObservableCollection<NoteViewModel> Notes
+        {
+            get { return this.notes; }
+            set { SetProperty(ref this.notes, value); }
+        }
+
+        public int Count
+        {
+            get { return this.count; }
+            set { SetProperty<int>(ref this.count, value); }
+        }
 
         public bool IsNotebookSelected
         {
@@ -40,9 +56,18 @@ namespace Knowte.ViewModels.Notes
             {
                 this.NotebookTitle = e.NotebookTitle;
                 this.IsNotebookSelected = string.IsNullOrEmpty(e.NotebookTitle) ? false : true;
+                this.GetNotesAsync();
             };
 
             this.IsNotebookSelected = string.IsNullOrEmpty(this.NotebookTitle) ? false : true;
+        }
+
+        private async void GetNotesAsync()
+        {
+            // this.Notes = new ObservableCollection<NoteViewModel>(await this.collectionService.GetNotesAsync());
+
+            // Set the count
+            this.Count = this.Notes != null ? this.Notes.Count : 0;
         }
     }
 }

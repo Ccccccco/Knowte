@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="Entities\CollectionViewModel.cs" />
     <Compile Include="Entities\NotebookViewModel.cs" />
+    <Compile Include="Entities\NoteViewModel.cs" />
     <Compile Include="I18n\I18nService.cs" />
     <Compile Include="I18n\II18nService.cs" />
     <Compile Include="I18n\Language.cs" />

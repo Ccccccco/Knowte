@@ -135,6 +135,9 @@ namespace Knowte.ViewModels.Notes
 
             this.Notebooks = new ObservableCollection<NotebookViewModel>(await this.collectionService.GetNotebooksAsync());
 
+            // Set the count
+            this.Count = this.Notebooks != null ? this.Notebooks.Count : 0;
+
             // Clear selected notebook. Otherwise it's not updated after editing the selected notebook.
             this.SelectedNotebook = null;
             this.SelectedNotebook = this.Notebooks.Where(n => n.Id.Equals(selectedNotebookId)).FirstOrDefault();
