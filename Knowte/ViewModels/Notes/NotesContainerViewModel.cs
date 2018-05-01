@@ -9,11 +9,12 @@ namespace Knowte.ViewModels.Notes
     public class NotesContainerViewModel : BindableBase
     {
         private ObservableCollection<NoteViewModel> notes;
+        private NoteViewModel selectedNote;
         private ICollectionService collectionService;
         private bool isNotebookSelected;
         private string notebookTitle;
         private int count;
-
+        
         public DelegateCommand LoadedCommand { get; set; }
 
         public DelegateCommand MarkNoteCommand { get; set; }
@@ -26,6 +27,16 @@ namespace Knowte.ViewModels.Notes
         {
             get { return this.notes; }
             set { SetProperty(ref this.notes, value); }
+        }
+
+        public NoteViewModel SelectedNote
+        {
+            get { return this.selectedNote; }
+            set
+            {
+                SetProperty(ref this.selectedNote, value);
+                this.RaisePropertyChanged(nameof(this.CanEdit));
+            }
         }
 
         public int Count
@@ -44,6 +55,11 @@ namespace Knowte.ViewModels.Notes
         {
             get { return this.notebookTitle; }
             set { SetProperty<string>(ref this.notebookTitle, value); }
+        }
+
+        public bool CanEdit
+        {
+            get { return this.selectedNote != null; }
         }
 
         public NotesContainerViewModel(ICollectionService collectionService)
