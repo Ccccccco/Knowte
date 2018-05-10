@@ -1,4 +1,5 @@
-﻿using Knowte.PluginBase.Collection.Entities;
+﻿using Knowte.Core.Base;
+using Knowte.PluginBase.Collection.Entities;
 using SQLite;
 using System;
 
@@ -44,8 +45,15 @@ namespace Knowte.Data.Entities
             this.Title = title;
 
             var nowTicks = DateTime.Now.Ticks;
+
             this.CreationDate = nowTicks;
             this.ModificationDate = nowTicks;
+            this.Top = Defaults.DefaultNoteTop;
+            this.Left = Defaults.DefaultNoteLeft;
+            this.Width = Defaults.DefaultNoteWidth;
+            this.Height = Defaults.DefaultNoteHeight;
+            this.Maximized = 0;
+            this.Flagged = 0;
         }
 
         public override bool Equals(object obj)
