@@ -106,6 +106,6 @@ namespace Knowte.PluginBase
         /// <param name="notebookId">The notebookId</param>
         /// <param name="noteTitle">The noteTitle</param>
         /// <returns>The noteId if successful. An empty string if failure.</returns>
-        Task<string> CreateNoteAsync(string notebookId, string noteTitle);
+        Task<string> AddNoteAsync(string notebookId, string noteTitle);
     }
 }

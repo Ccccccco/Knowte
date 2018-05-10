@@ -77,7 +77,7 @@ namespace Knowte.Services.Collection
             throw new System.NotImplementedException();
         }
 
-        public async Task<string> CreateNoteAsync(string notebookId, string noteTitle)
+        public async Task<string> AddNoteAsync(string notebookId, string noteTitle)
         {
             throw new System.NotImplementedException();
         }

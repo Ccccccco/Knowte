@@ -66,7 +66,7 @@ namespace Knowte.ViewModels.Notes
         {
             //this.LoadedCommand = new DelegateCommand(() => );
 
-            this.AddNoteCommand = new DelegateCommand(async() => await this.collectionService.CreateNewNoteAsync(ResourceUtils.GetString("Language_New_Note")));
+            this.AddNoteCommand = new DelegateCommand(async() => await this.collectionService.AddNoteAsync(ResourceUtils.GetString("Language_New_Note")));
 
             this.collectionService = collectionService;
 

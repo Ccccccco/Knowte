@@ -7,6 +7,7 @@ namespace Knowte.Services.Collection
     public delegate void CollectionChangedEventHandler(object sender, CollectionChangedEventArgs e);
     public delegate void NotebookChangedEventHandler(object sender, NotebookChangedEventArgs e);
     public delegate void NotebookSelectionChangedEventHandler(object sender, NotebookSelectionChangedEventArgs e);
+    public delegate void NoteChangedEventHandler(object sender, NoteChangedEventArgs e);
 
     public interface ICollectionService
     {
@@ -19,6 +20,8 @@ namespace Knowte.Services.Collection
         event NotebookChangedEventHandler NotebookEdited;
         event NotebookChangedEventHandler NotebookDeleted;
         event NotebookSelectionChangedEventHandler NotebookSelectionChanged;
+
+        event NoteChangedEventHandler NoteAdded;
 
         Task<List<CollectionViewModel>> GetCollectionsAsync();
 
@@ -38,7 +41,7 @@ namespace Knowte.Services.Collection
 
         Task<List<NotebookViewModel>> GetNotebooksAsync();
 
-        Task<bool> CreateNewNoteAsync(string proposedTitle);
+        Task<bool> AddNoteAsync(string proposedTitle);
 
         Task<bool> HasActiveCollection();
 

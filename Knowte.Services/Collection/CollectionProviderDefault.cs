@@ -109,7 +109,7 @@ namespace Knowte.Services.Collection
             return await this.noteRepository.GetAllNoteTitlesAsync();
         }
 
-        public async Task<string> CreateNoteAsync(string notebookId, string noteTitle)
+        public async Task<string> AddNoteAsync(string notebookId, string noteTitle)
         {
             return await this.noteRepository.AddNoteAsync(notebookId, noteTitle);
         }

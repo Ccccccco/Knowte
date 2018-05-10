@@ -35,6 +35,8 @@ namespace Knowte.Services.Collection
         public event NotebookChangedEventHandler NotebookDeleted = delegate { };
         public event NotebookSelectionChangedEventHandler NotebookSelectionChanged = delegate { };
 
+        public event NoteChangedEventHandler NoteAdded = delegate { };
+
         public CollectionService(IAppService appService)
         {
             this.appService = appService;
@@ -574,25 +576,36 @@ namespace Knowte.Services.Collection
             return !string.IsNullOrEmpty(activeCollectionId);
         }
 
-        public async Task<bool> CreateNewNoteAsync(string proposedTitle)
+        public async Task<bool> AddNoteAsync(string proposedTitle)
         {
             this.appService.IsBusy = true;
 
             string noteId = string.Empty;
+            string uniqueNoteTitle = string.Empty;
 
             try
             {
-                string uniqueNoteTitle = await this.GetUniqueNewNoteTitleAsync(proposedTitle);
-                noteId = await this.importer.GetProvider().CreateNoteAsync(selectedNotebookId, uniqueNoteTitle);
+                uniqueNoteTitle = await this.GetUniqueNewNoteTitleAsync(proposedTitle);
+                noteId = await this.importer.GetProvider().AddNoteAsync(selectedNotebookId, uniqueNoteTitle);
             }
             catch (Exception ex)
             {
                 LogClient.Error($"New note creation failed. Exception: {ex.Message}");
             }
-            
+
+            if (string.IsNullOrEmpty(noteId))
+            {
+                LogClient.Error($"{nameof(AddNoteAsync)} failed. {nameof(noteId)} is empty");
+                this.appService.IsBusy = false;
+
+                return false;
+            }
+
+            this.NoteAdded(this, new NoteChangedEventArgs(noteId));
+            LogClient.Info($"{nameof(AddNoteAsync)} successful. {nameof(uniqueNoteTitle)}={uniqueNoteTitle}");
             this.appService.IsBusy = false;
 
-            return !string.IsNullOrEmpty(noteId);
+            return true;
         }
 
         public void OnNotebookSelectionChanged(string notebookId, string notebookTitle)
@@ -603,8 +616,6 @@ namespace Knowte.Services.Collection
         
         private async Task<string> GetUniqueNewNoteTitleAsync(string proposedTitle)
         {
-            List<string> similarTitles;
-
             int counter = 1;
 
             string uniqueTitle = $"{proposedTitle} {counter.ToString()}";
