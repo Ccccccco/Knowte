@@ -2,7 +2,7 @@
 using Knowte.Data.Entities;
 using Knowte.Data.Repositories;
 using Knowte.PluginBase;
-using Knowte.PluginBase.Entities;
+using Knowte.PluginBase.Collection.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -15,6 +15,7 @@ namespace Knowte.Services.Collection
     {
         private ICollectionRepository collectionRepository;
         private INotebookRepository notebookRepository;
+        private INoteRepository noteRepository;
 
         public string ProviderName => "[Default]";
 
@@ -22,6 +23,7 @@ namespace Knowte.Services.Collection
         {
             this.collectionRepository = new CollectionRepository(new SQLiteConnectionFactory());
             this.notebookRepository = new NotebookRepository(new SQLiteConnectionFactory());
+            this.noteRepository = new NoteRepository(new SQLiteConnectionFactory());
         }
 
         public async Task ActivateCollectionAsync(string collectionId)
@@ -99,7 +101,17 @@ namespace Knowte.Services.Collection
 
         public async Task<string> GetActiveCollectionId()
         {
-            return await this.collectionRepository.GetActiveCollectionId();
+            return await this.collectionRepository.GetActiveCollectionIdAsync();
+        }
+
+        public async Task<IEnumerable<string>> GetAllNoteTitlesAsync()
+        {
+            return await this.noteRepository.GetAllNoteTitlesAsync();
+        }
+
+        public async Task<string> CreateNoteAsync(string notebookId, string noteTitle)
+        {
+            return await this.noteRepository.AddNoteAsync(notebookId, noteTitle);
         }
     }
 }

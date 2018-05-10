@@ -76,4 +76,5 @@
   <Text Key="Delete_Note">Delete note</Text>
   <Text Key="Mark_Note">Mark note</Text>
   <Text Key="Select_A_Notebook">Please select a notebook</Text>
+  <Text Key="New_Note">New note</Text>
 </Language>

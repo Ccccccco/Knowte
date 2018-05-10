@@ -1,5 +1,5 @@
 ﻿using Knowte.PluginBase;
-using Knowte.PluginBase.Entities;
+using Knowte.PluginBase.Collection.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
@@ -68,6 +68,16 @@ namespace Knowte.Services.Collection
         }
 
         public async Task<string> GetActiveCollectionId()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<IEnumerable<string>> GetAllNoteTitlesAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<string> CreateNoteAsync(string notebookId, string noteTitle)
         {
             throw new System.NotImplementedException();
         }

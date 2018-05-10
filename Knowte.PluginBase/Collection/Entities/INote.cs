@@ -1,11 +1,9 @@
 ﻿namespace Knowte.PluginBase.Collection.Entities
 {
-    public interface ICollection
+    public interface INote
     {
         string Id { get; set; }
 
         string Title { get; set; }
-
-        long IsActive { get; set; }
     }
 }

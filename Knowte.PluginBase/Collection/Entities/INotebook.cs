@@ -1,4 +1,4 @@
-﻿namespace Knowte.PluginBase.Entities
+﻿namespace Knowte.PluginBase.Collection.Entities
 {
     public interface INotebook
     {

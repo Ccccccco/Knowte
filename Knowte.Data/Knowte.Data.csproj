@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="DbMigrator.cs" />
     <Compile Include="Entities\Collection.cs" />
+    <Compile Include="Entities\Note.cs" />
     <Compile Include="Entities\Notebook.cs" />
     <Compile Include="ISQLiteConnectionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

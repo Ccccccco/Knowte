@@ -3,7 +3,7 @@ using Digimezzo.Foundation.Core.Utils;
 using Knowte.Data.Entities;
 using Knowte.Services.App;
 using Knowte.Services.Entities;
-using Knowte.PluginBase.Entities;
+using Knowte.PluginBase.Collection.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +22,8 @@ namespace Knowte.Services.Collection
         public string ProviderName => string.Empty;
 
         private CollectionProviderImporter importer;
+
+        private string selectedNotebookId;
 
         public event CollectionChangedEventHandler CollectionAdded = delegate { };
         public event CollectionChangedEventHandler CollectionEdited = delegate { };
@@ -572,9 +574,50 @@ namespace Knowte.Services.Collection
             return !string.IsNullOrEmpty(activeCollectionId);
         }
 
+        public async Task<bool> CreateNewNoteAsync(string proposedTitle)
+        {
+            this.appService.IsBusy = true;
+
+            string noteId = string.Empty;
+
+            try
+            {
+                string uniqueNoteTitle = await this.GetUniqueNewNoteTitleAsync(proposedTitle);
+                noteId = await this.importer.GetProvider().CreateNoteAsync(selectedNotebookId, uniqueNoteTitle);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"New note creation failed. Exception: {ex.Message}");
+            }
+            
+            this.appService.IsBusy = false;
+
+            return !string.IsNullOrEmpty(noteId);
+        }
+
         public void OnNotebookSelectionChanged(string notebookId, string notebookTitle)
         {
+            this.selectedNotebookId = notebookId;
             this.NotebookSelectionChanged(this, new NotebookSelectionChangedEventArgs(notebookId, notebookTitle));
+        } 
+        
+        private async Task<string> GetUniqueNewNoteTitleAsync(string proposedTitle)
+        {
+            List<string> similarTitles;
+
+            int counter = 1;
+
+            string uniqueTitle = $"{proposedTitle} {counter.ToString()}";
+            IEnumerable<string> allNoteTitles = await this.importer.GetProvider().GetAllNoteTitlesAsync();
+            IEnumerable<string> similarNoteTitles = allNoteTitles.Where(t => t.StartsWith(proposedTitle)).OrderBy(t => t).Select(t => t).ToList();
+           
+            while (similarNoteTitles.Contains(uniqueTitle))
+            {
+                counter++;
+                uniqueTitle = $"{proposedTitle} {counter.ToString()}";
+            }
+
+            return uniqueTitle;
         }
     }
 }

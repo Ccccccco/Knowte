@@ -38,6 +38,8 @@ namespace Knowte.Services.Collection
 
         Task<List<NotebookViewModel>> GetNotebooksAsync();
 
+        Task<bool> CreateNewNoteAsync(string proposedTitle);
+
         Task<bool> HasActiveCollection();
 
         void OnNotebookSelectionChanged(string notebookId, string notebookTitle);

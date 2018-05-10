@@ -1,4 +1,4 @@
-﻿using Knowte.PluginBase.Entities;
+﻿using Knowte.PluginBase.Collection.Entities;
 using SQLite;
 using System;
 

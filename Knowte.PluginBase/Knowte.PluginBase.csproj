@@ -44,6 +44,7 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Collection\Entities\ICollection.cs" />
+    <Compile Include="Collection\Entities\INote.cs" />
     <Compile Include="Collection\Entities\INotebook.cs" />
     <Compile Include="Collection\ICollectionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

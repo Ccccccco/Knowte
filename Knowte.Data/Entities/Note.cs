@@ -4,24 +4,44 @@ using System;
 
 namespace Knowte.Data.Entities
 {
-    public class Collection : ICollection
+    public class Note : INote
     {
-        [PrimaryKey]
+        [PrimaryKey()]
         public string Id { get; set; }
 
         public string Title { get; set; }
 
-        public long IsActive { get; set; }
+        public string NotebookId { get; set; }
 
-        public Collection()
+        public string Text { get; set; }
+
+        public long CreationDate { get; set; }
+
+        public long OpenDate { get; set; }
+
+        public long ModificationDate { get; set; }
+
+        public long Width { get; set; }
+
+        public long Height { get; set; }
+
+        public long Top { get; set; }
+
+        public long Left { get; set; }
+
+        public long Flagged { get; set; }
+
+        public long Maximized { get; set; }                 
+
+        public Note()
         {
         }
 
-        public Collection(string title, long isActive)
+        public Note(string notebookId, string title)
         {
             this.Id = Guid.NewGuid().ToString();
+            this.NotebookId = notebookId;
             this.Title = title;
-            this.IsActive = isActive;
         }
 
         public override bool Equals(object obj)
@@ -31,7 +51,7 @@ namespace Knowte.Data.Entities
                 return false;
             }
 
-            return this.Id.Equals(((Collection)obj).Id);
+            return this.Id.Equals(((Note)obj).Id);
         }
 
         public override int GetHashCode()

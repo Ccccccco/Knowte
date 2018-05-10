@@ -1,5 +1,5 @@
-﻿using Knowte.Services.Collection;
-using Knowte.Services.Entities;
+﻿using Digimezzo.Foundation.Core.Utils;
+using Knowte.Services.Collection;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
@@ -65,6 +65,8 @@ namespace Knowte.ViewModels.Notes
         public NotesContainerViewModel(ICollectionService collectionService)
         {
             //this.LoadedCommand = new DelegateCommand(() => );
+
+            this.AddNoteCommand = new DelegateCommand(async() => await this.collectionService.CreateNewNoteAsync(ResourceUtils.GetString("Language_New_Note")));
 
             this.collectionService = collectionService;
 

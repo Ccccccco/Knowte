@@ -1,4 +1,4 @@
-﻿using Knowte.PluginBase.Entities;
+﻿using Knowte.PluginBase.Collection.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -93,5 +93,19 @@ namespace Knowte.PluginBase
         /// </summary>
         /// <returns>A list of all notebooks</returns>
         Task<List<INotebook>> GetNotebooksAsync(string collectionId);
+
+        /// <summary>
+        /// Gets a list of all note titles
+        /// </summary>
+        /// <returns>A list of all notebooks</returns>
+        Task<IEnumerable<string>> GetAllNoteTitlesAsync();
+
+        /// <summary>
+        /// Creates a note for the given notebookId and noteTitle
+        /// </summary>
+        /// <param name="notebookId">The notebookId</param>
+        /// <param name="noteTitle">The noteTitle</param>
+        /// <returns>The noteId if successful. An empty string if failure.</returns>
+        Task<string> CreateNoteAsync(string notebookId, string noteTitle);
     }
 }

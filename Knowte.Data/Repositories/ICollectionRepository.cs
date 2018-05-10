@@ -18,6 +18,6 @@ namespace Knowte.Data.Repositories
 
         Task EditCollectionAsync(string collectionId, string title);
 
-        Task<string> GetActiveCollectionId();
+        Task<string> GetActiveCollectionIdAsync();
     }
 }

@@ -106,7 +106,7 @@ namespace Knowte.Data.Repositories
             });
         }
 
-        public async Task<string> GetActiveCollectionId()
+        public async Task<string> GetActiveCollectionIdAsync()
         {
             string activeCollectionId = string.Empty;
 
