@@ -42,6 +42,10 @@ namespace Knowte.Data.Entities
             this.Id = Guid.NewGuid().ToString();
             this.NotebookId = notebookId;
             this.Title = title;
+
+            var nowTicks = DateTime.Now.Ticks;
+            this.CreationDate = nowTicks;
+            this.ModificationDate = nowTicks;
         }
 
         public override bool Equals(object obj)
