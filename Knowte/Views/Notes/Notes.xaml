@@ -6,6 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
       xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:controls="clr-namespace:Knowte.Controls"
       xmlns:views="clr-namespace:Knowte.Views.Notes"
       mc:Ignorable="d" 
@@ -14,6 +15,12 @@
       FontSize="{DynamicResource FontSizeNormal}"
       SizeChanged="This_SizeChanged"
       prismmvvm:ViewModelLocator.AutoWireViewModel="True">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <!-- No active collection -->
@@ -57,35 +64,35 @@
                 <!-- All -->
                 <fwc:PivotItem x:Name="PivotItemAll" Style="{StaticResource PivotItemStyle}">
                     <fwc:PivotItem.Header>
-                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_All}" Count="{Binding CountAll}" 
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_All}" Count="{Binding AllNotesCount}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemAll}"/>
                     </fwc:PivotItem.Header>
                 </fwc:PivotItem>
                 <!-- Today -->
                 <fwc:PivotItem x:Name="PivotItemToday" Style="{StaticResource PivotItemStyle}">
                     <fwc:PivotItem.Header>
-                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Today}" Count="{Binding CountToday}" 
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Today}" Count="{Binding TodayNotesCount}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemToday}"/>
                     </fwc:PivotItem.Header>
                 </fwc:PivotItem>
                 <!-- Yesterday -->
                 <fwc:PivotItem x:Name="PivotItemYesterday" Style="{StaticResource PivotItemStyle}">
                     <fwc:PivotItem.Header>
-                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Yesterday}" Count="{Binding CountYesterday}" 
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Yesterday}" Count="{Binding YesterdayNotesCount}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemYesterday}"/>
                     </fwc:PivotItem.Header>
                 </fwc:PivotItem>
                 <!-- This week -->
                 <fwc:PivotItem x:Name="PivotItemThisWeek" Style="{StaticResource PivotItemStyle}">
                     <fwc:PivotItem.Header>
-                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_This_Week}" Count="{Binding CountThisWeek}" 
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_This_Week}" Count="{Binding ThisWeekNotesCount}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemThisWeek}"/>
                     </fwc:PivotItem.Header>
                 </fwc:PivotItem>
                 <!-- Marked -->
                 <fwc:PivotItem x:Name="PivotItemMarked" Style="{StaticResource PivotItemStyle}">
                     <fwc:PivotItem.Header>
-                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Marked}" Count="{Binding CountMarked}" 
+                        <controls:NotesPivotItemHeader Text="{DynamicResource Language_Marked}" Count="{Binding MarkedNotesCount}" 
                                                IsSelected="{Binding IsSelected,ElementName=PivotItemMarked}"/>
                     </fwc:PivotItem.Header>
                 </fwc:PivotItem>

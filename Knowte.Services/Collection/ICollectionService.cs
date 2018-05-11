@@ -23,7 +23,8 @@ namespace Knowte.Services.Collection
 
         event NoteChangedEventHandler NoteAdded;
         event NoteChangedEventHandler NoteDeleted;
-
+        event NoteChangedEventHandler NoteMarked;
+        event NoteChangedEventHandler NoteUnmarked;
 
         Task<List<CollectionViewModel>> GetCollectionsAsync();
 
@@ -52,5 +53,7 @@ namespace Knowte.Services.Collection
         void OnNotebookSelectionChanged(string notebookId, string notebookTitle);
 
         Task<bool> DeleteNoteAsync(NoteViewModel note);
+
+        Task<NotesCount> GetNotesCountAsync();
     }
 }

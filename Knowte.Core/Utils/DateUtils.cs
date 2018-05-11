@@ -5,6 +5,13 @@ namespace Knowte.Core.Utils
 {
     public static class DateUtils
     {
+        public static int CountDays(DateTime startTime, DateTime endTime)
+        {
+            TimeSpan span = endTime.Date.Subtract(startTime.Date);
+
+            return span.Days;
+        }
+
         public static string FormatNoteModificationDate(long noteModificationDateTicks, bool showExactDates)
         {
             string retVal = string.Empty;

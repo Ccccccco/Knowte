@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Knowte.Core.IO;
 using Digimezzo.Foundation.Core.Settings;
+using Knowte.Core.Utils;
 
 namespace Knowte.Services.Collection
 {
@@ -37,6 +38,8 @@ namespace Knowte.Services.Collection
 
         public event NoteChangedEventHandler NoteAdded = delegate { };
         public event NoteChangedEventHandler NoteDeleted = delegate { };
+        public event NoteChangedEventHandler NoteMarked = delegate { };
+        public event NoteChangedEventHandler NoteUnmarked = delegate { };
 
         public CollectionService(IAppService appService)
         {
@@ -697,7 +700,7 @@ namespace Knowte.Services.Collection
 
         public async Task<bool> DeleteNoteAsync(NoteViewModel note)
         {
-            if(note == null)
+            if (note == null)
             {
                 LogClient.Error($"{nameof(note)} is null");
                 return false;
@@ -722,6 +725,49 @@ namespace Knowte.Services.Collection
             this.NoteDeleted(this, new NoteChangedEventArgs(note.Id));
 
             return true;
+        }
+
+        public async Task<NotesCount> GetNotesCountAsync()
+        {
+            var noteCount = new NotesCount();
+
+            // First, get all the notes
+            List<INote> notes = await this.importer.GetProvider().GetAllNotesAsync();
+
+            await Task.Run(() =>
+            {
+                foreach (INote note in notes)
+                {
+                    // All notes
+                    noteCount.AllNotesCount++;
+
+                    // Today
+                    if (DateUtils.CountDays(new DateTime(note.ModificationDate), DateTime.Now) == 0)
+                    {
+                        noteCount.TodayNotesCount++;
+                    }
+
+                    // Yesterday
+                    if (DateUtils.CountDays(new DateTime(note.ModificationDate), DateTime.Now.AddDays(-1)) == 0)
+                    {
+                        noteCount.YesterdayNotesCount++;
+                    }
+
+                    // This week
+                    if (DateUtils.CountDays(new DateTime(note.ModificationDate), DateTime.Now) <= (int)DateTime.Now.DayOfWeek)
+                    {
+                        noteCount.ThisWeekNotesCount++;
+                    }
+
+                    // Marked
+                    if (note.Flagged == 1)
+                    {
+                        noteCount.MarkedNotesCount++;
+                    }
+                }
+            });
+
+            return noteCount;
         }
     }
 }
