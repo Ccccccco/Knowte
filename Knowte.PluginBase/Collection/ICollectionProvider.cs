@@ -126,5 +126,11 @@ namespace Knowte.PluginBase
         /// </summary>
         /// <returns>A list of unfiled notes</returns>
         Task<List<INote>> GetUnfiledNotesAsync();
+
+        /// <summary>
+        /// Deletes the note with the given noteId
+        /// </summary>
+        /// <param name="noteId">The noteId</param>
+        Task DeleteNoteAsync(string noteId);
     }
 }

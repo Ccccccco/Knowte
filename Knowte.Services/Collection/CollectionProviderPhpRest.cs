@@ -96,5 +96,10 @@ namespace Knowte.Services.Collection
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task DeleteNoteAsync(string noteId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

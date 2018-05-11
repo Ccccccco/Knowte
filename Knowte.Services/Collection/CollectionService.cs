@@ -36,6 +36,7 @@ namespace Knowte.Services.Collection
         public event NotebookSelectionChangedEventHandler NotebookSelectionChanged = delegate { };
 
         public event NoteChangedEventHandler NoteAdded = delegate { };
+        public event NoteChangedEventHandler NoteDeleted = delegate { };
 
         public CollectionService(IAppService appService)
         {
@@ -692,6 +693,35 @@ namespace Knowte.Services.Collection
             }
 
             return noteViewModels.OrderBy(n => n.Title).ToList();
+        }
+
+        public async Task<bool> DeleteNoteAsync(NoteViewModel note)
+        {
+            if(note == null)
+            {
+                LogClient.Error($"{nameof(note)} is null");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(note.Id))
+            {
+                LogClient.Error($"{nameof(note.Id)} is null");
+                return false;
+            }
+
+            try
+            {
+                await this.importer.GetProvider().DeleteNoteAsync(note.Id);
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"{nameof(DeleteNoteAsync)} failed. Exception: {ex.Message}");
+                return false;
+            }
+
+            this.NoteDeleted(this, new NoteChangedEventArgs(note.Id));
+
+            return true;
         }
     }
 }

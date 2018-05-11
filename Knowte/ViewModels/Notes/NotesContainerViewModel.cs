@@ -1,6 +1,7 @@
 ﻿using Digimezzo.Foundation.Core.Settings;
 using Digimezzo.Foundation.Core.Utils;
 using Knowte.Services.Collection;
+using Knowte.Services.Dialog;
 using Knowte.Services.Entities;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -13,6 +14,7 @@ namespace Knowte.ViewModels.Notes
         private ObservableCollection<NoteViewModel> notes;
         private NoteViewModel selectedNote;
         private ICollectionService collectionService;
+        private IDialogService dialogService;
         private bool isNotebookSelected;
         private string notebookTitle;
         private int count;
@@ -64,13 +66,15 @@ namespace Knowte.ViewModels.Notes
             get { return this.selectedNote != null; }
         }
 
-        public NotesContainerViewModel(ICollectionService collectionService)
+        public NotesContainerViewModel(ICollectionService collectionService, IDialogService dialogService)
         {
+            this.collectionService = collectionService;
+            this.dialogService = dialogService;
+
             //this.LoadedCommand = new DelegateCommand(() => );
 
             this.AddNoteCommand = new DelegateCommand(async () => await this.collectionService.AddNoteAsync(ResourceUtils.GetString("Language_New_Note")));
-
-            this.collectionService = collectionService;
+            this.DeleteNoteCommand = new DelegateCommand(() => this.DeleteNoteAsync());
 
             this.collectionService.NotebookSelectionChanged += (_, e) =>
             {
@@ -80,8 +84,27 @@ namespace Knowte.ViewModels.Notes
             };
 
             this.collectionService.NoteAdded += (_, __) => this.GetNotesAsync();
+            this.collectionService.NoteDeleted += (_, __) => this.GetNotesAsync();
 
             this.IsNotebookSelected = string.IsNullOrEmpty(this.NotebookTitle) ? false : true;
+        }
+
+        private async void DeleteNoteAsync()
+        {
+            if (this.dialogService.ShowConfirmation(
+                 ResourceUtils.GetString("Language_Delete_Note"),
+                 ResourceUtils.GetString("Language_Delete_Note_Confirm").Replace("{note}", this.selectedNote.Title),
+                 ResourceUtils.GetString("Language_Yes"),
+                 ResourceUtils.GetString("Language_No")))
+            {
+                if (!await this.collectionService.DeleteNoteAsync(this.selectedNote))
+                {
+                    this.dialogService.ShowNotification(
+                            ResourceUtils.GetString("Language_Delete_Failed"),
+                            ResourceUtils.GetString("Language_Could_Not_Delete_Note"),
+                            ResourceUtils.GetString("Language_Ok"), true, ResourceUtils.GetString("Language_Log_File"));
+                }
+            }
         }
 
         private async void GetNotesAsync()

@@ -100,5 +100,16 @@ namespace Knowte.Data.Repositories
 
             return notes;
         }
+
+        public async Task DeleteNoteAsync(string noteId)
+        {
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    conn.Execute("DELETE FROM Note WHERE Id = ?;", noteId);
+                }
+            });
+        }
     }
 }

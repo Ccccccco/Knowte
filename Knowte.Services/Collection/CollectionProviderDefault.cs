@@ -134,5 +134,10 @@ namespace Knowte.Services.Collection
 
             return notes.Cast<INote>().ToList();
         }
+
+        public async Task DeleteNoteAsync(string noteId)
+        {
+            await this.noteRepository.DeleteNoteAsync(noteId);
+        }
     }
 }
