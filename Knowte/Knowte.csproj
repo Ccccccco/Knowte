@@ -113,6 +113,9 @@
     <Compile Include="Controls\FullLogo.xaml.cs">
       <DependentUpon>FullLogo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NoteIcon.xaml.cs">
+      <DependentUpon>NoteIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NotesPivotItemHeader.cs" />
     <Compile Include="Controls\SplitViewRadioButton.cs" />
     <Compile Include="Initializer.cs" />
@@ -186,6 +189,10 @@
     <Page Include="Controls\FullLogo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\NoteIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
