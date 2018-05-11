@@ -104,7 +104,7 @@ namespace Knowte.Services.Collection
             return await this.collectionRepository.GetActiveCollectionIdAsync();
         }
 
-        public async Task<IEnumerable<string>> GetAllNoteTitlesAsync()
+        public async Task<List<string>> GetAllNoteTitlesAsync()
         {
             return await this.noteRepository.GetAllNoteTitlesAsync();
         }
@@ -112,6 +112,27 @@ namespace Knowte.Services.Collection
         public async Task<string> AddNoteAsync(string notebookId, string noteTitle)
         {
             return await this.noteRepository.AddNoteAsync(notebookId, noteTitle);
+        }
+
+        public async Task<List<INote>> GetNotesAsync(string notebookId)
+        {
+            List<Note> notes = await this.noteRepository.GetNotesAsync(notebookId);
+
+            return notes.Cast<INote>().ToList();
+        }
+
+        public async Task<List<INote>> GetAllNotesAsync()
+        {
+            List<Note> notes = await this.noteRepository.GetAllNotesAsync();
+
+            return notes.Cast<INote>().ToList();
+        }
+
+        public async Task<List<INote>> GetUnfiledNotesAsync()
+        {
+            List<Note> notes = await this.noteRepository.GetUnfiledNotesAsync();
+
+            return notes.Cast<INote>().ToList();
         }
     }
 }

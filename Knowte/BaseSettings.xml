@@ -26,10 +26,18 @@
     <Setting Name="FollowWindowsColor">
       <Value>False</Value>
     </Setting>
+    <Setting Name="SortByModificationDate">
+      <Value>False</Value>
+    </Setting>
   </Namespace>
   <Namespace Name="CollectionProvider">
     <Setting Name="ProviderName">
       <Value>[Default]</Value>
+    </Setting>
+  </Namespace>
+  <Namespace Name="Notes">
+    <Setting Name="ShowExactDates">
+      <Value>False</Value>
     </Setting>
   </Namespace>
 </Settings>

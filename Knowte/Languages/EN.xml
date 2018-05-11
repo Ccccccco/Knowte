@@ -77,4 +77,6 @@
   <Text Key="Mark_Note">Mark note</Text>
   <Text Key="Select_A_Notebook">Please select a notebook</Text>
   <Text Key="New_Note">New note</Text>
+  <Text Key="Dates">Dates</Text>
+  <Text Key="Show_Exact_Dates">Show exact dates in the notes list</Text>
 </Language>

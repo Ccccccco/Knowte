@@ -128,8 +128,8 @@
     <Compile Include="ViewModels\Notes\NotebooksContainerViewModel.cs" />
     <Compile Include="ViewModels\Notes\NotesContainerViewModel.cs" />
     <Compile Include="ViewModels\Notes\NotesViewModel.cs" />
-    <Compile Include="ViewModels\NoteViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsAppearanceViewModel.cs" />
+    <Compile Include="ViewModels\Settings\SettingsNotesViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="Views\Dialogs\AddCollection.xaml.cs">
@@ -173,6 +173,9 @@
     </Compile>
     <Compile Include="Views\Settings\SettingsAppearance.xaml.cs">
       <DependentUpon>SettingsAppearance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\SettingsNotes.xaml.cs">
+      <DependentUpon>SettingsNotes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -227,6 +230,10 @@
     <Page Include="Resources\Styles\ListBoxNotebooks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles\ListBoxNotes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\MaterialComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -321,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\SettingsAppearance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\SettingsNotes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -44,7 +44,7 @@
                 Background="{DynamicResource Brush_NotebooksContainerBackground}" 
                 Width="{Binding NotebooksContainerWidth, ElementName=This}" HorizontalAlignment="Left"
                 BorderThickness="0,0,1,0" BorderBrush="{DynamicResource Brush_DividerLine}"/>
-            <DockPanel Panel.ZIndex="2" Margin="1,38,0,1">
+            <DockPanel Panel.ZIndex="2" Margin="1,38,1,1">
                 <!-- Notebooks -->
                 <views:NotebooksContainer Width="{Binding NotebooksContainerWidth, ElementName=This}"/>
                 <!-- Notes -->

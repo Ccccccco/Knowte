@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Knowte.Data.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Knowte.Data.Repositories
@@ -7,8 +8,14 @@ namespace Knowte.Data.Repositories
     {
         Task DeleteNotes(string notebookId);
 
-        Task<IEnumerable<string>> GetAllNoteTitlesAsync();
+        Task<List<string>> GetAllNoteTitlesAsync();
 
         Task<string> AddNoteAsync(string notebookId, string title);
+
+        Task<List<Note>> GetNotesAsync(string notebookId);
+
+        Task<List<Note>> GetAllNotesAsync();
+
+        Task<List<Note>> GetUnfiledNotesAsync();
     }
 }

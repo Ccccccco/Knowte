@@ -2,8 +2,8 @@
 {
     public class NotebookViewModel
     {
-        public static string AllNotesNotebookId = "739582a3-ce1d-471d-b8cd-ed962c55781c";
-        public static string UnfiledNotesNotebookId = "4e1afdd5-c288-4ad7-aa43-8397b70eb889";
+        public const string AllNotesNotebookId = "739582a3-ce1d-471d-b8cd-ed962c55781c";
+        public const string UnfiledNotesNotebookId = "4e1afdd5-c288-4ad7-aa43-8397b70eb889";
 
         public string Id { get; private set; }
 

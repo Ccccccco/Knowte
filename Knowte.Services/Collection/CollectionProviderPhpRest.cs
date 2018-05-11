@@ -72,12 +72,27 @@ namespace Knowte.Services.Collection
             throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<string>> GetAllNoteTitlesAsync()
+        public async Task<List<string>> GetAllNoteTitlesAsync()
         {
             throw new System.NotImplementedException();
         }
 
         public async Task<string> AddNoteAsync(string notebookId, string noteTitle)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<List<INote>> GetNotesAsync(string notebookId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<List<INote>> GetAllNotesAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<List<INote>> GetUnfiledNotesAsync()
         {
             throw new System.NotImplementedException();
         }

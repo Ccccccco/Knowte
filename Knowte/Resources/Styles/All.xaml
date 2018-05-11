@@ -8,6 +8,7 @@
         <ResourceDictionary Source="/Knowte;component/Resources/Styles/Geometries.xaml" />
         <ResourceDictionary Source="/Knowte;component/Resources/Styles/ListBoxCollections.xaml" />
         <ResourceDictionary Source="/Knowte;component/Resources/Styles/ListBoxNotebooks.xaml" />
+        <ResourceDictionary Source="/Knowte;component/Resources/Styles/ListBoxNotes.xaml" />
         <ResourceDictionary Source="/Knowte;component/Resources/Styles/MaterialComboBox.xaml" />
         <ResourceDictionary Source="/Knowte;component/Resources/Styles/MaterialTextBox.xaml" />
         <ResourceDictionary Source="/Knowte;component/Resources/Styles/PivotItem.xaml" />

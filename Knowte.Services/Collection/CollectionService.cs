@@ -586,7 +586,15 @@ namespace Knowte.Services.Collection
             try
             {
                 uniqueNoteTitle = await this.GetUniqueNewNoteTitleAsync(proposedTitle);
-                noteId = await this.importer.GetProvider().AddNoteAsync(selectedNotebookId, uniqueNoteTitle);
+                string notebookId = selectedNotebookId;
+
+                if (selectedNotebookId.Equals(NotebookViewModel.AllNotesNotebookId) ||
+                    selectedNotebookId.Equals(NotebookViewModel.UnfiledNotesNotebookId))
+                {
+                    notebookId = string.Empty;
+                }
+
+                noteId = await this.importer.GetProvider().AddNoteAsync(notebookId, uniqueNoteTitle);
             }
             catch (Exception ex)
             {
@@ -612,16 +620,16 @@ namespace Knowte.Services.Collection
         {
             this.selectedNotebookId = notebookId;
             this.NotebookSelectionChanged(this, new NotebookSelectionChangedEventArgs(notebookId, notebookTitle));
-        } 
-        
+        }
+
         private async Task<string> GetUniqueNewNoteTitleAsync(string proposedTitle)
         {
             int counter = 1;
 
             string uniqueTitle = $"{proposedTitle} {counter.ToString()}";
-            IEnumerable<string> allNoteTitles = await this.importer.GetProvider().GetAllNoteTitlesAsync();
-            IEnumerable<string> similarNoteTitles = allNoteTitles.Where(t => t.StartsWith(proposedTitle)).OrderBy(t => t).Select(t => t).ToList();
-           
+            List<string> allNoteTitles = await this.importer.GetProvider().GetAllNoteTitlesAsync();
+            List<string> similarNoteTitles = allNoteTitles.Where(t => t.StartsWith(proposedTitle)).OrderBy(t => t).Select(t => t).ToList();
+
             while (similarNoteTitles.Contains(uniqueTitle))
             {
                 counter++;
@@ -629,6 +637,61 @@ namespace Knowte.Services.Collection
             }
 
             return uniqueTitle;
+        }
+
+        public async Task<List<NoteViewModel>> GetNotesAsync(bool sortByModificationDate)
+        {
+            this.appService.IsBusy = true;
+
+            List<INote> notes = null;
+
+            try
+            {
+                switch (this.selectedNotebookId)
+                {
+                    case null:
+                    case "":
+                        notes = new List<INote>();
+                        break;
+                    case NotebookViewModel.AllNotesNotebookId:
+                        notes = await this.importer.GetProvider().GetAllNotesAsync();
+                        break;
+                    case NotebookViewModel.UnfiledNotesNotebookId:
+                        notes = await this.importer.GetProvider().GetUnfiledNotesAsync();
+                        break;
+                    default:
+                        notes = await this.importer.GetProvider().GetNotesAsync(this.selectedNotebookId);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"{nameof(GetNotesAsync)} failed. Exception: {ex.Message}");
+            }
+
+            if (notes == null || notes.Count.Equals(0))
+            {
+                LogClient.Error($"{nameof(notes)} is null or empty");
+                this.appService.IsBusy = false;
+
+                return new List<NoteViewModel>();
+            }
+
+            var noteViewModels = new List<NoteViewModel>();
+
+            foreach (Note note in notes)
+            {
+                noteViewModels.Add(new NoteViewModel(note.Id, note.Title, note.ModificationDate));
+            }
+
+            this.appService.IsBusy = false;
+
+            if (sortByModificationDate)
+            {
+                return noteViewModels.OrderBy(n => n.ModificationDate).ToList();
+            }
+
+            return noteViewModels.OrderBy(n => n.Title).ToList();
         }
     }
 }

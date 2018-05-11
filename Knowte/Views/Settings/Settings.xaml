@@ -19,8 +19,7 @@
         </fwc:PivotItem>
         <!-- Notes -->
         <fwc:PivotItem Header="{DynamicResource Language_Notes}" Style="{StaticResource PivotItemStyle}">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-            </ScrollViewer>
+            <views:SettingsNotes/>
         </fwc:PivotItem>
         <!-- Advanced -->
         <fwc:PivotItem Header="{DynamicResource Language_Advanced}" Style="{StaticResource PivotItemStyle}">

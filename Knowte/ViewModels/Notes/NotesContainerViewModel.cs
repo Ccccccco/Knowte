@@ -1,5 +1,7 @@
-﻿using Digimezzo.Foundation.Core.Utils;
+﻿using Digimezzo.Foundation.Core.Settings;
+using Digimezzo.Foundation.Core.Utils;
 using Knowte.Services.Collection;
+using Knowte.Services.Entities;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
@@ -14,7 +16,7 @@ namespace Knowte.ViewModels.Notes
         private bool isNotebookSelected;
         private string notebookTitle;
         private int count;
-        
+
         public DelegateCommand LoadedCommand { get; set; }
 
         public DelegateCommand MarkNoteCommand { get; set; }
@@ -66,7 +68,7 @@ namespace Knowte.ViewModels.Notes
         {
             //this.LoadedCommand = new DelegateCommand(() => );
 
-            this.AddNoteCommand = new DelegateCommand(async() => await this.collectionService.AddNoteAsync(ResourceUtils.GetString("Language_New_Note")));
+            this.AddNoteCommand = new DelegateCommand(async () => await this.collectionService.AddNoteAsync(ResourceUtils.GetString("Language_New_Note")));
 
             this.collectionService = collectionService;
 
@@ -77,12 +79,14 @@ namespace Knowte.ViewModels.Notes
                 this.GetNotesAsync();
             };
 
+            this.collectionService.NoteAdded += (_, __) => this.GetNotesAsync();
+
             this.IsNotebookSelected = string.IsNullOrEmpty(this.NotebookTitle) ? false : true;
         }
 
         private async void GetNotesAsync()
         {
-            // this.Notes = new ObservableCollection<NoteViewModel>(await this.collectionService.GetNotesAsync());
+            this.Notes = new ObservableCollection<NoteViewModel>(await this.collectionService.GetNotesAsync(SettingsClient.Get<bool>("Appearance", "SortByModificationDate")));
 
             // Set the count
             this.Count = this.Notes != null ? this.Notes.Count : 0;

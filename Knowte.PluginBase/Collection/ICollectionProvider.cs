@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 namespace Knowte.PluginBase
 {
     /// <summary>
-    /// Implement this interface to create a plugin that is able to store notes in any alternative location.
-    /// Instructions on how to write plugins, can be found in the file: "How to write plugins.md" in this project.
+    /// Implement this interface to create a plug-in that is able to store notes in any alternative location.
+    /// Instructions on how to write plug-ins, can be found in the file: "How to write plugins.md" in this project.
     /// </summary>
     public interface ICollectionProvider
     {
@@ -98,7 +98,7 @@ namespace Knowte.PluginBase
         /// Gets a list of all note titles
         /// </summary>
         /// <returns>A list of all notebooks</returns>
-        Task<IEnumerable<string>> GetAllNoteTitlesAsync();
+        Task<List<string>> GetAllNoteTitlesAsync();
 
         /// <summary>
         /// Creates a note for the given notebookId and noteTitle
@@ -107,5 +107,24 @@ namespace Knowte.PluginBase
         /// <param name="noteTitle">The noteTitle</param>
         /// <returns>The noteId if successful. An empty string if failure.</returns>
         Task<string> AddNoteAsync(string notebookId, string noteTitle);
+
+        /// <summary>
+        /// Gets the notes for a given notebookId
+        /// </summary>
+        /// <param name="notebookId">The notebookId</param>
+        /// <returns>A list of notes for the given notebookId</returns>
+        Task<List<INote>> GetNotesAsync(string notebookId);
+
+        /// <summary>
+        /// Gets all the notes
+        /// </summary>
+        /// <returns>A list of all notes</returns>
+        Task<List<INote>> GetAllNotesAsync();
+
+        /// <summary>
+        /// Gets the unfiled notes (Notes which are not linked to a notebookId)
+        /// </summary>
+        /// <returns>A list of unfiled notes</returns>
+        Task<List<INote>> GetUnfiledNotesAsync();
     }
 }

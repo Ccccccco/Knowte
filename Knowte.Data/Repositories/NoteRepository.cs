@@ -20,9 +20,9 @@ namespace Knowte.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<string>> GetAllNoteTitlesAsync()
+        public async Task<List<string>> GetAllNoteTitlesAsync()
         {
-            IEnumerable<string> noteTitles = null;
+            List<string> noteTitles = null;
 
             await Task.Run(() =>
             {
@@ -52,6 +52,53 @@ namespace Knowte.Data.Repositories
             });
 
             return noteId;
+        }
+
+        public async Task<List<Note>> GetNotesAsync(string notebookId)
+        {
+            var notes = new List<Note>();
+
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    notes = conn.Table<Note>().Where(n => n.NotebookId.Equals(notebookId)).ToList();
+
+                }
+            });
+
+            return notes;
+        }
+
+        public async Task<List<Note>> GetAllNotesAsync()
+        {
+            var notes = new List<Note>();
+
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    notes = conn.Table<Note>().ToList();
+
+                }
+            });
+
+            return notes;
+        }
+
+        public async Task<List<Note>> GetUnfiledNotesAsync()
+        {
+            var notes = new List<Note>();
+
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    notes = conn.Query<Note>("SELECT * FROM Note WHERE NotebookId IS NULL OR NotebookId=''").ToList();
+                }
+            });
+
+            return notes;
         }
     }
 }

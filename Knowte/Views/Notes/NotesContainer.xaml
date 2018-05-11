@@ -32,8 +32,8 @@
             </StackPanel>
             <!-- Body -->
             <Grid>
-                <ListBox Margin="0,0,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotebooks}"
-                     ItemsSource="{Binding Notebooks}" SelectedItem="{Binding SelectedNotebook}"/>
+                <ListBox Margin="0,0,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotes}"
+                     ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}"/>
                 <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                     <StackPanel>
                         <!-- Mark note button-->
