@@ -139,5 +139,15 @@ namespace Knowte.Services.Collection
         {
             await this.noteRepository.DeleteNoteAsync(noteId);
         }
+
+        public async Task MarkNoteAsync(string noteId)
+        {
+            await this.noteRepository.MarkNoteAsync(noteId);
+        }
+
+        public async Task UnmarkNoteAsync(string noteId)
+        {
+            await this.noteRepository.UnmarkNoteAsync(noteId);
+        }
     }
 }

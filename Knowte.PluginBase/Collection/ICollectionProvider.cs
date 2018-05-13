@@ -132,5 +132,17 @@ namespace Knowte.PluginBase
         /// </summary>
         /// <param name="noteId">The noteId</param>
         Task DeleteNoteAsync(string noteId);
+
+        /// <summary>
+        /// Marks the note with the given noteId
+        /// </summary>
+        /// <param name="noteId">The noteId</param>
+        Task MarkNoteAsync(string noteId);
+
+        /// <summary>
+        /// Unmarks the note with the given noteId
+        /// </summary>
+        /// <param name="noteId">The noteId</param>
+        Task UnmarkNoteAsync(string noteId);
     }
 }

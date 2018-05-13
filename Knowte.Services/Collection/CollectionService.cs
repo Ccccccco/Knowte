@@ -685,7 +685,7 @@ namespace Knowte.Services.Collection
 
             foreach (Note note in notes)
             {
-                noteViewModels.Add(new NoteViewModel(note.Id, note.Title, note.ModificationDate));
+                noteViewModels.Add(new NoteViewModel(note.Id, note.Title, note.ModificationDate, note.Flagged));
             }
 
             this.appService.IsBusy = false;
@@ -768,6 +768,42 @@ namespace Knowte.Services.Collection
             });
 
             return noteCount;
+        }
+
+        public async Task<bool> SetNoteMarkAsync(NoteViewModel note, bool isMarked)
+        {
+            if (note == null)
+            {
+                LogClient.Error($"{nameof(note)} is null");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(note.Id))
+            {
+                LogClient.Error($"{nameof(note.Id)} is null");
+                return false;
+            }
+
+            try
+            {
+                if (isMarked)
+                {
+                    await this.importer.GetProvider().MarkNoteAsync(note.Id);
+                    this.NoteMarked(this, new NoteChangedEventArgs(note.Id));
+                }
+                else
+                {
+                    await this.importer.GetProvider().UnmarkNoteAsync(note.Id);
+                    this.NoteUnmarked(this, new NoteChangedEventArgs(note.Id));
+                }  
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"{nameof(SetNoteMarkAsync)} failed. Exception: {ex.Message}");
+                return false;
+            }
+
+            return true;
         }
     }
 }

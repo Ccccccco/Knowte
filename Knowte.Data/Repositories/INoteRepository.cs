@@ -19,5 +19,9 @@ namespace Knowte.Data.Repositories
         Task<List<Note>> GetUnfiledNotesAsync();
 
         Task DeleteNoteAsync(string noteId);
+
+        Task MarkNoteAsync(string noteId);
+
+        Task UnmarkNoteAsync(string noteId);
     }
 }

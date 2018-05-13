@@ -46,9 +46,9 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SoftAppear" TargetType="{x:Type Button}">
+    <Style x:Key="SoftAppear" TargetType="{x:Type FrameworkElement}">
         <Style.Triggers>
-            <Trigger Property="Button.Visibility" Value="Visible">
+            <Trigger Property="FrameworkElement.Visibility" Value="Visible">
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>

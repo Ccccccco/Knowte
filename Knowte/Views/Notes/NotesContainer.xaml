@@ -36,15 +36,25 @@
                      ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}"/>
                 <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                     <StackPanel>
-                        <!-- Mark note button-->
-                        <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                          Margin="12,12,12,0" Command="{Binding MarkNoteCommand}"
-                                                          ToolTip="{DynamicResource Language_Mark_Note}"
-                                                          Style="{StaticResource SoftAppear}"
-                                                          Visibility="{Binding CanEdit, Converter={StaticResource BooleanToCollapsedConverter}}">
-                            <fwc:MaterialIcon Text="&#xE87D;" FontSize="22"
+                        <Grid Style="{StaticResource SoftAppear}" 
+                              Visibility="{Binding CanEdit, Converter={StaticResource BooleanToCollapsedConverter}}">
+                            <!-- Mark note button-->
+                            <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                  Margin="12,12,12,0" Command="{Binding MarkNoteCommand}"
+                                                                  ToolTip="{DynamicResource Language_Mark_Note}"
+                                                                  Visibility="{Binding SelectedNote.IsMarked, Converter={StaticResource InvertingBooleanToCollapsedConverter}}">
+                                <fwc:MaterialIcon Text="&#xE87D;" FontSize="22"
                                           Foreground="{DynamicResource Brush_PrimaryAccent}"/>
-                        </fwc:MaterialMiniFloatingActionButton>
+                            </fwc:MaterialMiniFloatingActionButton>
+                            <!-- Unmark note button-->
+                            <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
+                                                                  Margin="12,12,12,0" Command="{Binding UnmarkNoteCommand}"
+                                                                  ToolTip="{DynamicResource Language_Unmark_Note}"
+                                                                  Visibility="{Binding SelectedNote.IsMarked, Converter={StaticResource BooleanToCollapsedConverter}}">
+                                <fwc:MaterialIcon Text="&#xE87E;" FontSize="22"
+                                          Foreground="{DynamicResource Brush_PrimaryAccent}"/>
+                            </fwc:MaterialMiniFloatingActionButton>
+                        </Grid>
                         <!-- Delete note button-->
                         <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
                                                           Margin="12,12,12,0" Command="{Binding DeleteNoteCommand}"

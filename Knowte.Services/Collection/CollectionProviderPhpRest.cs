@@ -101,5 +101,15 @@ namespace Knowte.Services.Collection
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task MarkNoteAsync(string noteId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task UnmarkNoteAsync(string noteId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

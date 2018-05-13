@@ -111,5 +111,27 @@ namespace Knowte.Data.Repositories
                 }
             });
         }
+
+        public async Task MarkNoteAsync(string noteId)
+        {
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    conn.Execute("UPDATE Note SET Flagged=1 WHERE Id = ?;", noteId);
+                }
+            });
+        }
+
+        public async Task UnmarkNoteAsync(string noteId)
+        {
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    conn.Execute("UPDATE Note SET Flagged=0 WHERE Id = ?;", noteId);
+                }
+            });
+        }
     }
 }

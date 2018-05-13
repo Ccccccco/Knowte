@@ -78,8 +78,11 @@
   <Text Key="Delete_Note_Confirm">Are you sure you want to delete the note '{note}'?</Text>
   <Text Key="Could_Not_Delete_Note">The note could not be deleted. Please review the log file for details.</Text>
   <Text Key="Mark_Note">Mark note</Text>
+  <Text Key="Unmark_Note">Unmark note</Text>
   <Text Key="Select_A_Notebook">Please select a notebook</Text>
   <Text Key="New_Note">New note</Text>
   <Text Key="Dates">Dates</Text>
   <Text Key="Show_Exact_Dates">Show exact dates in the notes list</Text>
+  <Text Key="Mark_Note_Failed">Mark note failed</Text>
+  <Text Key="Could_Not_Mark_Note">The note could not be marked. Please review the log file for details.</Text>
 </Language>

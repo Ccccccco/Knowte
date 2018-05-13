@@ -9,7 +9,9 @@ namespace Knowte.Services.Entities
 
         public string Title { get; private set; }
 
-        public long ModificationDate { get; set; }
+        public long ModificationDate { get; private set; }
+
+        public bool IsMarked { get; set; }
 
         public string FormattedModificationDate
         {
@@ -22,11 +24,12 @@ namespace Knowte.Services.Entities
         }
 
 
-        public NoteViewModel(string id, string title, long modificationDate)
+        public NoteViewModel(string id, string title, long modificationDate, long flagged)
         {
             this.Id = id;
             this.Title = title;
             this.ModificationDate = modificationDate;
+            this.IsMarked = flagged == 1 ? true : false;
         }
 
         public override bool Equals(object obj)

@@ -55,5 +55,7 @@ namespace Knowte.Services.Collection
         Task<bool> DeleteNoteAsync(NoteViewModel note);
 
         Task<NotesCount> GetNotesCountAsync();
+
+        Task<bool> SetNoteMarkAsync(NoteViewModel note, bool isMarked);
     }
 }
