@@ -1,17 +1,24 @@
 ﻿using Digimezzo.Foundation.Core.Settings;
 using Knowte.Core.Utils;
+using Prism.Mvvm;
 
 namespace Knowte.Services.Entities
 {
-    public class NoteViewModel
+    public class NoteViewModel : BindableBase
     {
+        private bool isMarked;
+
         public string Id { get; private set; }
 
         public string Title { get; private set; }
 
         public long ModificationDate { get; private set; }
 
-        public bool IsMarked { get; set; }
+        public bool IsMarked
+        {
+            get { return this.isMarked; }
+            set { SetProperty<bool>(ref this.isMarked, value); }
+        }
 
         public string FormattedModificationDate
         {

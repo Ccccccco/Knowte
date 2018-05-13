@@ -156,7 +156,6 @@ namespace Knowte.ViewModels.Notes
             if (selectedNote != null && selectedNote.Id.Equals(noteId))
             {
                 this.selectedNote.IsMarked = isMarked;
-                this.RaisePropertyChanged(nameof(this.SelectedNote));
             }
 
             // Update note in the list

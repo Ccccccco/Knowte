@@ -1,6 +1,8 @@
-﻿namespace Knowte.Services.Entities
+﻿using Prism.Mvvm;
+
+namespace Knowte.Services.Entities
 {
-    public class NotebookViewModel
+    public class NotebookViewModel : BindableBase
     {
         public const string AllNotesNotebookId = "739582a3-ce1d-471d-b8cd-ed962c55781c";
         public const string UnfiledNotesNotebookId = "4e1afdd5-c288-4ad7-aa43-8397b70eb889";
