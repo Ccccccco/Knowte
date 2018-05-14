@@ -2,7 +2,7 @@
 <Settings>
   <Namespace Name="Configuration">
     <Setting Name="Version">
-      <Value>9</Value>
+      <Value>10</Value>
     </Setting>
     <Setting Name="ShowWelcome">
       <Value>True</Value>
