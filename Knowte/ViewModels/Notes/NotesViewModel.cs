@@ -17,6 +17,8 @@ namespace Knowte.ViewModels.Notes
         private int thisWeekNotesCount;
         private int markedNotesCount;
 
+        private NoteFilter selectedNoteFilter;
+
         public DelegateCommand ManageCollectionsCommand { get; set; }
 
         public DelegateCommand LoadedCommand { get; set; }
@@ -39,6 +41,19 @@ namespace Knowte.ViewModels.Notes
             set { SetProperty<int>(ref this.yesterdayNotesCount, value); }
         }
 
+        public NoteFilter SelectedNoteFilter
+        {
+            get { return (NoteFilter)this.selectedNoteFilter; }
+            set
+            {
+                SetProperty<NoteFilter>(ref this.selectedNoteFilter, value);
+
+                if (this.collectionService != null)
+                {
+                    this.collectionService.OnNoteFilterChanged(value);
+                }
+            }
+        }
 
         public int ThisWeekNotesCount
         {
@@ -50,7 +65,7 @@ namespace Knowte.ViewModels.Notes
         {
             get { return this.markedNotesCount; }
             set { SetProperty<int>(ref this.markedNotesCount, value); }
-        }   
+        }
 
         public bool HasActiveCollection
         {
@@ -69,7 +84,11 @@ namespace Knowte.ViewModels.Notes
             this.collectionService = collectionService;
 
             this.ManageCollectionsCommand = new DelegateCommand(() => eventAggregator.GetEvent<ManageCollections>().Publish(null));
-            this.LoadedCommand = new DelegateCommand(() => this.GetNotesCountAsync());
+            this.LoadedCommand = new DelegateCommand(() =>
+            {
+                this.selectedNoteFilter = this.collectionService.Filter;
+                this.GetNotesCountAsync();
+            });
 
             this.EvaluateHasActiveCollectionAsync();
             this.EvaluateHasCollectionsAsync();
@@ -85,7 +104,7 @@ namespace Knowte.ViewModels.Notes
             this.collectionService.NoteAdded += (_, __) => this.GetNotesCountAsync();
             this.collectionService.NoteDeleted += (_, __) => this.GetNotesCountAsync();
             this.collectionService.NoteMarked += (_, __) => this.GetNotesCountAsync();
-            this.collectionService.NoteUnmarked += (_, __) => this.GetNotesCountAsync();    
+            this.collectionService.NoteUnmarked += (_, __) => this.GetNotesCountAsync();
         }
 
         private async void EvaluateHasActiveCollectionAsync()

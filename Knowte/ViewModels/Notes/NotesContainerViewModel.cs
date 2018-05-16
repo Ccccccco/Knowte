@@ -6,6 +6,7 @@ using Knowte.Services.Entities;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -70,19 +71,6 @@ namespace Knowte.ViewModels.Notes
             get { return this.selectedNote != null; }
         }
 
-        //public bool IsSelectedNoteMarked
-        //{
-        //    get
-        //    {
-        //        if (this.selectedNote == null)
-        //        {
-        //            return false;
-        //        }
-
-        //        return this.selectedNote.IsMarked;
-        //    }
-        //}
-
         public NotesContainerViewModel(ICollectionService collectionService, IDialogService dialogService)
         {
             this.collectionService = collectionService;
@@ -104,6 +92,7 @@ namespace Knowte.ViewModels.Notes
 
             this.collectionService.NoteAdded += (_, __) => this.GetNotesAsync();
             this.collectionService.NoteDeleted += (_, __) => this.GetNotesAsync();
+            this.collectionService.NoteFilterChanged += (_, __) => this.GetNotesAsync();
             this.collectionService.NoteMarked += (_, e) => this.UpdateNoteMarkAsync(e.NoteId, true);
             this.collectionService.NoteUnmarked += (_, e) => this.UpdateNoteMarkAsync(e.NoteId, false);
 
@@ -150,8 +139,22 @@ namespace Knowte.ViewModels.Notes
             }
         }
 
+        private void RemoveMarkedNote(string noteId, bool isMarked)
+        {
+
+        }
+
         private async void UpdateNoteMarkAsync(string noteId, bool isMarked)
         {
+            // If the marked notes are selected, we need to remove the note from the list.
+            if (this.collectionService.Filter.Equals(NoteFilter.Marked))
+            {
+                NoteViewModel markedNote = this.Notes.Where(n => n.Id.Equals(noteId)).FirstOrDefault();
+                this.notes.Remove(markedNote);
+
+                return;
+            }
+
             // Update selected note
             if (selectedNote != null && selectedNote.Id.Equals(noteId))
             {

@@ -9,6 +9,7 @@
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:controls="clr-namespace:Knowte.Controls"
       xmlns:views="clr-namespace:Knowte.Views.Notes"
+      xmlns:coll="clr-namespace:Knowte.Services.Collection;assembly=Knowte.Services"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="600"
       Title="Notes"
@@ -59,8 +60,9 @@
             </DockPanel>
             <!-- Menu -->
             <fwc:Pivot Panel.ZIndex="1" IndicatorHeight="2" IndicatorBackground="{DynamicResource Brush_ToolbarIndicatorBackground}" 
-               HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" 
-               ElevationBackground="{DynamicResource Brush_ToolbarShadow}">
+                       HeaderBackground="{DynamicResource Brush_ToolbarBackground}" Elevation="4" 
+                       ElevationBackground="{DynamicResource Brush_ToolbarShadow}"
+                       SelectedIndex="{Binding SelectedNoteFilter,Mode=TwoWay,Converter={StaticResource EnumConverter},ConverterParameter={x:Type coll:NoteFilter}}">
                 <!-- All -->
                 <fwc:PivotItem x:Name="PivotItemAll" Style="{StaticResource PivotItemStyle}">
                     <fwc:PivotItem.Header>

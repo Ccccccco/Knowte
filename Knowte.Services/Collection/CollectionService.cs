@@ -22,6 +22,8 @@ namespace Knowte.Services.Collection
         // ProviderName doesn't matter here (it won't appear in the list of available services)
         public string ProviderName => string.Empty;
 
+        public NoteFilter Filter { get; set; } = NoteFilter.All; // TODO: set this from settings
+
         private CollectionProviderImporter importer;
 
         private string selectedNotebookId;
@@ -40,6 +42,7 @@ namespace Knowte.Services.Collection
         public event NoteChangedEventHandler NoteDeleted = delegate { };
         public event NoteChangedEventHandler NoteMarked = delegate { };
         public event NoteChangedEventHandler NoteUnmarked = delegate { };
+        public event NoteFilterChangedEventHandler NoteFilterChanged = delegate { };
 
         public CollectionService(IAppService appService)
         {
@@ -649,6 +652,7 @@ namespace Knowte.Services.Collection
 
             List<INote> notes = null;
 
+            // First, get the notes for the selected notebook.
             try
             {
                 switch (this.selectedNotebookId)
@@ -673,13 +677,39 @@ namespace Knowte.Services.Collection
                 LogClient.Error($"{nameof(GetNotesAsync)} failed. Exception: {ex.Message}");
             }
 
-            if (notes == null || notes.Count.Equals(0))
+            if (notes == null)
             {
-                LogClient.Error($"{nameof(notes)} is null or empty");
+                LogClient.Error($"{nameof(notes)} is null");
                 this.appService.IsBusy = false;
 
                 return new List<NoteViewModel>();
             }
+
+            // Then, apply note filter
+            switch (this.Filter)
+            {
+                case NoteFilter.Today:
+                    notes = notes.Where(n => DateUtils.CountDays(new DateTime(n.ModificationDate), DateTime.Now) == 0).ToList();
+                    break;
+                case NoteFilter.Yesterday:
+                    notes = notes.Where(n => DateUtils.CountDays(new DateTime(n.ModificationDate), DateTime.Now.AddDays(-1)) == 0).ToList();
+                    break;
+                case NoteFilter.ThisWeek:
+                    notes = notes.Where(n => DateUtils.CountDays(new DateTime(n.ModificationDate), DateTime.Now) <= (int)DateTime.Now.DayOfWeek).ToList();
+                    break;
+                case NoteFilter.Marked:
+                    notes = notes.Where(n => n.Flagged == 1).ToList();
+                    break;
+                case NoteFilter.All:
+                    break;
+                    // do not filter
+            }
+
+            // Apply the search parameters
+            string searchString = string.Empty; // TODO: implement search
+            string[] search = StringUtils.SplitWords(searchString);
+
+            notes = notes.Where(n => search.All(s => n.Title.ToLower().Contains(s.ToLower()) | n.Text.ToLower().Contains(s.ToLower()))).ToList();
 
             var noteViewModels = new List<NoteViewModel>();
 
@@ -690,11 +720,13 @@ namespace Knowte.Services.Collection
 
             this.appService.IsBusy = false;
 
+            // Sort by modification date if required
             if (sortByModificationDate)
             {
                 return noteViewModels.OrderBy(n => n.ModificationDate).ToList();
             }
 
+            // Sort by title
             return noteViewModels.OrderBy(n => n.Title).ToList();
         }
 
@@ -804,6 +836,12 @@ namespace Knowte.Services.Collection
             }
 
             return true;
+        }
+
+        public void OnNoteFilterChanged(NoteFilter filter)
+        {
+            this.Filter = filter;
+            this.NoteFilterChanged(this, new NoteFilterChangedEventArgs(filter));
         }
     }
 }
