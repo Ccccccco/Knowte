@@ -54,7 +54,7 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="SelectionBorder" Property="Background" Value="{DynamicResource Brush_ListBoxNotebooksItemSelection}"/>
                         </Trigger>
-                        <DataTrigger Binding="{Binding IsDefault}" Value="True">
+                        <DataTrigger Binding="{Binding IsDefaultNotebook}" Value="True">
                             <Setter TargetName="MyContent" Property="FontWeight" Value="SemiBold"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
