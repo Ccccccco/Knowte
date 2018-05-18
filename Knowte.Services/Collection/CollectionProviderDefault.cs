@@ -135,19 +135,19 @@ namespace Knowte.Services.Collection
             return notes.Cast<INote>().ToList();
         }
 
-        public async Task DeleteNoteAsync(string noteId)
+        public async Task DeleteNotesAsync(IList<string> noteIds)
         {
-            await this.noteRepository.DeleteNoteAsync(noteId);
+            await this.noteRepository.DeleteNotesAsync(noteIds);
         }
 
-        public async Task MarkNoteAsync(string noteId)
+        public async Task MarkNotesAsync(IList<string> noteIds)
         {
-            await this.noteRepository.MarkNoteAsync(noteId);
+            await this.noteRepository.MarkNotesAsync(noteIds);
         }
 
-        public async Task UnmarkNoteAsync(string noteId)
+        public async Task UnmarkNotesAsync(IList<string> noteIds)
         {
-            await this.noteRepository.UnmarkNoteAsync(noteId);
+            await this.noteRepository.UnmarkNotesAsync(noteIds);
         }
     }
 }

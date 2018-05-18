@@ -5,6 +5,8 @@ using Knowte.Services.Dialog;
 using Knowte.Services.Entities;
 using Prism.Commands;
 using Prism.Mvvm;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,37 +17,30 @@ namespace Knowte.ViewModels.Notes
     public class NotesContainerViewModel : BindableBase
     {
         private ObservableCollection<NoteViewModel> notes;
-        private NoteViewModel selectedNote;
         private ICollectionService collectionService;
         private IDialogService dialogService;
         private bool isNotebookSelected;
         private string notebookTitle;
         private int count;
 
+        public IList<NoteViewModel> SelectedNotes { get; set; }
+
         public DelegateCommand LoadedCommand { get; set; }
 
-        public DelegateCommand MarkNoteCommand { get; set; }
+        public DelegateCommand MarkNotesCommand { get; set; }
 
-        public DelegateCommand UnmarkNoteCommand { get; set; }
+        public DelegateCommand UnmarkNotesCommand { get; set; }
 
         public DelegateCommand AddNoteCommand { get; set; }
 
-        public DelegateCommand DeleteNoteCommand { get; set; }
+        public DelegateCommand DeleteNotesCommand { get; set; }
+
+        public DelegateCommand<object> SelectedNotesCommand { get; set; }
 
         public ObservableCollection<NoteViewModel> Notes
         {
             get { return this.notes; }
             set { SetProperty(ref this.notes, value); }
-        }
-
-        public NoteViewModel SelectedNote
-        {
-            get { return this.selectedNote; }
-            set
-            {
-                SetProperty(ref this.selectedNote, value);
-                this.RaisePropertyChanged(nameof(this.CanEdit));
-            }
         }
 
         public int Count
@@ -60,6 +55,16 @@ namespace Knowte.ViewModels.Notes
             set { SetProperty<bool>(ref this.isNotebookSelected, value); }
         }
 
+        public bool SelectionHasMarkedNotes
+        {
+            get
+            {
+                return this.SelectedNotes != null && 
+                    this.SelectedNotes.Count > 0 && 
+                    this.SelectedNotes.Any(n => n.IsMarked);
+            }
+        }
+
         public string NotebookTitle
         {
             get { return this.notebookTitle; }
@@ -68,7 +73,7 @@ namespace Knowte.ViewModels.Notes
 
         public bool CanEdit
         {
-            get { return this.selectedNote != null; }
+            get { return this.SelectedNotes != null && this.SelectedNotes.Count > 0; }
         }
 
         public NotesContainerViewModel(ICollectionService collectionService, IDialogService dialogService)
@@ -79,9 +84,10 @@ namespace Knowte.ViewModels.Notes
             //this.LoadedCommand = new DelegateCommand(() => );
 
             this.AddNoteCommand = new DelegateCommand(async () => await this.collectionService.AddNoteAsync(ResourceUtils.GetString("Language_New_Note")));
-            this.DeleteNoteCommand = new DelegateCommand(() => this.DeleteNoteAsync());
-            this.MarkNoteCommand = new DelegateCommand(() => this.MarkNoteAsync());
-            this.UnmarkNoteCommand = new DelegateCommand(() => this.UnmarkNoteAsync());
+            this.DeleteNotesCommand = new DelegateCommand(() => this.DeleteNotesAsync());
+            this.MarkNotesCommand = new DelegateCommand(() => this.MarkNotesAsync());
+            this.UnmarkNotesCommand = new DelegateCommand(() => this.UnmarkNotesAsync());
+            this.SelectedNotesCommand = new DelegateCommand<object>((param) => this.SelectedNotesCommandHandler(param));
 
             this.collectionService.NotebookSelectionChanged += (_, e) =>
             {
@@ -91,23 +97,46 @@ namespace Knowte.ViewModels.Notes
             };
 
             this.collectionService.NoteAdded += (_, __) => this.GetNotesAsync();
-            this.collectionService.NoteDeleted += (_, __) => this.GetNotesAsync();
+            this.collectionService.NotesDeleted += (_, __) => this.GetNotesAsync();
             this.collectionService.NoteFilterChanged += (_, __) => this.GetNotesAsync();
-            this.collectionService.NoteMarked += (_, e) => this.UpdateNoteMarkAsync(e.NoteId, true);
-            this.collectionService.NoteUnmarked += (_, e) => this.UpdateNoteMarkAsync(e.NoteId, false);
+            this.collectionService.NotesMarked += (_, e) => this.UpdateNotesMarkAsync(e.NoteIds, true);
+            this.collectionService.NotesUnmarked += (_, e) => this.UpdateNotesMarkAsync(e.NoteIds, false);
 
             this.IsNotebookSelected = string.IsNullOrEmpty(this.NotebookTitle) ? false : true;
         }
 
-        private async void DeleteNoteAsync()
+        private void SelectedNotesCommandHandler(object param)
         {
+            if (param != null)
+            {
+                this.SelectedNotes = new List<NoteViewModel>();
+
+                foreach (NoteViewModel item in (IList)param)
+                {
+                    this.SelectedNotes.Add(item);
+                }
+            }
+
+            this.RaisePropertyChanged(nameof(this.CanEdit));
+            this.RaisePropertyChanged(nameof(this.SelectionHasMarkedNotes));
+        }
+
+        private async void DeleteNotesAsync()
+        {
+            string deleteMessage = ResourceUtils.GetString("Language_Delete_Notes_Confirm");
+
+            if (this.SelectedNotes.Count == 1)
+            {
+                deleteMessage = ResourceUtils.GetString("Language_Delete_Note_Confirm").Replace("{note}", this.SelectedNotes[0].Title);
+            }
+
             if (this.dialogService.ShowConfirmation(
                  ResourceUtils.GetString("Language_Delete_Note"),
-                 ResourceUtils.GetString("Language_Delete_Note_Confirm").Replace("{note}", this.selectedNote.Title),
+                 deleteMessage,
                  ResourceUtils.GetString("Language_Yes"),
                  ResourceUtils.GetString("Language_No")))
             {
-                if (!await this.collectionService.DeleteNoteAsync(this.selectedNote))
+                if (!await this.collectionService.DeleteNotesAsync(this.SelectedNotes))
                 {
                     this.dialogService.ShowNotification(
                             ResourceUtils.GetString("Language_Delete_Failed"),
@@ -117,9 +146,9 @@ namespace Knowte.ViewModels.Notes
             }
         }
 
-        private async void MarkNoteAsync()
+        private async void MarkNotesAsync()
         {
-            if (!await this.collectionService.SetNoteMarkAsync(this.selectedNote, true))
+            if (!await this.collectionService.SetNotesMarkAsync(this.SelectedNotes, true))
             {
                 this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Mark_Note_Failed"),
@@ -128,9 +157,9 @@ namespace Knowte.ViewModels.Notes
             }
         }
 
-        private async void UnmarkNoteAsync()
+        private async void UnmarkNotesAsync()
         {
-            if (!await this.collectionService.SetNoteMarkAsync(this.selectedNote, false))
+            if (!await this.collectionService.SetNotesMarkAsync(this.SelectedNotes, false))
             {
                 this.dialogService.ShowNotification(
                         ResourceUtils.GetString("Language_Mark_Note_Failed"),
@@ -139,44 +168,60 @@ namespace Knowte.ViewModels.Notes
             }
         }
 
-        private void RemoveMarkedNote(string noteId, bool isMarked)
+        private async void UpdateNotesMarkAsync(IList<string> noteIds, bool isMarked)
         {
+            IList<NoteViewModel> notesToChange = this.Notes.Where(n => noteIds.Contains(n.Id)).ToList();
 
-        }
-
-        private async void UpdateNoteMarkAsync(string noteId, bool isMarked)
-        {
-            // If the marked notes are selected, we need to remove the note from the list.
-            if (this.collectionService.Filter.Equals(NoteFilter.Marked))
+            // If we're unmarking notes and the marked notes page is selected, we need to remove the notes from the list.
+            if (!isMarked && this.collectionService.Filter.Equals(NoteFilter.Marked))
             {
-                NoteViewModel markedNote = this.Notes.Where(n => n.Id.Equals(noteId)).FirstOrDefault();
-                this.notes.Remove(markedNote);
-
-                return;
-            }
-
-            // Update selected note
-            if (selectedNote != null && selectedNote.Id.Equals(noteId))
-            {
-                this.selectedNote.IsMarked = isMarked;
-            }
-
-            // Update note in the list
-            if(this.notes == null || this.notes.Count == 0)
-            {
-                return;
-            }
-
-            await Task.Run(() =>
-            {
-                foreach (NoteViewModel note in this.notes)
+                await Task.Run(() =>
                 {
-                    if (note.Id.Equals(noteId))
+                    foreach (NoteViewModel noteToChange in notesToChange)
                     {
-                        Application.Current.Dispatcher.Invoke(() => note.IsMarked = isMarked);
+                        Application.Current.Dispatcher.Invoke(() => this.notes.Remove(noteToChange));
                     }
-                }
-            });
+                });
+
+                return;
+            }
+
+            // Update selected notes
+            if (this.SelectedNotes != null && this.SelectedNotes.Count > 0)
+            {
+                await Task.Run(() =>
+                {
+                    foreach (NoteViewModel noteToChange in notesToChange)
+                    {
+
+                        NoteViewModel note = this.SelectedNotes.Where(n => n.Id.Equals(noteToChange.Id)).FirstOrDefault();
+
+                        if (note != null)
+                        {
+                            Application.Current.Dispatcher.Invoke(() => note.IsMarked = isMarked);
+                        }
+                    }
+                });
+            }
+
+            // Update all notes
+            if (this.notes != null && this.notes.Count > 0)
+            {
+                await Task.Run(() =>
+                {
+                    foreach (NoteViewModel noteToChange in notesToChange)
+                    {
+                        NoteViewModel note = this.notes.Where(n => n.Id.Equals(noteToChange.Id)).FirstOrDefault();
+
+                        if (note != null)
+                        {
+                            Application.Current.Dispatcher.Invoke(() => note.IsMarked = isMarked);
+                        }
+                    }
+                });
+            }
+
+            this.RaisePropertyChanged(nameof(this.SelectionHasMarkedNotes));
         }
 
         private async void GetNotesAsync()

@@ -97,17 +97,17 @@ namespace Knowte.Services.Collection
             throw new System.NotImplementedException();
         }
 
-        public async Task DeleteNoteAsync(string noteId)
+        public async Task DeleteNotesAsync(IList<string> noteIds)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task MarkNoteAsync(string noteId)
+        public async Task MarkNotesAsync(IList<string> noteIds)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task UnmarkNoteAsync(string noteId)
+        public async Task UnmarkNotesAsync(IList<string> noteIds)
         {
             throw new System.NotImplementedException();
         }

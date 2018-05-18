@@ -128,21 +128,21 @@ namespace Knowte.PluginBase
         Task<List<INote>> GetUnfiledNotesAsync();
 
         /// <summary>
-        /// Deletes the note with the given noteId
+        /// Deletes the notes with the given noteIds
         /// </summary>
-        /// <param name="noteId">The noteId</param>
-        Task DeleteNoteAsync(string noteId);
+        /// <param name="noteId">The noteIds</param>
+        Task DeleteNotesAsync(IList<string> noteIds);
 
         /// <summary>
-        /// Marks the note with the given noteId
+        /// Marks the notes with the given noteIds
         /// </summary>
         /// <param name="noteId">The noteId</param>
-        Task MarkNoteAsync(string noteId);
+        Task MarkNotesAsync(IList<string> noteIds);
 
         /// <summary>
-        /// Unmarks the note with the given noteId
+        /// Unmarks the notes with the given noteIds
         /// </summary>
         /// <param name="noteId">The noteId</param>
-        Task UnmarkNoteAsync(string noteId);
+        Task UnmarkNotesAsync(IList<string> noteIds);
     }
 }

@@ -92,8 +92,8 @@
     <Compile Include="Collection\ICollectionService.cs" />
     <Compile Include="Collection\NotebookChangedEventArgs.cs" />
     <Compile Include="Collection\NotebookSelectionChangedEventArgs.cs" />
-    <Compile Include="Collection\NoteChangedEventArgs.cs" />
     <Compile Include="Collection\NoteFilterChangedEventArgs.cs" />
+    <Compile Include="Collection\NotesChangedEventArgs.cs" />
     <Compile Include="Collection\NotesCount.cs" />
     <Compile Include="Dialog\ConfirmationDialog.xaml.cs">
       <DependentUpon>ConfirmationDialog.xaml</DependentUpon>

@@ -1,17 +1,17 @@
 ﻿using Digimezzo.Foundation.Core.Logging;
+using Digimezzo.Foundation.Core.Settings;
 using Digimezzo.Foundation.Core.Utils;
+using Knowte.Core.IO;
+using Knowte.Core.Utils;
 using Knowte.Data.Entities;
+using Knowte.PluginBase.Collection.Entities;
 using Knowte.Services.App;
 using Knowte.Services.Entities;
-using Knowte.PluginBase.Collection.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.IO;
-using Knowte.Core.IO;
-using Digimezzo.Foundation.Core.Settings;
-using Knowte.Core.Utils;
 
 namespace Knowte.Services.Collection
 {
@@ -38,10 +38,10 @@ namespace Knowte.Services.Collection
         public event NotebookChangedEventHandler NotebookDeleted = delegate { };
         public event NotebookSelectionChangedEventHandler NotebookSelectionChanged = delegate { };
 
-        public event NoteChangedEventHandler NoteAdded = delegate { };
-        public event NoteChangedEventHandler NoteDeleted = delegate { };
-        public event NoteChangedEventHandler NoteMarked = delegate { };
-        public event NoteChangedEventHandler NoteUnmarked = delegate { };
+        public event NotesChangedEventHandler NoteAdded = delegate { };
+        public event NotesChangedEventHandler NotesDeleted = delegate { };
+        public event NotesChangedEventHandler NotesMarked = delegate { };
+        public event NotesChangedEventHandler NotesUnmarked = delegate { };
         public event NoteFilterChangedEventHandler NoteFilterChanged = delegate { };
 
         public CollectionService(IAppService appService)
@@ -616,7 +616,7 @@ namespace Knowte.Services.Collection
                 return false;
             }
 
-            this.NoteAdded(this, new NoteChangedEventArgs(noteId));
+            this.NoteAdded(this, new NotesChangedEventArgs(new List<string> { noteId }));
             LogClient.Info($"{nameof(AddNoteAsync)} successful. {nameof(uniqueNoteTitle)}={uniqueNoteTitle}");
             this.appService.IsBusy = false;
 
@@ -730,31 +730,28 @@ namespace Knowte.Services.Collection
             return noteViewModels.OrderBy(n => n.Title).ToList();
         }
 
-        public async Task<bool> DeleteNoteAsync(NoteViewModel note)
+        public async Task<bool> DeleteNotesAsync(IList<NoteViewModel> notes)
         {
-            if (note == null)
+            if (notes == null)
             {
-                LogClient.Error($"{nameof(note)} is null");
+                LogClient.Error($"{nameof(notes)} is null");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(note.Id))
-            {
-                LogClient.Error($"{nameof(note.Id)} is null");
-                return false;
-            }
+            IList<string> noteIds = new List<string>();
 
             try
             {
-                await this.importer.GetProvider().DeleteNoteAsync(note.Id);
+                noteIds = notes.Select(n => n.Id).ToList();
+                await this.importer.GetProvider().DeleteNotesAsync(noteIds);
             }
             catch (Exception ex)
             {
-                LogClient.Error($"{nameof(DeleteNoteAsync)} failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(DeleteNotesAsync)} failed. Exception: {ex.Message}");
                 return false;
             }
 
-            this.NoteDeleted(this, new NoteChangedEventArgs(note.Id));
+            this.NotesDeleted(this, new NotesChangedEventArgs(noteIds));
 
             return true;
         }
@@ -802,36 +799,32 @@ namespace Knowte.Services.Collection
             return noteCount;
         }
 
-        public async Task<bool> SetNoteMarkAsync(NoteViewModel note, bool isMarked)
+        public async Task<bool> SetNotesMarkAsync(IList<NoteViewModel> notes, bool isMarked)
         {
-            if (note == null)
+            if (notes == null)
             {
-                LogClient.Error($"{nameof(note)} is null");
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(note.Id))
-            {
-                LogClient.Error($"{nameof(note.Id)} is null");
+                LogClient.Error($"{nameof(notes)} is null");
                 return false;
             }
 
             try
             {
+                IList<string> noteIds = notes.Select(n => n.Id).ToList();
+
                 if (isMarked)
                 {
-                    await this.importer.GetProvider().MarkNoteAsync(note.Id);
-                    this.NoteMarked(this, new NoteChangedEventArgs(note.Id));
+                    await this.importer.GetProvider().MarkNotesAsync(noteIds);
+                    this.NotesMarked(this, new NotesChangedEventArgs(noteIds));
                 }
                 else
                 {
-                    await this.importer.GetProvider().UnmarkNoteAsync(note.Id);
-                    this.NoteUnmarked(this, new NoteChangedEventArgs(note.Id));
+                    await this.importer.GetProvider().UnmarkNotesAsync(noteIds);
+                    this.NotesUnmarked(this, new NotesChangedEventArgs(noteIds));
                 }  
             }
             catch (Exception ex)
             {
-                LogClient.Error($"{nameof(SetNoteMarkAsync)} failed. Exception: {ex.Message}");
+                LogClient.Error($"{nameof(SetNotesMarkAsync)} failed. Exception: {ex.Message}");
                 return false;
             }
 

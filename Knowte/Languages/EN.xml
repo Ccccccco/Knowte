@@ -76,6 +76,7 @@
   <Text Key="Add_Note">Add note</Text>
   <Text Key="Delete_Note">Delete note</Text>
   <Text Key="Delete_Note_Confirm">Are you sure you want to delete the note '{note}'?</Text>
+  <Text Key="Delete_Notes_Confirm">Are you sure you want to delete these notes?</Text>
   <Text Key="Could_Not_Delete_Note">The note could not be deleted. Please review the log file for details.</Text>
   <Text Key="Mark_Note">Mark note</Text>
   <Text Key="Unmark_Note">Unmark note</Text>

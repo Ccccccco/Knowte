@@ -1,4 +1,5 @@
 ﻿using Knowte.Data.Entities;
+using Knowte.Data.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,35 +102,35 @@ namespace Knowte.Data.Repositories
             return notes;
         }
 
-        public async Task DeleteNoteAsync(string noteId)
+        public async Task DeleteNotesAsync(IList<string> noteIds)
         {
             await Task.Run(() =>
             {
                 using (var conn = this.factory.GetConnection())
                 {
-                    conn.Execute("DELETE FROM Note WHERE Id = ?;", noteId);
+                    conn.Execute($"DELETE FROM Note WHERE Id IN ({QueryUtils.GetInClause(noteIds)});");
                 }
             });
         }
 
-        public async Task MarkNoteAsync(string noteId)
+        public async Task MarkNotesAsync(IList<string> noteIds)
         {
             await Task.Run(() =>
             {
                 using (var conn = this.factory.GetConnection())
                 {
-                    conn.Execute("UPDATE Note SET Flagged=1 WHERE Id = ?;", noteId);
+                    conn.Execute($"UPDATE Note SET Flagged=1 WHERE Id IN ({QueryUtils.GetInClause(noteIds)});");
                 }
             });
         }
 
-        public async Task UnmarkNoteAsync(string noteId)
+        public async Task UnmarkNotesAsync(IList<string> noteIds)
         {
             await Task.Run(() =>
             {
                 using (var conn = this.factory.GetConnection())
                 {
-                    conn.Execute("UPDATE Note SET Flagged=0 WHERE Id = ?;", noteId);
+                    conn.Execute($"UPDATE Note SET Flagged=0 WHERE Id IN ({QueryUtils.GetInClause(noteIds)});");
                 }
             });
         }

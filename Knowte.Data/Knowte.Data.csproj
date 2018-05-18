@@ -110,6 +110,7 @@
     <Compile Include="Repositories\NotebookRepository.cs" />
     <Compile Include="Repositories\NoteRepository.cs" />
     <Compile Include="SQLiteConnectionFactory.cs" />
+    <Compile Include="Utils\QueryUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

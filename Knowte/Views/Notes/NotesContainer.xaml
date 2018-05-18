@@ -32,32 +32,42 @@
             </StackPanel>
             <!-- Body -->
             <Grid>
-                <ListBox Margin="0,0,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotes}"
-                     ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}"/>
+                <fwc:MultiSelectListBox Margin="0,0,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotes}"
+                                        ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}"
+                                        VirtualizingStackPanel.IsVirtualizing="True"
+                                        VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                                        VirtualizingStackPanel.VirtualizationMode="Recycling"
+                                        SelectionMode="Extended">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedNotesCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=SelectedItems}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </fwc:MultiSelectListBox>
                 <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                     <StackPanel>
                         <Grid Style="{StaticResource SoftAppear}" 
                               Visibility="{Binding CanEdit, Converter={StaticResource BooleanToCollapsedConverter}}">
                             <!-- Mark note button-->
                             <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                  Margin="12,12,12,0" Command="{Binding MarkNoteCommand}"
+                                                                  Margin="12,12,12,0" Command="{Binding MarkNotesCommand}"
                                                                   ToolTip="{DynamicResource Language_Mark_Note}"
-                                                                  Visibility="{Binding SelectedNote.IsMarked, Converter={StaticResource InvertingBooleanToCollapsedConverter}}">
+                                                                  Visibility="{Binding SelectionHasMarkedNotes, Converter={StaticResource InvertingBooleanToCollapsedConverter}}">
                                 <fwc:MaterialIcon Text="&#xE87D;" FontSize="22"
                                           Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                             </fwc:MaterialMiniFloatingActionButton>
                             <!-- Unmark note button-->
                             <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                                  Margin="12,12,12,0" Command="{Binding UnmarkNoteCommand}"
+                                                                  Margin="12,12,12,0" Command="{Binding UnmarkNotesCommand}"
                                                                   ToolTip="{DynamicResource Language_Unmark_Note}"
-                                                                  Visibility="{Binding SelectedNote.IsMarked, Converter={StaticResource BooleanToCollapsedConverter}}">
+                                                                  Visibility="{Binding SelectionHasMarkedNotes, Converter={StaticResource BooleanToCollapsedConverter}}">
                                 <fwc:MaterialIcon Text="&#xE87E;" FontSize="22"
                                           Foreground="{DynamicResource Brush_PrimaryAccent}"/>
                             </fwc:MaterialMiniFloatingActionButton>
                         </Grid>
                         <!-- Delete note button-->
                         <fwc:MaterialMiniFloatingActionButton Accent="{DynamicResource Brush_FloatingActionButtonOption}"
-                                                          Margin="12,12,12,0" Command="{Binding DeleteNoteCommand}"
+                                                          Margin="12,12,12,0" Command="{Binding DeleteNotesCommand}"
                                                           ToolTip="{DynamicResource Language_Delete_Note}"
                                                           Style="{StaticResource SoftAppear}"
                                                           Visibility="{Binding CanEdit, Converter={StaticResource BooleanToCollapsedConverter}}">

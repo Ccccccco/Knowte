@@ -102,9 +102,9 @@ namespace Knowte.ViewModels.Notes
             };
 
             this.collectionService.NoteAdded += (_, __) => this.GetNotesCountAsync();
-            this.collectionService.NoteDeleted += (_, __) => this.GetNotesCountAsync();
-            this.collectionService.NoteMarked += (_, __) => this.GetNotesCountAsync();
-            this.collectionService.NoteUnmarked += (_, __) => this.GetNotesCountAsync();
+            this.collectionService.NotesDeleted += (_, __) => this.GetNotesCountAsync();
+            this.collectionService.NotesMarked += (_, __) => this.GetNotesCountAsync();
+            this.collectionService.NotesUnmarked += (_, __) => this.GetNotesCountAsync();
         }
 
         private async void EvaluateHasActiveCollectionAsync()
