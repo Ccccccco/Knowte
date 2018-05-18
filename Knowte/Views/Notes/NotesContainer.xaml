@@ -6,6 +6,7 @@
              xmlns:prismmvvm="clr-namespace:Prism.Mvvm;assembly=Prism.Wpf"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:controls="clr-namespace:Knowte.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
@@ -37,7 +38,8 @@
                                         VirtualizingStackPanel.IsVirtualizing="True"
                                         VirtualizingPanel.IsVirtualizingWhenGrouping="True"
                                         VirtualizingStackPanel.VirtualizationMode="Recycling"
-                                        SelectionMode="Extended">
+                                        SelectionMode="Extended"
+                                        dd:DragDrop.IsDragSource="True">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding SelectedNotesCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=SelectedItems}"/>

@@ -111,5 +111,15 @@ namespace Knowte.Services.Collection
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task MoveNotesToNotebook(IList<string> noteIds, string notebookId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task UnfileNotes(IList<string> noteIds)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

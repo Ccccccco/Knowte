@@ -134,5 +134,27 @@ namespace Knowte.Data.Repositories
                 }
             });
         }
+
+        public async Task MoveNotesToNotebook(IList<string> noteIds, string notebookId)
+        {
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    conn.Execute($"UPDATE Note SET NotebookId=? WHERE Id IN ({QueryUtils.GetInClause(noteIds)});", notebookId);
+                }
+            });
+        }
+
+        public async Task UnfileNotes(IList<string> noteIds)
+        {
+            await Task.Run(() =>
+            {
+                using (var conn = this.factory.GetConnection())
+                {
+                    conn.Execute($"UPDATE Note SET NotebookId=NULL WHERE Id IN ({QueryUtils.GetInClause(noteIds)});");
+                }
+            });
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace Knowte.Services.Collection
         event NotesChangedEventHandler NotesDeleted;
         event NotesChangedEventHandler NotesMarked;
         event NotesChangedEventHandler NotesUnmarked;
+        event NotesChangedEventHandler NotesMoved;
 
         event NoteFilterChangedEventHandler NoteFilterChanged;
 
@@ -64,5 +65,7 @@ namespace Knowte.Services.Collection
         Task<bool> SetNotesMarkAsync(IList<NoteViewModel> notes, bool isMarked);
 
         void OnNoteFilterChanged(NoteFilter filter);
+
+        Task<bool> MoveNotesToNotebook(IList<NoteViewModel> notes, NotebookViewModel notebook);
     }
 }

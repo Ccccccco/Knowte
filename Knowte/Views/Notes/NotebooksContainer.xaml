@@ -7,6 +7,7 @@
              xmlns:controls="clr-namespace:Knowte.Controls"
              xmlns:fwc="clr-namespace:Digimezzo.Foundation.WPF.Controls;assembly=Digimezzo.Foundation.WPF"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              FontSize="{DynamicResource FontSizeNormal}"
              d:DesignHeight="300" d:DesignWidth="300"
@@ -28,7 +29,9 @@
         <!-- Body -->
         <Grid>
             <ListBox Margin="0,0,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotebooks}"
-                     ItemsSource="{Binding Notebooks}" SelectedItem="{Binding SelectedNotebook}"/>
+                     ItemsSource="{Binding Notebooks}" SelectedItem="{Binding SelectedNotebook}"
+                     dd:DragDrop.IsDropTarget="True" 
+                     dd:DragDrop.DropHandler="{Binding}"/>
             <StackPanel Panel.ZIndex="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <StackPanel>
                     <!-- Edit notebook button-->

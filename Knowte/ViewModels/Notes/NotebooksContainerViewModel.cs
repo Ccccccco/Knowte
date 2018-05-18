@@ -1,16 +1,21 @@
-﻿using Digimezzo.Foundation.Core.Utils;
+﻿using Digimezzo.Foundation.Core.Logging;
+using Digimezzo.Foundation.Core.Utils;
+using GongSolutions.Wpf.DragDrop;
 using Knowte.Services.Collection;
 using Knowte.Services.Dialog;
 using Knowte.Services.Entities;
 using Knowte.ViewModels.Dialogs;
 using Prism.Commands;
 using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace Knowte.ViewModels.Notes
 {
-    public class NotebooksContainerViewModel : BindableBase
+    public class NotebooksContainerViewModel : BindableBase, IDropTarget
     {
         private IDialogService dialogService;
         private ICollectionService collectionService;
@@ -46,7 +51,7 @@ namespace Knowte.ViewModels.Notes
 
         public bool CanEdit
         {
-            get { return this.selectedNotebook != null && !this.selectedNotebook.IsDefault; }
+            get { return this.selectedNotebook != null && !this.selectedNotebook.IsDefaultNotebook; }
         }
 
         public DelegateCommand LoadedCommand { get; set; }
@@ -141,6 +146,56 @@ namespace Knowte.ViewModels.Notes
             // Clear selected notebook. Otherwise it's not updated after editing the selected notebook.
             this.SelectedNotebook = null;
             this.SelectedNotebook = this.Notebooks.Where(n => n.Id.Equals(selectedNotebookId)).FirstOrDefault();
+        }
+
+        public void DragOver(IDropInfo dropInfo)
+        {
+            try
+            {
+                // Only allow dropping notes
+                if (dropInfo.Data is NoteViewModel || dropInfo.Data is List<NoteViewModel>)
+                {
+                    DragDrop.DefaultDropHandler.DragOver(dropInfo);
+                    dropInfo.NotHandled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                dropInfo.NotHandled = false;
+                LogClient.Error("Could not drag note(s). Exception: {0}", ex.Message);
+            }
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            try
+            {
+                ListBox target = dropInfo.VisualTarget as ListBox;
+
+                if ((dropInfo.Data is NoteViewModel || dropInfo.Data is List<NoteViewModel>) && dropInfo.TargetItem is NotebookViewModel)
+                {
+                    List<NoteViewModel> notes = dropInfo.Data as List<NoteViewModel>;
+
+                    // When we're dropping a single note, notes = null.
+                    if(notes == null)
+                    {
+                        // Process single dropped note
+                        notes = new List<NoteViewModel> { dropInfo.Data as NoteViewModel};
+                    }
+
+                    NotebookViewModel notebook = dropInfo.TargetItem as NotebookViewModel;
+
+                    if (notes != null && notebook != null)
+                    {
+                        // Add dropped notes to the notebook
+                        this.collectionService.MoveNotesToNotebook(notes, notebook);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error("Could not drop note(s). Exception: {0}", ex.Message);
+            }
         }
     }
 }

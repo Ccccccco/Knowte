@@ -23,5 +23,9 @@ namespace Knowte.Data.Repositories
         Task MarkNotesAsync(IList<string> noteIds);
 
         Task UnmarkNotesAsync(IList<string> noteIds);
+
+        Task MoveNotesToNotebook(IList<string> noteIds, string notebookId);
+
+        Task UnfileNotes(IList<string> noteIds);
     }
 }

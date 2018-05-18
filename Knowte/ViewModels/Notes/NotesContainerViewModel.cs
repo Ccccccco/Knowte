@@ -99,9 +99,10 @@ namespace Knowte.ViewModels.Notes
             this.collectionService.NoteAdded += (_, __) => this.GetNotesAsync();
             this.collectionService.NotesDeleted += (_, __) => this.GetNotesAsync();
             this.collectionService.NoteFilterChanged += (_, __) => this.GetNotesAsync();
+            this.collectionService.NotesMoved += (_, e) => this.GetNotesAsync();
             this.collectionService.NotesMarked += (_, e) => this.UpdateNotesMarkAsync(e.NoteIds, true);
             this.collectionService.NotesUnmarked += (_, e) => this.UpdateNotesMarkAsync(e.NoteIds, false);
-
+            
             this.IsNotebookSelected = string.IsNullOrEmpty(this.NotebookTitle) ? false : true;
         }
 

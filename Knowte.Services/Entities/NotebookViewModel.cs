@@ -11,7 +11,23 @@ namespace Knowte.Services.Entities
 
         public string Title { get; private set; }
 
-        public bool IsDefault
+        public bool IsAllNotesNotebook
+        {
+            get
+            {
+                return this.Id.Equals(AllNotesNotebookId);
+            }
+        }
+
+        public bool IsUnfiledNotesNotebook
+        {
+            get
+            {
+                return this.Id.Equals(UnfiledNotesNotebookId);
+            }
+        }
+
+        public bool IsDefaultNotebook
         {
             get
             {

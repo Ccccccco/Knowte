@@ -42,6 +42,7 @@ namespace Knowte.Services.Collection
         public event NotesChangedEventHandler NotesDeleted = delegate { };
         public event NotesChangedEventHandler NotesMarked = delegate { };
         public event NotesChangedEventHandler NotesUnmarked = delegate { };
+        public event NotesChangedEventHandler NotesMoved = delegate { };
         public event NoteFilterChangedEventHandler NoteFilterChanged = delegate { };
 
         public CollectionService(IAppService appService)
@@ -835,6 +836,50 @@ namespace Knowte.Services.Collection
         {
             this.Filter = filter;
             this.NoteFilterChanged(this, new NoteFilterChangedEventArgs(filter));
+        }
+
+        public async Task<bool> MoveNotesToNotebook(IList<NoteViewModel> notes, NotebookViewModel notebook)
+        {
+            if (notes == null)
+            {
+                LogClient.Error($"{nameof(notes)} is null");
+                return false;
+            }
+
+            if (notebook == null)
+            {
+                LogClient.Error($"{nameof(notebook)} is null");
+                return false;
+            }
+
+            if (notebook.IsAllNotesNotebook)
+            {
+                // It makes no sense to move notes to the "All notes" notebook.
+                return true;
+            }
+
+            try
+            {
+                var noteIds = notes.Select(n => n.Id).ToList();
+
+                if (notebook.IsUnfiledNotesNotebook)
+                {
+                    await this.importer.GetProvider().UnfileNotes(noteIds);
+                }
+                else
+                {
+                    await this.importer.GetProvider().MoveNotesToNotebook(noteIds, notebook.Id);
+                }
+
+                this.NotesMoved(this, new NotesChangedEventArgs(noteIds));
+            }
+            catch (Exception ex)
+            {
+                LogClient.Error($"{nameof(MoveNotesToNotebook)} failed. Exception: {ex.Message}");
+                return false;
+            }
+            
+            return true;
         }
     }
 }

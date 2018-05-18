@@ -144,5 +144,20 @@ namespace Knowte.PluginBase
         /// </summary>
         /// <param name="noteId">The noteId</param>
         Task UnmarkNotesAsync(IList<string> noteIds);
+
+        /// <summary>
+        /// Moves the notes with the specified noteIds to the notebook with the specified notebookId
+        /// </summary>
+        /// <param name="noteIds">The noteIds</param>
+        /// <param name="notebookId">The notebookId</param>
+        /// <returns></returns>
+        Task MoveNotesToNotebook(IList<string> noteIds, string notebookId);
+        
+        /// <summary>
+        /// Unfiles the notes with the given noteIds (This removes their link to a notebook)
+        /// </summary>
+        /// <param name="noteIds"></param>
+        /// <returns></returns>
+        Task UnfileNotes(IList<string> noteIds);
     }
 }
