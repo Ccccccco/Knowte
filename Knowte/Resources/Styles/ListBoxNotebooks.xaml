@@ -24,7 +24,7 @@
                                         <DoubleAnimation
                                                    Storyboard.TargetName="DragBorder"
                                                    Storyboard.TargetProperty="Opacity"
-                                                   Duration="0:0:0.01" From="0" To="1"/>
+                                                   Duration="0:0:0.01" To="1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -34,7 +34,7 @@
                                         <DoubleAnimation
                                                    Storyboard.TargetName="DragBorder"
                                                    Storyboard.TargetProperty="Opacity"
-                                                   Duration="0:0:0.01" From="1" To="0"/>
+                                                   Duration="0:0:0.01" To="0"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -44,7 +44,7 @@
                                         <DoubleAnimation
                                                    Storyboard.TargetName="DragBorder"
                                                    Storyboard.TargetProperty="Opacity"
-                                                   Duration="0:0:0.01" From="1" To="0"/>
+                                                   Duration="0:0:0.01" To="0"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
