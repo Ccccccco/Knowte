@@ -10,11 +10,35 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Grid Background="#00000000">
-                        <Border x:Name="SelectionBorder" Panel.ZIndex="0"/>
+                        <Border x:Name="SelectionBorder" Panel.ZIndex="0" />
+                        <Border x:Name="DragBorder" Panel.ZIndex="0" Opacity="0"
+                                Background="{DynamicResource Brush_ListBoxNotebooksItemSelection}"/>
                         <Label Panel.ZIndex="1" Padding="0" x:Name="MyContent" Margin="16,0,0,0" 
                                FontSize="{DynamicResource FontSizeLarge}" Content="{Binding}" 
                                Foreground="{DynamicResource Brush_ListBoxNotebooksItemText}" 
                                VerticalAlignment="Center"/>
+                        <Grid.Triggers>
+                            <EventTrigger RoutedEvent="Button.DragEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                                   Storyboard.TargetName="DragBorder"
+                                                   Storyboard.TargetProperty="Opacity"
+                                                   Duration="0:0:0.01" From="0" To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.DragLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                                   Storyboard.TargetName="DragBorder"
+                                                   Storyboard.TargetProperty="Opacity"
+                                                   Duration="0:0:0.01" From="1" To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Grid.Triggers>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
