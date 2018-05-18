@@ -38,6 +38,16 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
+                            <EventTrigger RoutedEvent="Button.Drop">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                                   Storyboard.TargetName="DragBorder"
+                                                   Storyboard.TargetProperty="Opacity"
+                                                   Duration="0:0:0.01" From="1" To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
                         </Grid.Triggers>
                     </Grid>
                     <ControlTemplate.Triggers>
