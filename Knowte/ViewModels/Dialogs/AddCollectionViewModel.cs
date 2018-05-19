@@ -1,7 +1,10 @@
 ﻿using Digimezzo.Foundation.Core.Utils;
 using Knowte.Services.Collection;
 using Knowte.Services.Dialog;
+using Knowte.Services.Entities;
+using Prism.Commands;
 using Prism.Mvvm;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Knowte.ViewModels.Dialogs
@@ -29,6 +32,21 @@ namespace Knowte.ViewModels.Dialogs
         {
             this.dialogService = dialogService;
             this.collectionService = collectionService;
+
+            this.SetActivateAsync();
+        }
+
+        private async void SetActivateAsync()
+        {
+            List<CollectionViewModel> collections = await this.collectionService.GetCollectionsAsync();
+
+            if(collections == null || collections.Count == 0)
+            {
+                this.Activate = true;
+                return;
+            }
+
+            this.Activate = false;
         }
 
         public async Task<bool> AddCollectionAsync()
