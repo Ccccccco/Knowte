@@ -2,9 +2,11 @@
 using Knowte.Core.Base;
 using Knowte.Core.IO;
 using Knowte.Services.Appearance;
+using Knowte.Services.I18n;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,8 +18,11 @@ namespace Knowte.ViewModels.Settings
     {
         private bool followWindowsColor;
         private IAppearanceService appearanceService;
+        private II18nService i18nService;
         private ObservableCollection<ColorScheme> colorSchemes = new ObservableCollection<ColorScheme>();
         private ColorScheme selectedColorScheme;
+        private ObservableCollection<Language> languages = new ObservableCollection<Language>();
+        private Language selectedLanguage;
 
         public DelegateCommand AddColorCommand { get; set; }
 
@@ -62,14 +67,35 @@ namespace Knowte.ViewModels.Settings
             }
         }
 
-        public SettingsAppearanceViewModel(IAppearanceService appearanceService)
+        public ObservableCollection<Language> Languages
+        {
+            get { return this.languages; }
+            set { SetProperty<ObservableCollection<Language>>(ref this.languages, value); }
+        }
+
+        public Language SelectedLanguage
+        {
+            get { return this.selectedLanguage; }
+
+            set
+            {
+                SetProperty<Language>(ref this.selectedLanguage, value);
+                SettingsClient.Set<string>("Appearance", "Language", value.Code);
+                this.ApplyLanguage(value.Code);
+            }
+        }
+
+        public SettingsAppearanceViewModel(IAppearanceService appearanceService, II18nService i18nService)
         {
             this.appearanceService = appearanceService;
+            this.i18nService = i18nService;
 
+            this.GetLanguagesAsync();
             this.GetColorSchemesAsync();
             this.GetTogglesAsync();
 
             this.appearanceService.ColorSchemesChanged += ColorSchemesChangedHandler;
+            this.i18nService.LanguagesChanged += (_, __) => this.GetLanguagesAsync();
 
             this.AddColorCommand = new DelegateCommand(() =>
             {
@@ -124,6 +150,51 @@ namespace Knowte.ViewModels.Settings
                       SettingsClient.Get<string>("Appearance", "ColorScheme"),
                       SettingsClient.Get<bool>("Appearance", "FollowWindowsColor"));
             });
+        }
+
+        private void ApplyLanguage(string languageCode)
+        {
+            Application.Current.Dispatcher.Invoke(() => this.i18nService.ApplyLanguageAsync(languageCode));
+        }
+
+        private async void GetLanguagesAsync()
+        {
+            List<Language> languagesList = this.i18nService.GetLanguages();
+
+            ObservableCollection<Language> localLanguages = new ObservableCollection<Language>();
+
+            await Task.Run(() =>
+            {
+                foreach (Language lang in languagesList)
+                {
+                    localLanguages.Add(lang);
+                }
+            });
+
+            this.Languages = localLanguages;
+
+            Language tempLanguage = null;
+
+            await Task.Run(() =>
+            {
+                string savedLanguageCode = SettingsClient.Get<string>("Appearance", "Language");
+
+                if (!string.IsNullOrEmpty(savedLanguageCode))
+                {
+                    tempLanguage = this.i18nService.GetLanguage(savedLanguageCode);
+                }
+
+                // If, for some reason, SelectedLanguage is Nothing (e.g. when the user 
+                // deleted a previously existing language file), select the default language.
+                if (tempLanguage == null)
+                {
+                    tempLanguage = this.i18nService.GetDefaultLanguage();
+                }
+            });
+
+            // Only set SelectedLanguage when we are sure that it is not Nothing. Otherwise this could trigger strange 
+            // behaviour in the setter of the SelectedLanguage Property (because the "value" would be Nothing)
+            this.SelectedLanguage = tempLanguage;
         }
     }
 }

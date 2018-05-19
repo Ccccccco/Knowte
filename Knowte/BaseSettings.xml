@@ -29,6 +29,9 @@
     <Setting Name="SortByModificationDate">
       <Value>False</Value>
     </Setting>
+    <Setting Name="Language">
+      <Value>EN</Value>
+    </Setting>
   </Namespace>
   <Namespace Name="CollectionProvider">
     <Setting Name="ProviderName">

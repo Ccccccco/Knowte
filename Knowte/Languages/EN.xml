@@ -86,4 +86,6 @@
   <Text Key="Show_Exact_Dates">Show exact dates in the notes list</Text>
   <Text Key="Mark_Note_Failed">Mark note failed</Text>
   <Text Key="Could_Not_Mark_Note">The note could not be marked. Please review the log file for details.</Text>
+  <Text Key="Language">Language</Text>
+  <Text Key="Choose_A_Language">Choose a language</Text>
 </Language>

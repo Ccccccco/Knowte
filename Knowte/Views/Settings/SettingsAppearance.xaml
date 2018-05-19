@@ -17,10 +17,10 @@
                 <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Color}"/>
                 <DockPanel Margin="0,12,0,0">
                     <fwc:MaterialToggleSwitch DockPanel.Dock="Right" Accent="{DynamicResource Brush_PrimaryAccent}"
-                                                  VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}"
-                                                  Margin="12,0,0,0"/>
+                                              VerticalAlignment="Center" IsChecked="{Binding FollowWindowsColor}"
+                                              Margin="12,0,0,0"/>
                     <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Follow_Windows_Color}"
-                                       VerticalAlignment="Center"/>
+                               VerticalAlignment="Center"/>
                 </DockPanel>
             </StackPanel>
             <Border Style="{StaticResource DividerLine}"/>
@@ -40,6 +40,15 @@
                     </DockPanel>
                 </StackPanel>
                 <Border Style="{StaticResource DividerLine}"/>
+            </StackPanel>
+            <!-- Language -->
+            <StackPanel Margin="18">
+                <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Language}"/>
+                <TextBlock Margin="0,12,0,0" Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Choose_A_Language}"
+                           VerticalAlignment="Center"/>
+                <fwc:MaterialComboBox Margin="0,12,0,0" ItemsSource="{Binding Languages}" HorizontalAlignment="Left"
+                                      SelectedItem="{Binding SelectedLanguage}" Label="{DynamicResource Language_Language}"
+                                      Style="{StaticResource MaterialComboBoxLightStyle}" MinWidth="150"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>
