@@ -27,7 +27,6 @@ namespace Knowte.Data
         // MUST be supplied to match the new version number
         protected const int CURRENT_VERSION = 2;
         private ISQLiteConnectionFactory factory;
-        private int userDatabaseVersion;
 
         public DbMigrator(ISQLiteConnectionFactory factory)
         {
@@ -153,6 +152,18 @@ namespace Knowte.Data
             return count > 0;
         }
 
+        public int GetUserDatabaseVersion()
+        {
+            int userDatabaseVersion;
+
+            using (var conn = this.factory.GetConnection())
+            {
+                userDatabaseVersion = Convert.ToInt32(conn.ExecuteScalar<string>("SELECT Value FROM Configuration WHERE Key = 'DatabaseVersion'"));
+            }
+
+            return userDatabaseVersion;
+        }
+
         public bool IsMigrationNeeded()
         {
             if (!this.IsDatabaseValid())
@@ -160,12 +171,7 @@ namespace Knowte.Data
                 return true;
             }
 
-            using (var conn = this.factory.GetConnection())
-            {
-                this.userDatabaseVersion = Convert.ToInt32(conn.ExecuteScalar<string>("SELECT Value FROM Configuration WHERE Key = 'DatabaseVersion'"));
-            }
-
-            return this.userDatabaseVersion < CURRENT_VERSION;
+            return this.GetUserDatabaseVersion() < CURRENT_VERSION;
         }
 
         private void CreateDatabase()
@@ -178,7 +184,9 @@ namespace Knowte.Data
 
         private void MigrateDatabase()
         {
-            for (int i = this.userDatabaseVersion + 1; i <= CURRENT_VERSION; i++)
+            int userDatabaseVersion = this.GetUserDatabaseVersion();
+
+            for (int i = userDatabaseVersion + 1; i <= CURRENT_VERSION; i++)
             {
                 MethodInfo method = typeof(DbMigrator).GetTypeInfo().GetDeclaredMethod("Migrate" + i);
                 if (method != null) method.Invoke(this, null);
@@ -189,7 +197,7 @@ namespace Knowte.Data
                 conn.Execute("UPDATE Configuration SET Value = ? WHERE Key = 'DatabaseVersion'", CURRENT_VERSION);
             }
 
-            LogClient.Info("Upgraded from database version {0} to {1}", this.userDatabaseVersion.ToString(), CURRENT_VERSION.ToString());
+            LogClient.Info("Upgraded from database version {0} to {1}", userDatabaseVersion.ToString(), CURRENT_VERSION.ToString());
         }
 
         private void BackupDatabase()
