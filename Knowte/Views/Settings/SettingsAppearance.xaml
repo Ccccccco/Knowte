@@ -50,6 +50,18 @@
                                       SelectedItem="{Binding SelectedLanguage}" Label="{DynamicResource Language_Language}"
                                       Style="{StaticResource MaterialComboBoxLightStyle}" MinWidth="150"/>
             </StackPanel>
+            <Border Style="{StaticResource DividerLine}"/>
+            <!-- Sorting -->
+            <StackPanel Margin="18">
+                <TextBlock Style="{DynamicResource TitleStyle}" Text="{DynamicResource Language_Sorting}"/>
+                <DockPanel Margin="0,12,0,0">
+                    <fwc:MaterialToggleSwitch DockPanel.Dock="Right" Accent="{DynamicResource Brush_PrimaryAccent}"
+                                              VerticalAlignment="Center" IsChecked="{Binding SortNotesByModificationDate}"
+                                              Margin="12,0,0,0"/>
+                    <TextBlock Foreground="{DynamicResource Brush_DarkText}" Text="{DynamicResource Language_Sort_Notes_By_Modification_Date}"
+                               VerticalAlignment="Center"/>
+                </DockPanel>
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

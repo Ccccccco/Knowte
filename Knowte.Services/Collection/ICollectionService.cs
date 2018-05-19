@@ -54,7 +54,7 @@ namespace Knowte.Services.Collection
 
         Task<bool> HasActiveCollection();
 
-        Task<List<NoteViewModel>> GetNotesAsync(bool sortByModificationDate);
+        Task<List<NoteViewModel>> GetNotesAsync();
 
         void OnNotebookSelectionChanged(string notebookId, string notebookTitle);
 

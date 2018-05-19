@@ -88,4 +88,6 @@
   <Text Key="Could_Not_Mark_Note">The note could not be marked. Please review the log file for details.</Text>
   <Text Key="Language">Language</Text>
   <Text Key="Choose_A_Language">Choose a language</Text>
+  <Text Key="Sorting">Sorting</Text>
+  <Text Key="Sort_Notes_By_Modification_Date">Sort notes by modification date</Text>
 </Language>

@@ -227,7 +227,7 @@ namespace Knowte.ViewModels.Notes
 
         private async void GetNotesAsync()
         {
-            this.Notes = new ObservableCollection<NoteViewModel>(await this.collectionService.GetNotesAsync(SettingsClient.Get<bool>("Appearance", "SortByModificationDate")));
+            this.Notes = new ObservableCollection<NoteViewModel>(await this.collectionService.GetNotesAsync());
 
             // Set the count
             this.Count = this.Notes != null ? this.Notes.Count : 0;

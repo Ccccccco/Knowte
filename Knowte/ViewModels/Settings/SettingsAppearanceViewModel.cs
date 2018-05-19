@@ -23,6 +23,7 @@ namespace Knowte.ViewModels.Settings
         private ColorScheme selectedColorScheme;
         private ObservableCollection<Language> languages = new ObservableCollection<Language>();
         private Language selectedLanguage;
+        private bool sortNotesByModificationDate;
 
         public DelegateCommand AddColorCommand { get; set; }
 
@@ -64,6 +65,17 @@ namespace Knowte.ViewModels.Settings
                 this.ApplyColorScheme();
                 SetProperty<bool>(ref this.followWindowsColor, value);
                 this.RaisePropertyChanged(nameof(this.CanChooseColor));
+            }
+        }
+
+        public bool SortNotesByModificationDate
+        {
+            get { return this.sortNotesByModificationDate; }
+
+            set
+            {
+                SettingsClient.Set<bool>("Appearance", "SortByModificationDate", value);
+                SetProperty<bool>(ref this.sortNotesByModificationDate, value);
             }
         }
 

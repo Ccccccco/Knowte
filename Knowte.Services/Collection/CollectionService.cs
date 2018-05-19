@@ -647,7 +647,7 @@ namespace Knowte.Services.Collection
             return uniqueTitle;
         }
 
-        public async Task<List<NoteViewModel>> GetNotesAsync(bool sortByModificationDate)
+        public async Task<List<NoteViewModel>> GetNotesAsync()
         {
             this.appService.IsBusy = true;
 
@@ -722,7 +722,7 @@ namespace Knowte.Services.Collection
             this.appService.IsBusy = false;
 
             // Sort by modification date if required
-            if (sortByModificationDate)
+            if (SettingsClient.Get<bool>("Appearance", "SortByModificationDate"))
             {
                 return noteViewModels.OrderBy(n => n.ModificationDate).ToList();
             }
