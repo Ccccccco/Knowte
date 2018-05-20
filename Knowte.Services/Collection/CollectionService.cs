@@ -647,7 +647,7 @@ namespace Knowte.Services.Collection
             return uniqueTitle;
         }
 
-        public async Task<List<NoteViewModel>> GetNotesAsync()
+        public async Task<List<NoteViewModel>> GetNotesAsync(string searchText)
         {
             this.appService.IsBusy = true;
 
@@ -707,10 +707,11 @@ namespace Knowte.Services.Collection
             }
 
             // Apply the search parameters
-            string searchString = string.Empty; // TODO: implement search
-            string[] search = StringUtils.SplitWords(searchString);
-
-            notes = notes.Where(n => search.All(s => n.Title.ToLower().Contains(s.ToLower()) | n.Text.ToLower().Contains(s.ToLower()))).ToList();
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                string[] search = StringUtils.SplitWords(searchText);
+                notes = notes.Where(n => search.All(s => n.Title.ToLower().Contains(s.ToLower()) | (n.Text != null && n.Text.ToLower().Contains(s.ToLower())))).ToList();
+            }
 
             var noteViewModels = new List<NoteViewModel>();
 
@@ -821,7 +822,7 @@ namespace Knowte.Services.Collection
                 {
                     await this.importer.GetProvider().UnmarkNotesAsync(noteIds);
                     this.NotesUnmarked(this, new NotesChangedEventArgs(noteIds));
-                }  
+                }
             }
             catch (Exception ex)
             {
@@ -878,7 +879,7 @@ namespace Knowte.Services.Collection
                 LogClient.Error($"{nameof(MoveNotesToNotebook)} failed. Exception: {ex.Message}");
                 return false;
             }
-            
+
             return true;
         }
     }

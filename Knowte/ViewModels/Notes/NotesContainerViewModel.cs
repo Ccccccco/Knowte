@@ -3,6 +3,7 @@ using Digimezzo.Foundation.Core.Utils;
 using Knowte.Services.Collection;
 using Knowte.Services.Dialog;
 using Knowte.Services.Entities;
+using Knowte.Services.Search;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections;
@@ -19,6 +20,7 @@ namespace Knowte.ViewModels.Notes
         private ObservableCollection<NoteViewModel> notes;
         private ICollectionService collectionService;
         private IDialogService dialogService;
+        private ISearchService searchService;
         private bool isNotebookSelected;
         private string notebookTitle;
         private int count;
@@ -76,10 +78,11 @@ namespace Knowte.ViewModels.Notes
             get { return this.SelectedNotes != null && this.SelectedNotes.Count > 0; }
         }
 
-        public NotesContainerViewModel(ICollectionService collectionService, IDialogService dialogService)
+        public NotesContainerViewModel(ICollectionService collectionService, IDialogService dialogService, ISearchService searchService)
         {
             this.collectionService = collectionService;
             this.dialogService = dialogService;
+            this.searchService = searchService;
 
             //this.LoadedCommand = new DelegateCommand(() => );
 
@@ -102,7 +105,9 @@ namespace Knowte.ViewModels.Notes
             this.collectionService.NotesMoved += (_, e) => this.GetNotesAsync();
             this.collectionService.NotesMarked += (_, e) => this.UpdateNotesMarkAsync(e.NoteIds, true);
             this.collectionService.NotesUnmarked += (_, e) => this.UpdateNotesMarkAsync(e.NoteIds, false);
-            
+
+            this.searchService.SearchTextChanged += (_,__) => this.GetNotesAsync();
+
             this.IsNotebookSelected = string.IsNullOrEmpty(this.NotebookTitle) ? false : true;
         }
 
@@ -227,7 +232,7 @@ namespace Knowte.ViewModels.Notes
 
         private async void GetNotesAsync()
         {
-            this.Notes = new ObservableCollection<NoteViewModel>(await this.collectionService.GetNotesAsync());
+            this.Notes = new ObservableCollection<NoteViewModel>(await this.collectionService.GetNotesAsync(this.searchService.SearchText));
 
             // Set the count
             this.Count = this.Notes != null ? this.Notes.Count : 0;

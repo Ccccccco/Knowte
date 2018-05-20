@@ -11,6 +11,7 @@ using Knowte.Services.Appearance;
 using Knowte.Services.Collection;
 using Knowte.Services.Dialog;
 using Knowte.Services.I18n;
+using Knowte.Services.Search;
 using Knowte.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -155,6 +156,7 @@ namespace Knowte
                 containerRegistry.RegisterSingleton<II18nService, I18nService>();
                 containerRegistry.RegisterSingleton<IAppearanceService, AppearanceService>();
                 containerRegistry.RegisterSingleton<ICollectionService, CollectionService>();
+                containerRegistry.RegisterSingleton<ISearchService, SearchService>();
             }
 
             void InitializeServices()
