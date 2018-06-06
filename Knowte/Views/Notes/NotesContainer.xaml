@@ -26,11 +26,16 @@
         <!-- Content -->
         <DockPanel Visibility="{Binding IsNotebookSelected, Converter={StaticResource BooleanToCollapsedConverter}}">
             <!-- Header -->
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="18">
-                <TextBlock Text="{Binding NotebookTitle}" FontSize="{StaticResource FontSizeLarger}" 
+            <DockPanel DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="18,18,0,18">
+                    <TextBlock Text="{Binding NotebookTitle}" FontSize="{StaticResource FontSizeLarger}" 
                        Foreground="{DynamicResource Brush_NotebooksContainerTitleText}"/>
-                <controls:CountLabel Content="{Binding Count}" Margin="6,0,0,6"/>
-            </StackPanel>
+                    <controls:CountLabel Content="{Binding Count}" Margin="6,0,0,6"/>
+                </StackPanel>
+                <fwc:MaterialTextBox DockPanel.Dock="Right" Width="150" Margin="0,14,18,18"
+                                     Style="{StaticResource MaterialTextBoxLightStyle}" Label="{DynamicResource Language_Search}"/>
+                <ContentControl/>
+            </DockPanel>
             <!-- Body -->
             <Grid>
                 <fwc:MultiSelectListBox Margin="0,0,0,0" Panel.ZIndex="0" Style="{StaticResource ListBoxNotes}"

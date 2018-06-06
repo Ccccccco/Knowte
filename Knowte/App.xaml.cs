@@ -37,12 +37,31 @@ namespace Knowte
             if (isNewInstance)
             {
                 instanceMutex.ReleaseMutex();
+                this.LaunchInitializer();
                 base.OnStartup(e);
             }
             else
             {
                 LogClient.Warning("{0} is already running. Shutting down.", ProcessExecutable.Name());
                 this.Shutdown();
+            }
+        }
+
+        private void LaunchInitializer()
+        {
+            var initializer = new Initializer();
+
+            if (initializer.IsMigrationNeeded())
+            {
+                // Show the Update Window
+                var initWin = new Initialize();
+
+                // Disable shutdown when the dialogs close
+                Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+                // Show as a dialog. This prevents further code execution until the dialog is closed.
+                initWin.ShowDialog();
+                initWin.ForceActivate();
             }
         }
 
@@ -53,20 +72,14 @@ namespace Knowte
             // Handler for unhandled AppDomain exceptions
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            var initializer = new Initializer();
-
-            if (initializer.IsMigrationNeeded())
-            {
-                // Show the Update Window
-                Windows10BorderlessWindow initWin = new Initialize();
-                initWin.Show();
-                initWin.ForceActivate();
-            }
-
             Application.Current.MainWindow = shell;
 
+            // Re-enable normal shutdown mode
+            Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+
+            // Show the main window
             LogClient.Info("Showing Main screen");
-            Application.Current.MainWindow.Show();
+            shell.Show();
         }
 
         private void ProcessCommandLineArguments(bool isNewInstance)

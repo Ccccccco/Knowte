@@ -90,4 +90,5 @@
   <Text Key="Choose_A_Language">Choose a language</Text>
   <Text Key="Sorting">Sorting</Text>
   <Text Key="Sort_Notes_By_Modification_Date">Sort notes by modification date</Text>
+  <Text Key="Search">Search</Text>
 </Language>
